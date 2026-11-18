@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadyCV.in — AI-Powered Resume Builder</title>
+  <meta name="description" content="AI-powered resume builder with ATS score checker. Beat the bots, get the interview.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="css/landing_page.css">
+  <link rel="stylesheet" href="css/index_extra.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="bg-glow" aria-hidden="true"></div>
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <a href="index.html" class="logo-link">
+      <div class="logo-container">
+        <div class="logo-icon"><img src="assets/images/logo.svg" alt="ReadyCV Logo" onerror="this.style.display='none'"></div>
+        <h2 class="logo-text">Ready<span class="logo-cv">CV</span></h2>
+      </div>
+    </a>
+    <nav class="main-nav">
+      <div class="desktop-links">
+        <a href="ats_page.html">ATS Checker</a>
+        <a href="#" onclick="openTemplates();return false;">Templates</a>
+        <a href="team.html">Team</a>
+        <a href="help.html">Help</a>
+      </div>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-secondary" id="loginNavBtn">Log In</a>
+      <a href="profile.html" class="header-avatar" id="headerProfileBtn" style="display:none" title="My Profile"></a>
+      <a href="resume_maker.html" class="btn btn-primary">Create My Resume</a>
+      <div class="mobile-menu">
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu" role="menu">
+          <a href="ats_page.html" role="menuitem"><span class="material-symbols-outlined">upload_file</span> ATS Checker</a>
+          <a href="#how-it-works" role="menuitem" onclick="closeMobileMenu()"><span class="material-symbols-outlined">info</span> How It Works</a>
+          <a href="#" role="menuitem" onclick="openTemplates();closeMobileMenu();return false;"><span class="material-symbols-outlined">style</span> Templates</a>
+          <a href="team.html" role="menuitem"><span class="material-symbols-outlined">group</span> Team</a>
+          <a href="help.html" role="menuitem"><span class="material-symbols-outlined">help</span> Help</a>
+          <div class="dropdown-divider"></div>
+          <a href="login.html" role="menuitem" id="mobileLoginBtn"><span class="material-symbols-outlined">login</span> Log In</a>
+          <a href="profile.html" role="menuitem" id="mobileProfileBtn" style="display:none"><span class="material-symbols-outlined">account_circle</span> My Profile</a>
+          <a href="resume_maker.html" role="menuitem" class="dropdown-cta"><span class="material-symbols-outlined">edit_document</span> Create My Resume</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="content-wrapper">
+
+      <!-- ══ HERO — tight spacing ══ -->
+      <div class="hero-section hero-section--tight">
+        <div class="hero-badge"><span class="badge-dot"></span> AI-Powered Resume Builder</div>
+        <h1 class="main-title hero-title-stable">
+          <span class="hero-static"> Your Future </span><span class="gradient-text" id="heroTyped"></span><span class="hero-cursor" id="heroCursor"></span>
+        </h1>
+        <p class="subtitle">Ditch the bland resume. Our AI-powered builder crafts stunning, modern resumes that scream "HIRE ME!" and sail through ATS bots effortlessly.</p>
+      </div>
+
+      <!-- ══ ACTION CARDS — no-bg, larger SVG icons ══ -->
+      <div class="card-grid reveal">
+
+        <!-- ATS CHECK -->
+        <a href="ats_page.html" class="card-link">
+          <div class="card card--icon">
+            <div class="card-icon-art card-icon-art--ats">
+              <div class="cia-main-icon">
+                <!-- Robot SVG — NO background circle, transparent bg, larger -->
+                <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" width="140" height="140">
+                  <defs>
+                    <linearGradient id="robG" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#a855f7"/>
+                      <stop offset="100%" stop-color="#a3e635"/>
+                    </linearGradient>
+                    <linearGradient id="robEye" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#c084fc"/>
+                      <stop offset="100%" stop-color="#a3e635"/>
+                    </linearGradient>
+                    <filter id="robGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="3" result="b"/>
+                      <feComposite in="SourceGraphic" in2="b" operator="over"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Antenna -->
+                  <line x1="70" y1="34" x2="70" y2="20" stroke="url(#robG)" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="70" cy="15" r="6" fill="#a855f7" filter="url(#robGlow)"/>
+                  <circle cx="70" cy="15" r="3" fill="#c084fc"/>
+
+                  <!-- Head -->
+                  <rect x="30" y="34" width="80" height="56" rx="14" fill="rgba(15,23,42,0.95)" stroke="url(#robG)" stroke-width="2.5"/>
+
+                  <!-- Eyes -->
+                  <rect x="38" y="47" width="22" height="16" rx="6" fill="url(#robEye)" filter="url(#robGlow)" opacity="0.95"/>
+                  <rect x="80" y="47" width="22" height="16" rx="6" fill="url(#robEye)" filter="url(#robGlow)" opacity="0.95"/>
+                  <!-- Eye glints -->
+                  <circle cx="44" cy="52" r="3" fill="rgba(255,255,255,0.75)"/>
+                  <circle cx="86" cy="52" r="3" fill="rgba(255,255,255,0.75)"/>
+                  <!-- Eye pupil dots -->
+                  <circle cx="50" cy="54" r="2" fill="rgba(255,255,255,0.4)"/>
+                  <circle cx="92" cy="54" r="2" fill="rgba(255,255,255,0.4)"/>
+
+                  <!-- Mouth scanner -->
+                  <rect x="44" y="72" width="52" height="9" rx="4.5" fill="rgba(163,230,53,0.12)" stroke="rgba(163,230,53,0.5)" stroke-width="1"/>
+                  <rect class="rob-scan" x="44" y="73.5" width="20" height="6" rx="3" fill="#a3e635" opacity="0.9"/>
+
+                  <!-- Body -->
+                  <rect x="36" y="92" width="68" height="32" rx="10" fill="rgba(15,23,42,0.95)" stroke="url(#robG)" stroke-width="2"/>
+                  <!-- Body details -->
+                  <rect x="46" y="100" width="18" height="5" rx="2.5" fill="rgba(168,85,247,0.5)"/>
+                  <rect x="76" y="100" width="18" height="5" rx="2.5" fill="rgba(163,230,53,0.5)"/>
+                  <rect x="46" y="110" width="48" height="5" rx="2.5" fill="rgba(255,255,255,0.12)"/>
+                  <!-- Body chest light -->
+                  <circle cx="70" cy="108" r="4" fill="rgba(163,230,53,0.15)" stroke="rgba(163,230,53,0.4)" stroke-width="1" class="rob-chest"/>
+
+                  <!-- Arms -->
+                  <rect x="6" y="94" width="30" height="12" rx="6" fill="rgba(15,23,42,0.9)" stroke="url(#robG)" stroke-width="2"/>
+                  <circle cx="8" cy="100" r="3" fill="rgba(168,85,247,0.4)"/>
+                  <rect x="104" y="94" width="30" height="12" rx="6" fill="rgba(15,23,42,0.9)" stroke="url(#robG)" stroke-width="2"/>
+                  <circle cx="132" cy="100" r="3" fill="rgba(163,230,53,0.4)"/>
+
+                  <!-- ATS Score badge — top right -->
+                  <circle cx="116" cy="38" r="20" fill="rgba(8,12,24,0.97)" stroke="url(#robG)" stroke-width="2.5" filter="url(#robGlow)"/>
+                  <!-- Score ring -->
+                  <circle cx="116" cy="38" r="15" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <circle cx="116" cy="38" r="15" fill="none" stroke="url(#robG)" stroke-width="4"
+                    stroke-dasharray="94.2" stroke-dashoffset="14.1"
+                    stroke-linecap="round" transform="rotate(-90 116 38)"/>
+                  <text x="116" y="35" text-anchor="middle" fill="#fff" font-size="11" font-weight="900" font-family="Inter">85</text>
+                  <text x="116" y="47" text-anchor="middle" fill="#a3e635" font-size="6.5" font-weight="700" font-family="Inter">ATS</text>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon-wrapper"><span class="material-symbols-outlined">upload_file</span></div>
+              <div class="card-text">
+                <h3 class="card-title">ATS Resume Check</h3>
+                <p class="card-description">Instant AI score — know exactly where you stand before applying.</p>
+              </div>
+              <div class="card-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- BUILD RESUME -->
+        <a href="resume_maker.html" class="card-link">
+          <div class="card card--icon">
+            <div class="card-icon-art card-icon-art--build">
+              <div class="cia-main-icon">
+                <!-- Resume doc SVG — NO background circle, transparent, larger -->
+                <svg viewBox="0 0 130 150" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="140">
+                  <defs>
+                    <linearGradient id="docG" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#a3e635"/>
+                      <stop offset="100%" stop-color="#a855f7"/>
+                    </linearGradient>
+                    <linearGradient id="docHdr" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#a3e635" stop-opacity="0.8"/>
+                      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.6"/>
+                    </linearGradient>
+                    <filter id="docGlow" x="-15%" y="-10%" width="130%" height="120%">
+                      <feGaussianBlur stdDeviation="4" result="b"/>
+                      <feComposite in="SourceGraphic" in2="b" operator="over"/>
+                    </filter>
+                  </defs>
+
+                  <!-- Shadow doc (tilted back) -->
+                  <rect x="18" y="18" width="88" height="114" rx="10" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.2)" stroke-width="1" transform="rotate(-5 62 75)"/>
+
+                  <!-- Main doc -->
+                  <rect x="14" y="8" width="92" height="130" rx="10" fill="rgba(10,16,12,0.97)" stroke="url(#docG)" stroke-width="2.5" filter="url(#docGlow)"/>
+
+                  <!-- Top accent line -->
+                  <rect x="14" y="8" width="92" height="4" rx="2" fill="url(#docHdr)"/>
+
+                  <!-- Folded corner detail -->
+                  <path d="M86 8 L106 28 L86 28 Z" fill="rgba(163,230,53,0.15)"/>
+                  <path d="M86 8 L106 28" stroke="rgba(163,230,53,0.45)" stroke-width="2" fill="none"/>
+
+                  <!-- Avatar -->
+                  <circle cx="34" cy="32" r="13" fill="rgba(168,85,247,0.18)" stroke="rgba(168,85,247,0.4)" stroke-width="1.5"/>
+                  <circle cx="34" cy="28" r="5" fill="rgba(168,85,247,0.5)"/>
+                  <ellipse cx="34" cy="40" rx="9" ry="5.5" fill="rgba(168,85,247,0.35)"/>
+
+                  <!-- Name & role -->
+                  <rect x="54" y="22" width="38" height="7" rx="3.5" fill="url(#docG)" opacity="0.85"/>
+                  <rect x="54" y="33" width="28" height="5" rx="2.5" fill="rgba(255,255,255,0.25)"/>
+
+                  <!-- Divider -->
+                  <rect x="22" y="52" width="80" height="1" fill="rgba(255,255,255,0.07)"/>
+
+                  <!-- EXPERIENCE -->
+                  <text x="22" y="64" fill="#a855f7" font-size="7" font-weight="800" font-family="Inter" letter-spacing="0.9">EXPERIENCE</text>
+                  <rect x="22" y="67" width="80" height="5" rx="2.5" fill="rgba(255,255,255,0.22)"/>
+                  <rect x="22" y="75" width="64" height="4" rx="2" fill="rgba(255,255,255,0.12)"/>
+                  <rect x="22" y="82" width="72" height="4" rx="2" fill="rgba(255,255,255,0.08)"/>
+
+                  <!-- SKILLS -->
+                  <text x="22" y="96" fill="#a3e635" font-size="7" font-weight="800" font-family="Inter" letter-spacing="0.9">SKILLS</text>
+                  <rect x="22"  y="99" width="28" height="12" rx="6" fill="rgba(168,85,247,0.22)" stroke="rgba(168,85,247,0.45)" stroke-width="1"/>
+                  <rect x="54"  y="99" width="24" height="12" rx="6" fill="rgba(163,230,53,0.18)" stroke="rgba(163,230,53,0.42)" stroke-width="1"/>
+                  <rect x="82"  y="99" width="18" height="12" rx="6" fill="rgba(168,85,247,0.15)" stroke="rgba(168,85,247,0.3)" stroke-width="1"/>
+                  <rect x="22"  y="115" width="22" height="12" rx="6" fill="rgba(163,230,53,0.12)" stroke="rgba(163,230,53,0.3)" stroke-width="1"/>
+                  <rect x="48"  y="115" width="36" height="12" rx="6" fill="rgba(168,85,247,0.12)" stroke="rgba(168,85,247,0.25)" stroke-width="1"/>
+
+                  <!-- Blinking cursor -->
+                  <rect class="doc-cursor" x="100" y="67" width="3" height="14" rx="1.5" fill="#a3e635"/>
+
+                  <!-- Pencil badge -->
+                  <circle cx="106" cy="128" r="14" fill="url(#docG)" filter="url(#docGlow)"/>
+                  <!-- Pencil icon inside badge -->
+                  <path d="M100 134 L103 124 L112 124 L112 134 Z" fill="rgba(0,0,0,0.45)"/>
+                  <rect x="102" y="116" width="7" height="11" rx="1.5" fill="rgba(0,0,0,0.65)"/>
+                  <path d="M102 127 L105.5 133 L109 127Z" fill="rgba(0,0,0,0.8)"/>
+                  <rect x="102" y="115" width="7" height="4" rx="1" fill="rgba(255,255,255,0.3)"/>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-icon-wrapper card-icon-wrapper--lime"><span class="material-symbols-outlined">article</span></div>
+              <div class="card-text">
+                <h3 class="card-title">Build a New Resume</h3>
+                <p class="card-description">AI-assisted builder — fill, pick a template, download in minutes.</p>
+              </div>
+              <div class="card-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- OR DIVIDER -->
+      <div class="divider reveal">
+        <div class="divider-line"></div><p>OR</p><div class="divider-line"></div>
+      </div>
+
+      <!-- ══ AI MAGIC BOX — AI Chip SVG in site theme ══ -->
+      <a href="ai_resume_writer.html" class="card-link reveal">
+        <div class="ai-magic-box">
+          <div class="ai-magic-glow"></div>
+          <span class="magic-star ms-1">✦</span>
+          <span class="magic-star ms-2">✦</span>
+          <span class="magic-star ms-3">✦</span>
+          <span class="magic-star ms-4">✦</span>
+          <div class="magic-inner">
+
+            <!-- AI Chip illustration in site purple/lime theme, animated -->
+            <div class="magic-illustration" aria-hidden="true">
+              <div class="ai-chip-wrap">
+                <!-- Rotating glow ring behind chip -->
+                <div class="ai-chip-glow-ring"></div>
+                <svg class="ai-chip-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="chipG" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#a855f7"/>
+                      <stop offset="100%" stop-color="#a3e635"/>
+                    </linearGradient>
+                    <linearGradient id="chipBody" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#1e1a3a"/>
+                      <stop offset="100%" stop-color="#0f1f1a"/>
+                    </linearGradient>
+                    <linearGradient id="traceG" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#a855f7"/>
+                      <stop offset="100%" stop-color="#a3e635"/>
+                    </linearGradient>
+                    <filter id="chipGlow" x="-30%" y="-30%" width="160%" height="160%">
+                      <feGaussianBlur stdDeviation="4" result="b"/>
+                      <feComposite in="SourceGraphic" in2="b" operator="over"/>
+                    </filter>
+                    <filter id="traceGlow" x="-50%" y="-50%" width="200%" height="200%">
+                      <feGaussianBlur stdDeviation="2.5" result="b"/>
+                      <feComposite in="SourceGraphic" in2="b" operator="over"/>
+                    </filter>
+                  </defs>
+
+                  <!-- ── Traces TOP ── -->
+                  <!-- T1 -->
+                  <path d="M88 62 L88 38 L88 26" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="88" cy="24" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <!-- T2 -->
+                  <path d="M100 62 L100 30 L100 20" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="100" cy="18" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <!-- T3 -->
+                  <path d="M112 62 L112 38 L112 26" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="112" cy="24" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <!-- T4 (shorter, offset) -->
+                  <path d="M78 62 L78 44 L68 44 L68 28" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="68" cy="26" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <!-- T5 -->
+                  <path d="M122 62 L122 44 L132 44 L132 28" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="132" cy="26" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+
+                  <!-- ── Traces BOTTOM ── -->
+                  <path d="M88 138 L88 162 L88 174" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="88" cy="176" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M100 138 L100 170 L100 180" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="100" cy="182" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M112 138 L112 162 L112 174" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="112" cy="176" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M78 138 L78 156 L68 156 L68 172" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="68" cy="174" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M122 138 L122 156 L132 156 L132 172" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="132" cy="174" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+
+                  <!-- ── Traces LEFT ── -->
+                  <path d="M62 88 L38 88 L26 88" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="24" cy="88" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M62 100 L30 100 L20 100" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="18" cy="100" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M62 112 L38 112 L26 112" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="24" cy="112" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M62 78 L44 78 L44 68 L28 68" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="26" cy="68" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M62 122 L44 122 L44 132 L28 132" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="26" cy="132" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+
+                  <!-- ── Traces RIGHT ── -->
+                  <path d="M138 88 L162 88 L174 88" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="176" cy="88" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M138 100 L170 100 L180 100" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="182" cy="100" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M138 112 L162 112 L174 112" stroke="url(#traceG)" stroke-width="2.5" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="176" cy="112" r="5" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M138 78 L156 78 L156 68 L172 68" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="174" cy="68" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+                  <path d="M138 122 L156 122 L156 132 L172 132" stroke="url(#traceG)" stroke-width="2" stroke-linecap="round" fill="none" class="chip-trace"/>
+                  <circle cx="174" cy="132" r="4" fill="url(#chipG)" filter="url(#traceGlow)" class="chip-node"/>
+
+                  <!-- ── Chip body ── -->
+                  <rect x="62" y="62" width="76" height="76" rx="12" fill="url(#chipBody)" stroke="url(#chipG)" stroke-width="2.5" filter="url(#chipGlow)"/>
+                  <!-- Inner border -->
+                  <rect x="68" y="68" width="64" height="64" rx="8" fill="none" stroke="rgba(168,85,247,0.25)" stroke-width="1"/>
+                  <!-- AI text -->
+                  <text x="100" y="113" text-anchor="middle" fill="white" font-size="38" font-weight="900" font-family="Inter" letter-spacing="-2">AI</text>
+                  <!-- Inner glow -->
+                  <rect x="68" y="68" width="64" height="64" rx="8" fill="url(#chipG)" opacity="0.05"/>
+                  <!-- Corner accents -->
+                  <rect x="70" y="70" width="8" height="2" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                  <rect x="70" y="70" width="2" height="8" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                  <rect x="122" y="70" width="8" height="2" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                  <rect x="128" y="70" width="2" height="8" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                  <rect x="70" y="128" width="8" height="2" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                  <rect x="70" y="122" width="2" height="8" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                  <rect x="122" y="128" width="8" height="2" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                  <rect x="128" y="122" width="2" height="8" rx="1" fill="url(#chipG)" opacity="0.6"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="magic-text-block">
+              <h2 class="ai-magic-title">Unleash the AI Magic ✨</h2>
+              <p class="ai-magic-subtitle">Describe yourself in a few lines — our AI writes your entire professional resume in seconds, perfectly formatted.</p>
+              <div class="btn btn-primary btn-large magic-btn">
+                <span class="material-symbols-outlined">auto_awesome</span><span>AI Resume Generator</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+
+      <!-- HOW IT WORKS -->
+      <section class="how-section reveal" id="how-it-works">
+        <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+        <p class="section-subtitle">Three simple steps to your dream job</p>
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <div class="step-icon"><span class="material-symbols-outlined">edit_note</span></div>
+            <h3>Fill Your Details</h3>
+            <p>Enter your work history, skills, and education. Our guided form makes it effortless — even on mobile.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <div class="step-icon"><span class="material-symbols-outlined">style</span></div>
+            <h3>Pick a Template</h3>
+            <p>Choose from 6 ATS-friendly professional designs that stand out and get noticed by recruiters.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <div class="step-icon"><span class="material-symbols-outlined">download</span></div>
+            <h3>Download & Apply</h3>
+            <p>Export your polished resume as PDF and start landing those interview calls immediately.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY READYCV -->
+      <section class="features-section reveal">
+        <h2 class="section-title">Why <span class="gradient-text">ReadyCV?</span></h2>
+        <p class="section-subtitle">Everything you need to land your dream job</p>
+        <div class="feat-grid">
+          <div class="feat-card">
+            <div class="feat-svg-wrap">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="fG1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#a3e635"/></linearGradient></defs>
+                <circle cx="36" cy="36" r="32" fill="rgba(168,85,247,0.08)" stroke="rgba(168,85,247,0.2)" stroke-width="1"/>
+                <rect x="30" y="14" width="12" height="32" rx="2" fill="rgba(168,85,247,0.2)" stroke="url(#fG1)" stroke-width="1.2"/>
+                <path d="M30 46 L36 56 L42 46Z" fill="url(#fG1)"/>
+                <rect x="30" y="10" width="12" height="6" rx="2" fill="rgba(163,230,53,0.4)"/>
+                <rect x="12" y="62" width="18" height="2.5" rx="1.25" fill="url(#fG1)" class="fw-line fw-l1"/>
+                <rect x="34" y="62" width="18" height="2.5" rx="1.25" fill="url(#fG1)" opacity="0.6" class="fw-line fw-l2"/>
+                <circle cx="18" cy="24" r="2" fill="#a3e635" class="fw-sp fw-sp1"/>
+                <circle cx="54" cy="28" r="1.5" fill="#a855f7" class="fw-sp fw-sp2"/>
+              </svg>
+            </div>
+            <h3>AI-Powered Writing</h3>
+            <p>Compelling bullet points and summaries, tailored to your role and industry.</p>
+          </div>
+          <div class="feat-card">
+            <div class="feat-svg-wrap">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="fG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a3e635"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
+                <circle cx="36" cy="36" r="32" fill="rgba(163,230,53,0.07)" stroke="rgba(163,230,53,0.2)" stroke-width="1"/>
+                <path d="M36 12 L52 19 L52 37 C52 46 36 54 36 54 C36 54 20 46 20 37 L20 19 Z" fill="rgba(163,230,53,0.1)" stroke="url(#fG2)" stroke-width="1.5" class="fsh-shield"/>
+                <polyline class="fsh-check" points="27,36 33,43 47,29" fill="none" stroke="url(#fG2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <text x="36" y="68" text-anchor="middle" fill="rgba(163,230,53,0.5)" font-size="8" font-weight="700" font-family="Inter">ATS 85%</text>
+              </svg>
+            </div>
+            <h3>ATS Optimized</h3>
+            <p>Every template engineered to pass Applicant Tracking Systems — no more ghosting.</p>
+          </div>
+          <div class="feat-card">
+            <div class="feat-svg-wrap">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="fG3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
+                <circle cx="36" cy="36" r="32" fill="rgba(96,165,250,0.07)" stroke="rgba(96,165,250,0.2)" stroke-width="1"/>
+                <rect x="14" y="18" width="42" height="30" rx="4" fill="rgba(96,165,250,0.12)" stroke="url(#fG3)" stroke-width="1.2"/>
+                <rect x="18" y="22" width="34" height="22" rx="2" fill="rgba(8,12,24,0.75)"/>
+                <rect x="21" y="26" width="28" height="3" rx="1.5" fill="url(#fG3)" opacity="0.7" class="flp-l1"/>
+                <rect x="21" y="32" width="20" height="2.5" rx="1.25" fill="rgba(255,255,255,0.15)" class="flp-l2"/>
+                <rect x="21" y="37" width="26" height="2.5" rx="1.25" fill="rgba(255,255,255,0.1)" class="flp-l3"/>
+                <rect class="flp-scan" x="14" y="26" width="42" height="2" rx="1" fill="url(#fG3)" opacity="0.45"/>
+                <rect x="33" y="48" width="6" height="7" rx="1" fill="rgba(96,165,250,0.25)"/>
+                <rect x="26" y="55" width="20" height="3" rx="1.5" fill="rgba(96,165,250,0.2)"/>
+              </svg>
+            </div>
+            <h3>Live Preview</h3>
+            <p>Real-time changes. What you see is exactly what downloads as PDF.</p>
+          </div>
+          <div class="feat-card">
+            <div class="feat-svg-wrap">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="fG4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f472b6"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
+                <circle cx="36" cy="36" r="32" fill="rgba(244,114,182,0.07)" stroke="rgba(244,114,182,0.2)" stroke-width="1"/>
+                <rect x="14" y="26" width="26" height="34" rx="4" fill="rgba(168,85,247,0.08)" stroke="rgba(168,85,247,0.2)" stroke-width="0.8" transform="rotate(-6 27 43)"/>
+                <rect x="18" y="22" width="26" height="34" rx="4" fill="rgba(244,114,182,0.08)" stroke="rgba(244,114,182,0.22)" stroke-width="0.8" transform="rotate(-2 31 39)"/>
+                <rect x="22" y="18" width="28" height="36" rx="4" fill="#0b0e18" stroke="url(#fG4)" stroke-width="1.2"/>
+                <rect x="27" y="24" width="18" height="4" rx="2" fill="url(#fG4)" opacity="0.7"/>
+                <rect x="27" y="31" width="14" height="2.5" rx="1.25" fill="rgba(255,255,255,0.2)"/>
+                <rect x="27" y="36" width="18" height="2.5" rx="1.25" fill="rgba(255,255,255,0.12)"/>
+                <text x="50" y="22" text-anchor="middle" fill="url(#fG4)" font-size="13" font-weight="900" font-family="Inter" class="ftpl-num">6</text>
+              </svg>
+            </div>
+            <h3>6 Pro Templates</h3>
+            <p>Modern dark to executive classic — designs for every industry and personality.</p>
+          </div>
+          <div class="feat-card">
+            <div class="feat-svg-wrap">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="fG5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2dd4bf"/><stop offset="100%" stop-color="#a3e635"/></linearGradient></defs>
+                <circle cx="36" cy="36" r="32" fill="rgba(45,212,191,0.07)" stroke="rgba(45,212,191,0.2)" stroke-width="1"/>
+                <rect x="22" y="34" width="28" height="22" rx="5" fill="rgba(45,212,191,0.12)" stroke="url(#fG5)" stroke-width="1.5" class="flk-body"/>
+                <path d="M27 34 L27 26 C27 18 45 18 45 26 L45 34" fill="none" stroke="url(#fG5)" stroke-width="2" stroke-linecap="round" class="flk-shackle"/>
+                <circle cx="36" cy="44" r="4" fill="rgba(45,212,191,0.25)" stroke="url(#fG5)" stroke-width="1"/>
+                <rect x="34.5" y="46" width="3" height="5" rx="1.5" fill="url(#fG5)" opacity="0.7"/>
+              </svg>
+            </div>
+            <h3>Private & Secure</h3>
+            <p>Firebase auth. Your data stays yours. Always encrypted, never shared.</p>
+          </div>
+          <div class="feat-card">
+            <div class="feat-svg-wrap">
+              <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs><linearGradient id="fG6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#a855f7"/></linearGradient></defs>
+                <circle cx="36" cy="36" r="32" fill="rgba(251,146,60,0.07)" stroke="rgba(251,146,60,0.2)" stroke-width="1"/>
+                <rect x="12" y="30" width="36" height="22" rx="3" fill="rgba(251,146,60,0.1)" stroke="url(#fG6)" stroke-width="1"/>
+                <rect x="16" y="34" width="28" height="14" rx="1.5" fill="rgba(8,12,24,0.75)"/>
+                <rect x="10" y="52" width="40" height="3" rx="1.5" fill="rgba(251,146,60,0.22)"/>
+                <rect x="52" y="26" width="13" height="20" rx="3" fill="rgba(168,85,247,0.14)" stroke="url(#fG6)" stroke-width="1"/>
+                <rect x="54" y="29" width="9" height="13" rx="1" fill="rgba(8,12,24,0.75)"/>
+              </svg>
+            </div>
+            <h3>Works Everywhere</h3>
+            <p>Phone, tablet, desktop. No install needed — just open and build.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ATS TICKER -->
+      <div class="ticker-section reveal">
+        <div class="ticker-label">
+          <span class="material-symbols-outlined">trending_up</span>
+          ATS Insights — Companies, Their Systems &amp; Required Scores
+        </div>
+        <div class="ticker-wrap">
+          <div class="ticker-track" id="tickerTrack">
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 40 20" fill="none" width="40" height="20"><text x="2" y="15" fill="#007CC2" font-size="11" font-weight="900" font-family="Inter">infosys</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Infosys</span><span class="ti-detail">Taleo ATS · Keyword-heavy parser · 75+ score unlocks shortlist</span></div>
+              <span class="ti-score ti-score--high">75+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 40 20" fill="none" width="40" height="20"><text x="2" y="15" fill="#C0272D" font-size="11" font-weight="900" font-family="Inter">TCS</text></svg></div>
+              <div class="ti-info"><span class="ti-company">TCS</span><span class="ti-detail">Taleo / iCIMS · India's largest employer · Filters on skills &amp; edu</span></div>
+              <span class="ti-score ti-score--high">70+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 48 20" fill="none" width="48" height="20"><text x="2" y="15" fill="#00A0DF" font-size="10" font-weight="900" font-family="Inter">WIPRO</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Wipro</span><span class="ti-detail">Workday ATS · Strict format rules · No tables or columns</span></div>
+              <span class="ti-score ti-score--high">72+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 80 20" fill="none" width="72" height="20"><text x="2" y="15" fill="#A100FF" font-size="10" font-weight="900" font-family="Inter">Accenture</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Accenture</span><span class="ti-detail">Workday · Global standard · 80+ required for first-round call</span></div>
+              <span class="ti-score ti-score--high">80+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 20 20" fill="none" width="24" height="24"><path d="M19.6 10.23c0-.68-.06-1.36-.18-2H10v3.77h5.39a4.6 4.6 0 01-2 3.02v2.5h3.23c1.89-1.74 2.98-4.3 2.98-7.29z" fill="#4285F4"/><path d="M10 20c2.7 0 4.96-.89 6.62-2.42l-3.23-2.5c-.9.6-2.04.96-3.39.96-2.6 0-4.8-1.76-5.59-4.12H1.08v2.58A10 10 0 0010 20z" fill="#34A853"/><path d="M4.41 11.92A5.97 5.97 0 014.1 10c0-.67.12-1.32.31-1.92V5.5H1.08A10 10 0 000 10c0 1.61.39 3.14 1.08 4.5l3.33-2.58z" fill="#FBBC05"/><path d="M10 3.96c1.47 0 2.79.5 3.83 1.5l2.86-2.86A10 10 0 001.08 5.5L4.41 8.08C5.2 5.72 7.4 3.96 10 3.96z" fill="#EA4335"/></svg></div>
+              <div class="ti-info"><span class="ti-company">Google</span><span class="ti-detail">Lever ATS · Role-specific keyword match · Tech stack critical</span></div>
+              <span class="ti-score ti-score--high">85+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 56 20" fill="none" width="56" height="20"><text x="2" y="14" fill="#FF9900" font-size="11" font-weight="900" font-family="Inter">amazon</text><path d="M8 17 Q28 21 50 17" stroke="#FF9900" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M48 15 L51 17 L48 19" stroke="#FF9900" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg></div>
+              <div class="ti-info"><span class="ti-company">Amazon</span><span class="ti-detail">Greenhouse · Leadership principles in JD must match resume</span></div>
+              <span class="ti-score ti-score--high">80+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 20 20" fill="none" width="22" height="22"><rect x="1" y="1" width="8.5" height="8.5" fill="#F25022"/><rect x="10.5" y="1" width="8.5" height="8.5" fill="#7FBA00"/><rect x="1" y="10.5" width="8.5" height="8.5" fill="#00A4EF"/><rect x="10.5" y="10.5" width="8.5" height="8.5" fill="#FFB900"/></svg></div>
+              <div class="ti-info"><span class="ti-company">Microsoft</span><span class="ti-detail">Workday · Skills-first parsing · Certifications boost score</span></div>
+              <span class="ti-score ti-score--high">82+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 40 20" fill="none" width="44" height="20"><text x="2" y="15" fill="#0082FB" font-size="11" font-weight="900" font-family="Inter">Meta</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Meta</span><span class="ti-detail">Greenhouse · Tech-focused · Impact metrics expected in bullets</span></div>
+              <span class="ti-score ti-score--high">85+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 48 20" fill="none" width="48" height="20"><text x="2" y="15" fill="#86BC25" font-size="9" font-weight="900" font-family="Inter">Deloitte</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Deloitte</span><span class="ti-detail">Workday · Consulting-specific filters · Mirror JD language</span></div>
+              <span class="ti-score ti-score--high">75+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 32 20" fill="none" width="32" height="20"><text x="2" y="15" fill="#0F5CA3" font-size="11" font-weight="900" font-family="Inter">IBM</text></svg></div>
+              <div class="ti-info"><span class="ti-company">IBM</span><span class="ti-detail">Kenexa BrassRing · Legacy ATS · Exact keyword match critical</span></div>
+              <span class="ti-score ti-score--high">78+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 52 20" fill="none" width="52" height="20"><text x="2" y="15" fill="#E50914" font-size="9" font-weight="900" font-family="Inter">Netflix</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Netflix</span><span class="ti-detail">Lever · Culture-fit + skills · 88+ needed for screen call</span></div>
+              <span class="ti-score ti-score--high">88+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 76 20" fill="none" width="76" height="20"><text x="2" y="15" fill="#00A1E0" font-size="9.5" font-weight="900" font-family="Inter">Salesforce</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Salesforce</span><span class="ti-detail">Workday · CRM skill matching · Trailhead certs boost score</span></div>
+              <span class="ti-score ti-score--high">80+</span>
+            </div>
+            <div class="ticker-item">
+              <div class="ti-logo-svg"><svg viewBox="0 0 68 20" fill="none" width="64" height="20"><text x="2" y="15" fill="#FF4F00" font-size="9.5" font-weight="900" font-family="Inter">Capgemini</text></svg></div>
+              <div class="ti-info"><span class="ti-company">Capgemini</span><span class="ti-detail">iCIMS · Certification-aware · Cloud &amp; DevOps keywords priority</span></div>
+              <span class="ti-score ti-score--med">68+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ TESTIMONIALS — Why good resume & ATS score matters (NO ReadyCV mention) ══ -->
+      <section class="reddit-section reveal">
+        <h2 class="section-title">Why a Good Resume <span class="gradient-text">Changes Everything</span></h2>
+        <p class="section-subtitle">Real job seekers share how ATS scores &amp; resume quality shaped their careers</p>
+
+        <div class="reddit-carousel-wrap">
+          <div class="reddit-track" id="redditTrack">
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#FF4500"/><path d="M16.67 10a1.46 1.46 0 00-2.47-1.05 7.16 7.16 0 00-3.85-1.22l.65-3.08 2.13.45a1.03 1.03 0 102.03-.17 1.03 1.03 0 00-.96.68l-2.38-.5a.17.17 0 00-.2.13l-.73 3.44a7.15 7.15 0 00-3.82 1.23 1.46 1.46 0 10-1.6 2.37 2.87 2.87 0 000 .38c0 1.93 2.25 3.5 5.02 3.5s5.02-1.57 5.02-3.5a2.87 2.87 0 000-.37 1.46 1.46 0 00.86-1.33zM7.5 11a1 1 0 111 1 1 1 0 01-1-1zm5.57 2.65a3.54 3.54 0 01-3.07.5 3.54 3.54 0 01-1.5-.5.17.17 0 010-.24.17.17 0 01.24 0 3.2 3.2 0 001.37.45 3.2 3.2 0 002.72-.46.17.17 0 01.24.25zm-.07-1.65a1 1 0 111-1 1 1 0 01-1 1z" fill="white"/></svg>
+                <div class="tc-meta"><span class="tc-name">u/dev_grind_irl</span><span class="tc-platform">Reddit · r/cscareerquestions · ▲ 2.4k</span></div>
+              </div>
+              <p class="tc-quote">"Got rejected from 40 companies. Checked my ATS score — it was 48. Optimised keywords and formatting, score hit 82. Got 3 interviews the next week. The resume is literally a filter, not a formality."</p>
+              <span class="tc-tag">ATS Score</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="white"/><path d="M18.6 10.2c0-.6-.1-1.3-.2-1.9H10v3.6h4.8a4.1 4.1 0 01-1.8 2.7v2.2h2.9c1.7-1.6 2.7-3.9 2.7-6.6z" fill="#4285F4"/><path d="M10 19c2.4 0 4.5-.8 6-2.2l-2.9-2.2a5.4 5.4 0 01-3.1.8c-2.4 0-4.4-1.6-5.1-3.8H1.9v2.3A9 9 0 0010 19z" fill="#34A853"/><path d="M4.9 11.6A5.4 5.4 0 014.6 10c0-.6.1-1.2.3-1.7V6H1.9A9 9 0 001 10c0 1.5.3 2.9 1 4.2l2.9-2.6z" fill="#FBBC05"/><path d="M10 4.5c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 001.9 5.8L4.9 8.3C5.6 6.1 7.6 4.5 10 4.5z" fill="#EA4335"/></svg>
+                <div class="tc-meta"><span class="tc-name">Rahul Sharma</span><span class="tc-platform">Google Review · ★★★★★</span></div>
+              </div>
+              <p class="tc-quote">"A well-structured ATS resume completely changed my job search. Score went from 58 to 89, got shortlisted by Accenture and TCS within two weeks. Keywords and clean formatting are everything — most people don't know this."</p>
+              <span class="tc-tag">Accenture · TCS</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" rx="3" fill="#0A66C2"/><path d="M5.5 8.5h-2v7h2v-7zM4.5 7.5a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4zM16.5 15.5h-2v-3.8c0-.9-.3-1.5-1.2-1.5-.7 0-1 .5-1.2 1v4.3h-2v-7h2v1c.4-.6 1-1 2.1-1.2 1.5 0 2.3 1 2.3 3.1v4.1z" fill="white"/></svg>
+                <div class="tc-meta"><span class="tc-name">Priya Menon</span><span class="tc-platform">LinkedIn · Software Engineer at Wipro</span></div>
+              </div>
+              <p class="tc-quote">"Wipro's Workday ATS strips out all formatting. A clean, plain-text structured resume scored 78 for me — first interview response after 3 months of silence. The format of your resume matters as much as the content."</p>
+              <span class="tc-tag">Wipro · Workday</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#FF4500"/><path d="M16.67 10a1.46 1.46 0 00-2.47-1.05 7.16 7.16 0 00-3.85-1.22l.65-3.08 2.13.45a1.03 1.03 0 102.03-.17 1.03 1.03 0 00-.96.68l-2.38-.5a.17.17 0 00-.2.13l-.73 3.44a7.15 7.15 0 00-3.82 1.23 1.46 1.46 0 10-1.6 2.37 2.87 2.87 0 000 .38c0 1.93 2.25 3.5 5.02 3.5s5.02-1.57 5.02-3.5a2.87 2.87 0 000-.37 1.46 1.46 0 00.86-1.33zM7.5 11a1 1 0 111 1 1 1 0 01-1-1zm5.57 2.65a3.54 3.54 0 01-3.07.5 3.54 3.54 0 01-1.5-.5.17.17 0 010-.24.17.17 0 01.24 0 3.2 3.2 0 001.37.45 3.2 3.2 0 002.72-.46.17.17 0 01.24.25zm-.07-1.65a1 1 0 111-1 1 1 0 01-1 1z" fill="white"/></svg>
+                <div class="tc-meta"><span class="tc-name">u/faang_or_bust_99</span><span class="tc-platform">Reddit · r/cscareerquestions · ▲ 4.7k</span></div>
+              </div>
+              <p class="tc-quote">"Amazon Greenhouse auto-rejects below 80. I was at 74 — no human ever saw my application. Matched JD keywords, hit 88. L5 SDE offer in 3 weeks. The bot decides your fate before any recruiter does."</p>
+              <span class="tc-tag">Amazon · FAANG</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="white"/><path d="M18.6 10.2c0-.6-.1-1.3-.2-1.9H10v3.6h4.8a4.1 4.1 0 01-1.8 2.7v2.2h2.9c1.7-1.6 2.7-3.9 2.7-6.6z" fill="#4285F4"/><path d="M10 19c2.4 0 4.5-.8 6-2.2l-2.9-2.2a5.4 5.4 0 01-3.1.8c-2.4 0-4.4-1.6-5.1-3.8H1.9v2.3A9 9 0 0010 19z" fill="#34A853"/><path d="M4.9 11.6A5.4 5.4 0 014.6 10c0-.6.1-1.2.3-1.7V6H1.9A9 9 0 001 10c0 1.5.3 2.9 1 4.2l2.9-2.6z" fill="#FBBC05"/><path d="M10 4.5c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 001.9 5.8L4.9 8.3C5.6 6.1 7.6 4.5 10 4.5z" fill="#EA4335"/></svg>
+                <div class="tc-meta"><span class="tc-name">Sneha Joshi</span><span class="tc-platform">Google Review · ★★★★★</span></div>
+              </div>
+              <p class="tc-quote">"As a fresher, my photo-resume was scoring 34 on every ATS tool I tested. Switched to a clean ATS-friendly format — scored 77. Got my first Infosys call in 10 days. Your resume design can cost you the job before you even apply."</p>
+              <span class="tc-tag">Infosys · Freshers</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" rx="3" fill="#0A66C2"/><path d="M5.5 8.5h-2v7h2v-7zM4.5 7.5a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4zM16.5 15.5h-2v-3.8c0-.9-.3-1.5-1.2-1.5-.7 0-1 .5-1.2 1v4.3h-2v-7h2v1c.4-.6 1-1 2.1-1.2 1.5 0 2.3 1 2.3 3.1v4.1z" fill="white"/></svg>
+                <div class="tc-meta"><span class="tc-name">Arjun Kapoor</span><span class="tc-platform">LinkedIn · Data Analyst at Deloitte India</span></div>
+              </div>
+              <p class="tc-quote">"Deloitte's Workday filters on 'stakeholder management', 'ROI', 'data storytelling'. Mirroring the exact JD language took my score from 61 to 79. First shortlist in 6 months. Mirror the job description — it works."</p>
+              <span class="tc-tag">Deloitte · Consulting</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#FF4500"/><path d="M16.67 10a1.46 1.46 0 00-2.47-1.05 7.16 7.16 0 00-3.85-1.22l.65-3.08 2.13.45a1.03 1.03 0 102.03-.17 1.03 1.03 0 00-.96.68l-2.38-.5a.17.17 0 00-.2.13l-.73 3.44a7.15 7.15 0 00-3.82 1.23 1.46 1.46 0 10-1.6 2.37 2.87 2.87 0 000 .38c0 1.93 2.25 3.5 5.02 3.5s5.02-1.57 5.02-3.5a2.87 2.87 0 000-.37 1.46 1.46 0 00.86-1.33zM7.5 11a1 1 0 111 1 1 1 0 01-1-1zm5.57 2.65a3.54 3.54 0 01-3.07.5 3.54 3.54 0 01-1.5-.5.17.17 0 010-.24.17.17 0 01.24 0 3.2 3.2 0 001.37.45 3.2 3.2 0 002.72-.46.17.17 0 01.24.25zm-.07-1.65a1 1 0 111-1 1 1 0 01-1 1z" fill="white"/></svg>
+                <div class="tc-meta"><span class="tc-name">u/resu_me_chaos</span><span class="tc-platform">Reddit · r/jobs · ▲ 1.8k</span></div>
+              </div>
+              <p class="tc-quote">"TCS, Wipro, Infosys all use Taleo or Workday. Your resume never reaches a human unless it clears the bot first. Minimum 70+ ATS score just to be seen by anyone. Most people apply for years not knowing this."</p>
+              <span class="tc-tag">India IT Jobs</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="white"/><path d="M18.6 10.2c0-.6-.1-1.3-.2-1.9H10v3.6h4.8a4.1 4.1 0 01-1.8 2.7v2.2h2.9c1.7-1.6 2.7-3.9 2.7-6.6z" fill="#4285F4"/><path d="M10 19c2.4 0 4.5-.8 6-2.2l-2.9-2.2a5.4 5.4 0 01-3.1.8c-2.4 0-4.4-1.6-5.1-3.8H1.9v2.3A9 9 0 0010 19z" fill="#34A853"/><path d="M4.9 11.6A5.4 5.4 0 014.6 10c0-.6.1-1.2.3-1.7V6H1.9A9 9 0 001 10c0 1.5.3 2.9 1 4.2l2.9-2.6z" fill="#FBBC05"/><path d="M10 4.5c1.3 0 2.5.5 3.4 1.3l2.6-2.6A9 9 0 001.9 5.8L4.9 8.3C5.6 6.1 7.6 4.5 10 4.5z" fill="#EA4335"/></svg>
+                <div class="tc-meta"><span class="tc-name">Vikram Nair</span><span class="tc-platform">Google Review · ★★★★★</span></div>
+              </div>
+              <p class="tc-quote">"Applied to Google with an ATS score of 87 on Lever. Recruiter screen within 5 days. The tech stack keywords are exactly what Lever looks for. A resume that scores high isn't just luck — it's strategy."</p>
+              <span class="tc-tag">Google · Lever ATS</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="20" height="20" rx="3" fill="#0A66C2"/><path d="M5.5 8.5h-2v7h2v-7zM4.5 7.5a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4zM16.5 15.5h-2v-3.8c0-.9-.3-1.5-1.2-1.5-.7 0-1 .5-1.2 1v4.3h-2v-7h2v1c.4-.6 1-1 2.1-1.2 1.5 0 2.3 1 2.3 3.1v4.1z" fill="white"/></svg>
+                <div class="tc-meta"><span class="tc-name">Ananya Singh</span><span class="tc-platform">LinkedIn · UX Designer at Microsoft India</span></div>
+              </div>
+              <p class="tc-quote">"Microsoft Workday ignores your portfolio link — it only reads text. Added Figma, Usability Testing, Design Systems directly into resume text. Score went from 45 to 82. Got the call the next week. Text always beats visuals in ATS."</p>
+              <span class="tc-tag">Microsoft · UX</span>
+            </div>
+
+            <div class="testimonial-card">
+              <div class="tc-header">
+                <svg class="tc-platform-logo" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#FF4500"/><path d="M16.67 10a1.46 1.46 0 00-2.47-1.05 7.16 7.16 0 00-3.85-1.22l.65-3.08 2.13.45a1.03 1.03 0 102.03-.17 1.03 1.03 0 00-.96.68l-2.38-.5a.17.17 0 00-.2.13l-.73 3.44a7.15 7.15 0 00-3.82 1.23 1.46 1.46 0 10-1.6 2.37 2.87 2.87 0 000 .38c0 1.93 2.25 3.5 5.02 3.5s5.02-1.57 5.02-3.5a2.87 2.87 0 000-.37 1.46 1.46 0 00.86-1.33zM7.5 11a1 1 0 111 1 1 1 0 01-1-1zm5.57 2.65a3.54 3.54 0 01-3.07.5 3.54 3.54 0 01-1.5-.5.17.17 0 010-.24.17.17 0 01.24 0 3.2 3.2 0 001.37.45 3.2 3.2 0 002.72-.46.17.17 0 01.24.25zm-.07-1.65a1 1 0 111-1 1 1 0 01-1 1z" fill="white"/></svg>
+                <div class="tc-meta"><span class="tc-name">u/hirethisplease</span><span class="tc-platform">Reddit · r/Resume · ▲ 3.1k</span></div>
+              </div>
+              <p class="tc-quote">"98% of Fortune 500 use ATS. If your resume isn't optimised for bots, you're invisible to every big company. Score 90+ and your resume actually reaches a human. Below 70, you simply don't exist in their system."</p>
+              <span class="tc-tag">Fortune 500</span>
+            </div>
+
+          </div>
+
+          <div class="reddit-dots" id="redditDots">
+            <button class="rdot active" data-idx="0"></button>
+            <button class="rdot" data-idx="1"></button>
+            <button class="rdot" data-idx="2"></button>
+            <button class="rdot" data-idx="3"></button>
+            <button class="rdot" data-idx="4"></button>
+            <button class="rdot" data-idx="5"></button>
+            <button class="rdot" data-idx="6"></button>
+            <button class="rdot" data-idx="7"></button>
+            <button class="rdot" data-idx="8"></button>
+            <button class="rdot" data-idx="9"></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="faq-section reveal">
+        <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+        <p class="section-subtitle">Everything you need to know about ATS and ReadyCV</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><span>What is an ATS score and why does it matter?</span><span class="faq-icon material-symbols-outlined">add</span></button>
+            <div class="faq-a"><p>An ATS (Applicant Tracking System) score is a percentage that shows how well your resume matches a job description. Most large companies use ATS to automatically filter resumes before any human sees them. A score below 70 typically means your resume is auto-rejected — you're never even considered.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><span>Which Indian companies use ATS software?</span><span class="faq-icon material-symbols-outlined">add</span></button>
+            <div class="faq-a"><p>All major Indian IT companies use ATS. Infosys and TCS use <strong>Taleo</strong>, Wipro and Accenture use <strong>Workday</strong>, Capgemini uses <strong>iCIMS</strong>, and HCL uses <strong>Taleo</strong>. Startups like Zomato and Swiggy use <strong>Lever</strong> or <strong>Greenhouse</strong>. If you're applying to any company with 500+ employees, assume ATS is screening your resume first.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><span>How does ReadyCV improve my ATS score?</span><span class="faq-icon material-symbols-outlined">add</span></button>
+            <div class="faq-a"><p>ReadyCV uses AI to optimise keyword placement, clean formatting, correct section headers (EXPERIENCE, SKILLS, EDUCATION), and strong action-verb bullet points with quantifiable achievements. Our templates are specifically engineered to score 75+ on Taleo, Workday, and Greenhouse.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><span>Should I use a resume with design, colors, or photos?</span><span class="faq-icon material-symbols-outlined">add</span></button>
+            <div class="faq-a"><p>No — for ATS systems, design-heavy resumes score very poorly. Photos, tables, columns, icons, and colors often cause parsing failures. ATS reads plain text only. Our templates look professional to humans while being fully readable by bots.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><span>Is ReadyCV completely free to use?</span><span class="faq-icon material-symbols-outlined">add</span></button>
+            <div class="faq-a"><p>Yes — ReadyCV is 100% free to get started. Build a resume, check your ATS score, and download as PDF with no payment required. Every job seeker deserves access to professional tools, regardless of budget.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)"><span>Can I use ReadyCV on mobile?</span><span class="faq-icon material-symbols-outlined">add</span></button>
+            <div class="faq-a"><p>Absolutely. ReadyCV is fully mobile-responsive — fill your resume, preview it, and download the PDF directly from your phone. No app download needed, just open in your browser and start building.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats-section reveal">
+        <div class="stat-item">
+          <span class="stat-number gradient-text" id="resumeCountStat">50+</span>
+          <span class="stat-label">Resumes Created</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number gradient-text">85%</span>
+          <span class="stat-label">ATS Pass Rate</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number gradient-text">6</span>
+          <span class="stat-label">Pro Templates</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number gradient-text">Free</span>
+          <span class="stat-label">To Get Started</span>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cta-banner reveal">
+        <div class="cta-content">
+          <h2>Ready to Land Your <span class="gradient-text">Dream Job?</span></h2>
+          <p>Join thousands who've already boosted their career with ReadyCV</p>
+          <div class="cta-buttons">
+            <a href="resume_maker.html" class="btn btn-primary btn-large"><span class="material-symbols-outlined">edit_document</span> Build My Resume</a>
+            <a href="ats_page.html" class="btn btn-secondary btn-large"><span class="material-symbols-outlined">upload_file</span> Check ATS Score</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo"><img src="assets/images/logo.svg" alt="ReadyCV Logo"><h3 class="footer-logo-text">Ready<span class="footer-cv-accent">CV</span></h3></div>
+        <p class="footer-tagline">Build resumes that beat ATS bots and impress recruiters. Land that dream job with confidence.</p>
+        <div class="footer-social">
+          <a href="mailto:gehuproject0@gmail.com" class="social-btn" title="Email"><span class="material-symbols-outlined">mail</span></a>
+          <a href="https://github.com/AmanRawt/College_Project" class="social-btn" title="GitHub"><span class="material-symbols-outlined">code</span></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-column"><h4>Project</h4><a href="ats_page.html">ATS Checker</a><a href="resume_maker.html">Resume Builder</a><a href="ai_resume_writer.html">AI Generator</a></div>
+        <div class="footer-column"><h4>Team</h4><a href="team.html">About Us</a><a href="team.html">Our Team</a></div>
+        <div class="footer-column"><h4>Resources</h4><a href="help.html">Help Center</a><a href="mailto:gehuproject0@gmail.com">Contact</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 ReadyCV. All errors reserved. Built with ♥ by Team ReadyCV.</p></div>
+  </footer>
+</div>
+
+<div class="tpl-overlay" id="tplOverlay">
+  <div class="tpl-modal">
+    <div class="tpl-modal-header">
+      <div><h2 class="tpl-modal-title">Choose a Template</h2><p class="tpl-modal-sub">6 ATS-friendly professional designs ✨</p></div>
+      <button class="tpl-close" onclick="closeTemplates()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="tpl-grid" id="tplGrid"></div>
+  </div>
+</div>
+
+<script src="js/core/particles.js"></script>
+<script src="js/templates/resume_templates.js"></script>
+<script src="js/features/index.js"></script>
+<script type="module" src="js/auth/auth_manager.js"></script>
+<script>
+document.addEventListener('auth-ready', e => {
+  const user = e.detail;
+  const loginBtn = document.getElementById('loginNavBtn');
+  const profileBtn = document.getElementById('headerProfileBtn');
+  const mobileLogin = document.getElementById('mobileLoginBtn');
+  const mobileProfile = document.getElementById('mobileProfileBtn');
+  if (user) {
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (profileBtn) profileBtn.style.display = 'flex';
+    if (mobileLogin) mobileLogin.style.display = 'none';
+    if (mobileProfile) mobileProfile.style.display = '';
+    const initial = (user.displayName || user.email || '?')[0].toUpperCase();
+    if (profileBtn) {
+      profileBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#a3e635);color:#0f172a;font-weight:900;font-size:14px;text-decoration:none';
+      profileBtn.textContent = initial;
+    }
+  }
+});
+</script>
+<script src="js/core/main.js"></script>
+</body>
+</html>

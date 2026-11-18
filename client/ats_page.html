@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadyCVs — ATS Score Check</title>
+  <meta name="description" content="Upload your resume and get instant AI-powered ATS score analysis. Beat the bots!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="css/ats_style.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="page-wrapper">
+<div class="layout-container">
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="logo-link">
+    <div class="logo-container">
+      <div class="logo-icon"><img src="assets/images/logo.svg" alt="ReadyCVs" onerror="this.parentNode.innerHTML='📄'"></div>
+      <h2 class="logo-text">Ready<span class="logo-cv-grad">CV</span></h2>
+    </div>
+  </a>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="resume_maker.html">Builder</a>
+    <a href="ai_resume_writer.html">AI Writer</a>
+    <a href="team.html">Team</a>
+    <a href="help.html">Help</a>
+  </nav>
+  <div class="header-actions">
+    <a href="resume_maker.html" class="btn btn-primary">
+      <span class="material-symbols-outlined">edit_document</span> Build Resume
+    </a>
+    <!-- Mobile nav -->
+    <div class="mob-nav-wrap">
+      <button class="mob-nav-btn" id="mobBtn">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <div class="mob-dropdown" id="mobDrop">
+        <a href="index.html"><span class="material-symbols-outlined">home</span>Home</a>
+        <a href="resume_maker.html"><span class="material-symbols-outlined">article</span>Resume Builder</a>
+        <a href="ai_resume_writer.html"><span class="material-symbols-outlined">auto_awesome</span>AI Writer</a>
+        <a href="team.html"><span class="material-symbols-outlined">group</span>Team</a>
+        <a href="help.html"><span class="material-symbols-outlined">help</span>Help</a>
+        <a href="resume_maker.html" class="mob-drop-cta"><span class="material-symbols-outlined">edit_document</span>Build Resume</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--  MAIN -->
+<main class="main-content">
+<div class="content-wrapper">
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="hero-eyebrow">
+      <span class="material-symbols-outlined">smart_toy</span> AI Powered
+    </div>
+    <h1 class="main-title">
+      Beat the <span class="gradient-text">ATS Bots</span><br>Get the Interview
+    </h1>
+    <p class="hero-sub">Upload your resume and get an instant AI-powered ATS compatibility score, missing keywords, and specific improvements to land more interviews. 🎯</p>
+    <div class="stat-chips">
+      <div class="stat-chip"><span class="material-symbols-outlined">bolt</span>Instant Analysis</div>
+      <div class="stat-chip"><span class="material-symbols-outlined">shield_check</span>File Never Stored</div>
+      <div class="stat-chip"><span class="material-symbols-outlined">auto_awesome</span>AI Powered</div>
+      <div class="stat-chip"><span class="material-symbols-outlined">payments</span>100% Free</div>
+    </div>
+  </section>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: Upload Column -->
+    <div class="upload-column">
+      <!-- Upload Box -->
+      <div class="upload-box" id="uploadBox">
+        <input type="file" id="fileInput" style="display:none" accept=".pdf,.jpg,.jpeg,.png">
+        <div class="upload-box-content">
+          <!-- Animated SVG Robot -->
+          <div class="upload-robot">
+            <svg width="100" height="115" viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#a855f7"/>
+                  <stop offset="100%" stop-color="#a3e635"/>
+                </linearGradient>
+              </defs>
+              <!-- Antenna -->
+              <rect x="48" y="4" width="4" height="15" rx="2" fill="url(#rg1)"/>
+              <circle cx="50" cy="3" r="4.5" fill="#a3e635"/>
+              <circle cx="50" cy="3" r="2" fill="#fff" opacity=".6"/>
+              <!-- Head -->
+              <rect x="16" y="18" width="68" height="52" rx="14" fill="#1e293b" stroke="url(#rg1)" stroke-width="1.5"/>
+              <!-- Eye left -->
+              <rect x="24" y="32" width="18" height="14" rx="7" fill="#0f172a"/>
+              <circle cx="33" cy="39" r="5" fill="#a855f7"/>
+              <circle cx="35" cy="37" r="2" fill="#fff"/>
+              <!-- Eye right -->
+              <rect x="58" y="32" width="18" height="14" rx="7" fill="#0f172a"/>
+              <circle cx="67" cy="39" r="5" fill="#a3e635"/>
+              <circle cx="69" cy="37" r="2" fill="#fff"/>
+              <!-- Mouth smile -->
+              <path d="M 34 56 Q 50 64 66 56" stroke="url(#rg1)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Body -->
+              <rect x="20" y="73" width="60" height="40" rx="11" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+              <!-- Chest screen -->
+              <rect x="30" y="80" width="40" height="26" rx="6" fill="#0f172a"/>
+              <!-- Screen lines (code) -->
+              <rect x="34" y="84" width="22" height="2" rx="1" fill="#a855f7" opacity=".8"/>
+              <rect x="34" y="88" width="28" height="2" rx="1" fill="#a3e635" opacity=".7"/>
+              <rect x="34" y="92" width="18" height="2" rx="1" fill="#a855f7" opacity=".5"/>
+              <rect x="34" y="96" width="24" height="2" rx="1" fill="#a3e635" opacity=".4"/>
+              <!-- Arms -->
+              <rect x="4" y="76" width="13" height="30" rx="6.5" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+              <rect x="83" y="76" width="13" height="30" rx="6.5" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+              <!-- Hand grips -->
+              <rect x="5" y="103" width="11" height="6" rx="3" fill="#334155"/>
+              <rect x="84" y="103" width="11" height="6" rx="3" fill="#334155"/>
+              <!-- Legs -->
+              <rect x="30" y="113" width="16" height="8" rx="6" fill="#334155"/>
+              <rect x="54" y="113" width="16" height="8" rx="6" fill="#334155"/>
+            </svg>
+          </div>
+          <p class="upload-title">Drop your resume here 🚀</p>
+          <p class="upload-subtitle">Drag & drop or click to browse</p>
+          <p class="upload-formats">
+            Supported: <span>PDF</span> <span>JPG</span> <span>PNG</span> — Max 10MB
+          </p>
+          <button class="btn btn-primary btn-lg" id="browseBtn">
+            <span class="material-symbols-outlined">upload_file</span> Upload Resume
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-section" id="progressSection">
+        <p class="progress-title" id="progressTitle">Analyzing...</p>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fg" id="progressBar"></div>
+          <div class="progress-bar-text"><span id="progressPercentage">0%</span></div>
+        </div>
+      </div>
+
+      <!-- ATS Tips -->
+      <div class="ats-tips-section">
+        <div class="tips-header">
+          <span class="material-symbols-outlined">lightbulb</span>
+          <h3>ATS Pro Tip</h3>
+          <button class="tips-refresh" onclick="refreshTip()" title="Next tip">
+            <span class="material-symbols-outlined">refresh</span>
+          </button>
+        </div>
+        <p id="tipText" style="font-size:.82rem;color:var(--s300);line-height:1.65;transition:opacity .2s,transform .2s">Loading...</p>
+        <div class="tip-progress">
+          <div class="tip-dot active" onclick="tipIdx=0;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=4;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=8;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=12;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=16;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=20;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=1;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=2;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=3;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=5;showTip()"></div>
+          <div class="tip-dot" onclick="tipIdx=6;showTip()"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Info Cards -->
+    <div class="info-column">
+      <div class="info-card info-card-purple reveal">
+        <div class="info-card-icon-wrapper icon-purple">
+          <span class="material-symbols-outlined">smart_toy</span>
+        </div>
+        <div>
+          <h3 class="info-card-title">What is ATS? ☕</h3>
+          <p class="info-card-text">ATS scans your resume before a human ever does. 98% of Fortune 500 companies use it. A high score = your resume gets seen by a real person.</p>
+        </div>
+      </div>
+      <div class="info-card info-card-lime reveal">
+        <div class="info-card-icon-wrapper icon-lime">
+          <span class="material-symbols-outlined">trending_up</span>
+        </div>
+        <div>
+          <h3 class="info-card-title">Why does it matter? 🎯</h3>
+          <p class="info-card-text">75% of resumes are rejected by ATS before a recruiter sees them. A better score = more interview invites. Simple math, huge impact.</p>
+        </div>
+      </div>
+      <div class="info-card info-card-purple reveal">
+        <div class="info-card-icon-wrapper icon-lime">
+          <span class="material-symbols-outlined">psychology</span>
+        </div>
+        <div>
+          <h3 class="info-card-title">AI Analysis 🧠</h3>
+          <p class="info-card-text"> AI reads your resume like a recruiter — spots gaps, identifies missing keywords, and gives specific actionable suggestions.</p>
+        </div>
+      </div>
+      <div class="info-card info-card-lime reveal">
+        <div class="info-card-icon-wrapper icon-purple">
+          <span class="material-symbols-outlined">shield_check</span>
+        </div>
+        <div>
+          <h3 class="info-card-title">Your data is safe 🔒</h3>
+          <p class="info-card-text">Your resume is analyzed in real-time and immediately discarded. We never store files. Just results, nothing else. Privacy guaranteed.</p>
+        </div>
+      </div>
+      <div class="info-card info-card-purple reveal">
+        <div class="info-card-icon-wrapper icon-orange">
+          <span class="material-symbols-outlined">timer</span>
+        </div>
+        <div>
+          <h3 class="info-card-title">Results in 15 seconds ⚡</h3>
+          <p class="info-card-text">No waiting. Instant score, keyword gaps, improvement tips, and strengths — all in one clean results page you can screenshot and act on immediately.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-grid -->
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section reveal">
+    <div class="section-heading">
+      <h2>How It <span class="gradient-text">Works</span></h2>
+      <p>Three simple steps to a better resume</p>
+    </div>
+    <div class="steps-row">
+      <div class="step-card" data-step="1" style="position:relative">
+        <div class="step-icon purple"><span class="material-symbols-outlined">upload_file</span></div>
+        <h3>Upload Your Resume</h3>
+        <p>Drop your PDF or image. We support all common formats.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card" data-step="2" style="position:relative">
+        <div class="step-icon lime"><span class="material-symbols-outlined">psychology</span></div>
+        <h3>AI Analyzes</h3>
+        <p>Our AI reads your resume like a recruiter in under 15 seconds.</p>
+        <div class="step-connector"></div>
+      </div>
+      <div class="step-card" data-step="3" style="position:relative">
+        <div class="step-icon orange"><span class="material-symbols-outlined">task_alt</span></div>
+        <h3>Get Your Score</h3>
+        <p>Receive your score, missing keywords, strengths, and tips to fix it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGH-SCORING SAMPLE RESUMES -->
+  <section class="samples-section reveal">
+    <div class="section-heading">
+      <h2>High-Scoring <span class="gradient-text">Sample Resumes</span></h2>
+      <p>See what a great resume looks like — download, edit, and make it yours!</p>
+    </div>
+    <div class="samples-grid" id="samplesGrid"></div>
+  </section>
+
+</div><!-- /content-wrapper -->
+</main>
+
+</div>
+</div><!-- /page-wrapper -->
+
+<script src="js/core/particles.js"></script>
+<script src="js/features/ats_script.js" defer></script>
+<script src="js/templates/resume_templates.js"></script>
+<script src="js/core/main.js"></script>
+
+<!-- Mobile nav -->
+<script>
+const mobBtn = document.getElementById('mobBtn');
+const mobDrop = document.getElementById('mobDrop');
+mobBtn.addEventListener('click', e => { e.stopPropagation(); mobDrop.classList.toggle('open'); });
+document.addEventListener('click', e => { if (!mobDrop.contains(e.target) && !mobBtn.contains(e.target)) mobDrop.classList.remove('open'); });
+</script>
+
+<!-- Scroll reveal -->
+<script>
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target); }});
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+
+<!-- Sample resumes section -->
+<script>
+/* Sample resume data — these load a pre-filled template in the resume builder */
+const SAMPLES = [
+  {
+    id: 'nova',
+    name: 'Aman Rawat',
+    role: 'Senior Software Engineer',
+    field: 'Software Engineering',
+    score: 97,
+    badge: 'popular',
+    badgeText: '🔥 Popular',
+    tags: ['Tech', 'ATS 97/100', 'Modern'],
+    color: '#a855f7',
+    data: {
+      name:'Aman Rawat', jobTitle:'Senior Software Engineer',
+      email:'amanrawat@email.com', phone:'+91 98765 43210',
+      location:'Ramnagar, Uttarakhand', linkedin:'linkedin.com/in/amanrawat',
+      github:'github.com/amanrawat', portfolio:'amanrawat.dev',
+      summary:'Senior Software Engineer with 6+ years building scalable distributed systems and microservices using React, Node.js, TypeScript, and AWS. Led cross-functional teams delivering 3x performance improvements. Expert in CI/CD, Docker, Kubernetes, and agile development. Passionate about clean code, algorithms, and mentoring junior developers.',
+      experience:[
+        {title:'Senior Software Engineer',company:'Infosys',location:'Bangalore',start:'Jan 2021',end:'Present',desc:'• Led migration of monolithic architecture to microservices, reducing deployment time by 65% and saving 200+ engineering hours monthly\n• Built real-time analytics dashboard serving 500K+ daily active users using React and Node.js\n• Mentored team of 5 junior engineers, improving sprint velocity by 40% and code review turnaround by 30%\n• Implemented CI/CD pipelines with Jenkins and Docker, reducing release cycles from 2 weeks to daily deploys\n• Architected RESTful API gateway handling 5M+ requests/day with 99.98% uptime using AWS and Kubernetes'},
+        {title:'Software Engineer',company:'Wipro Technologies',location:'Pune',start:'Jun 2018',end:'Dec 2020',desc:'• Developed RESTful APIs handling 2M+ daily requests with 99.9% uptime using Node.js and Express\n• Optimized PostgreSQL and Redis queries reducing average response time from 800ms to 120ms (85% improvement)\n• Built automated unit testing and integration testing suite achieving 89% code coverage with Jest\n• Collaborated with cross-functional teams to deliver 8 major features using agile and scrum methodology\n• Deployed and managed cloud infrastructure on AWS including EC2, S3, RDS, and Lambda'}
+      ],
+      education:[{degree:'B.Tech Computer Science',inst:'IIT Bangalore',location:'Bangalore',start:'2014',end:'2018',grade:'8.9 CGPA'}],
+      skills:[
+        {name:'React.js',level:'Expert'},{name:'Node.js',level:'Expert'},
+        {name:'TypeScript',level:'Advanced'},{name:'JavaScript',level:'Expert'},
+        {name:'Python',level:'Advanced'},{name:'AWS',level:'Advanced'},
+        {name:'PostgreSQL',level:'Advanced'},{name:'MongoDB',level:'Advanced'},
+        {name:'Docker',level:'Advanced'},{name:'Kubernetes',level:'Intermediate'},
+        {name:'CI/CD',level:'Advanced'},{name:'REST API',level:'Expert'},
+        {name:'Git',level:'Expert'},{name:'Microservices',level:'Advanced'},
+        {name:'Redis',level:'Intermediate'},{name:'SQL',level:'Advanced'}
+      ],
+      projects:[{name:'ScaleMesh Platform',tech:'React, Node.js, AWS, Redis, Docker',link:'github.com/amanrawat/scalemesh',desc:'Distributed task processing platform handling 10M+ daily jobs with auto-scaling and fault tolerance. Reduced infrastructure costs by 35% using Kubernetes and AWS ECS. Implemented deep learning-based anomaly detection saving $200K annually.'}],
+      languages:'English (Fluent), Hindi (Native)',
+      certifications:'AWS Certified Solutions Architect (2023)\nGoogle Cloud Professional Developer (2022)\nKubernetes Certified Application Developer (CKAD)',
+      achievements:'• HackerRank Top 1% Problem Solver — Data Structures & Algorithms\n• Infosys Excellence Award Q3 2022\n• Speaker at ReactConf India 2023\n• Open Source Contributor — 500+ GitHub stars across projects',
+      hobbies:'Open Source Contributing, Technical Blogging, Chess, Competitive Programming'
+    }
+  },
+  {
+    id: 'slate',
+    name: 'Suryoday',
+    role: 'Product Manager',
+    field: 'Product Management',
+    score: 96,
+    badge: 'new',
+    badgeText: '✨ New',
+    tags: ['Business', 'ATS 96/100', 'Executive'],
+    color: '#38bdf8',
+    data: {
+      name:'Suryoday', jobTitle:'Senior Product Manager',
+      email:'suryoday@email.com', phone:'+91 99887 76654',
+      location:'Mumbai, Maharashtra', linkedin:'linkedin.com/in/suryoday',
+      github:'github.com/suryoday', portfolio:'suryoday.notion.site',
+      summary:'Strategic Product Manager with 7+ years driving 0-to-1 product launches and scaling products to $50M+ ARR. Expert in data-driven decision making, user research, a/b testing, and cross-functional leadership. Delivered 3 successful product launches with combined 2M+ active users. Skilled in SQL, agile, scrum, and stakeholder management.',
+      experience:[
+        {title:'Senior Product Manager',company:'PhonePe',location:'Mumbai',start:'Mar 2020',end:'Present',desc:'• Led end-to-end launch of PhonePe Business app achieving 500K downloads in 30 days and ₹120Cr monthly transaction volume\n• Drove 28% increase in user retention through data-driven feature prioritization and A/B testing across 4M+ users\n• Managed roadmap for payment products using agile and scrum methodology, collaborating with 40+ engineers\n• Improved conversion rate by 19% through UX optimization and continuous user research and usability testing\n• Collaborated with engineering, design, and marketing teams across 4 time zones, reducing time-to-market by 35%'},
+        {title:'Product Manager',company:'OYO Rooms',location:'Gurgaon',start:'Jul 2017',end:'Feb 2020',desc:'• Owned guest experience product vertical serving 1M+ monthly bookings, increasing NPS score by 22 points\n• Reduced checkout abandonment by 22% through UX optimization using heatmaps and user research interviews\n• Launched loyalty program with 800K enrolled users in first 6 months, generating ₹40Cr incremental revenue\n• Developed product strategy and roadmap using data analysis and SQL, improving key KPI metrics by 30%\n• Led cross-functional team of 12 including designers, engineers, and analysts using agile methodology'}
+      ],
+      education:[{degree:'MBA Finance & Marketing',inst:'IIM Ahmedabad',location:'Ahmedabad',start:'2015',end:'2017',grade:'Gold Medalist'}],
+      skills:[
+        {name:'Product Strategy',level:'Expert'},{name:'Data Analysis',level:'Expert'},
+        {name:'SQL',level:'Advanced'},{name:'User Research',level:'Advanced'},
+        {name:'Agile/Scrum',level:'Expert'},{name:'A/B Testing',level:'Advanced'},
+        {name:'Figma',level:'Intermediate'},{name:'Python',level:'Intermediate'},
+        {name:'Google Analytics',level:'Advanced'},{name:'Stakeholder Management',level:'Expert'},
+        {name:'Project Management',level:'Expert'},{name:'Leadership',level:'Expert'}
+      ],
+      projects:[{name:'PhonePe for Business',tech:'Product Launch, Growth Strategy, SQL Analytics',link:'suryoday.notion.site/phonepebiz',desc:'Conceptualized and launched merchant payments product from 0 to 500K downloads in 30 days. Increased merchant revenue by 45% through data-driven feature prioritization and continuous A/B testing.'}],
+      languages:'English (Fluent), Hindi (Native), Marathi (Conversational)',
+      certifications:'Certified Scrum Product Owner (CSPO)\nGoogle Analytics Certified\nProduct Management Certificate — Reforge (2022)',
+      achievements:'• Forbes 30 Under 30 India 2023\n• Product Hunt #1 Product of the Day\n• IIM Gold Medalist (Batch 2015-17)\n• PhonePe Product Excellence Award 2022',
+      hobbies:'Startup Mentoring, Cricket, Podcasting about Product Management'
+    }
+  },
+  {
+    id: 'ember',
+    name: 'Saurabh Devrari',
+    role: 'UX Designer',
+    field: 'UI/UX Design',
+    score: 96,
+    badge: 'pro',
+    badgeText: '⭐ Creative',
+    tags: ['Design', 'ATS 96/100', 'Creative'],
+    color: '#f97316',
+    data: {
+      name:'saurabh Devrari', jobTitle:'Senior UX Designer',
+      email:'saurabh@design.com', phone:'+91 87654 32109',
+      location:'Hyderabad, Telangana', linkedin:'linkedin.com/in/saurabh-devrari',
+      github:'github.com/saurabhdevrari', portfolio:'saurabh.design',
+      summary:'Senior UX Designer with 5+ years creating human-centered digital experiences for 10M+ users. Expert in user research, wireframing, prototyping, and usability testing with proven track record of improving conversion rates by 35%+. Proficient in Figma, Sketch, Adobe XD, and design systems. Skilled in accessibility, WCAG compliance, and cross-functional collaboration.',
+      experience:[
+        {title:'Senior UX Designer',company:'Swiggy',location:'Hyderabad',start:'Feb 2021',end:'Present',desc:'• Redesigned checkout flow increasing conversion rate by 34% and reducing cart abandonment by 28% for 8M+ monthly users\n• Led design system implementation with 200+ components, adopted by 40+ engineers across 6 product teams\n• Conducted 200+ user interviews, usability testing sessions, and A/B testing experiments\n• Collaborated with product and engineering teams to ship 15+ major features using agile methodology\n• Improved WCAG accessibility compliance by 60%, reducing legal risk and expanding user base by 500K users'},
+        {title:'UX Designer',company:'MakeMyTrip',location:'Gurgaon',start:'Aug 2019',end:'Jan 2021',desc:'• Designed responsive hotel booking experience for 8M+ monthly users using Figma and prototyping tools\n• Created accessibility-first design patterns improving WCAG compliance by 60% and user satisfaction by 24%\n• Reduced customer support tickets by 18% through improved onboarding flow and information architecture\n• Conducted user research and persona development leading to 15% increase in booking conversion rate\n• Collaborated cross-functionally with 20+ stakeholders using agile and scrum processes'}
+      ],
+      education:[{degree:'B.Des Visual Communication',inst:'NID Ahmedabad',location:'Ahmedabad',start:'2015',end:'2019',grade:'Distinction'}],
+      skills:[
+        {name:'Figma',level:'Expert'},{name:'User Research',level:'Expert'},
+        {name:'Prototyping',level:'Expert'},{name:'Design Systems',level:'Advanced'},
+        {name:'Sketch',level:'Advanced'},{name:'Adobe XD',level:'Advanced'},
+        {name:'Usability Testing',level:'Expert'},{name:'HTML/CSS',level:'Intermediate'},
+        {name:'A/B Testing',level:'Advanced'},{name:'Wireframing',level:'Expert'},
+        {name:'Accessibility',level:'Advanced'},{name:'WCAG',level:'Advanced'}
+      ],
+      projects:[{name:'Swiggy Design System',tech:'Figma, React Native, Storybook',link:'saurabh.design/swiggy',desc:'Built comprehensive design system with 200+ components adopted by entire product org, reducing design-to-dev handoff time by 40% and saving 500+ engineering hours quarterly. Improved design consistency across 6 product teams.'}],
+      languages:'English (Fluent), Hindi (Native), Telugu (Conversational)',
+      certifications:'Google UX Design Certificate (2022)\nNielsen Norman UX Certified\nInteraction Design Foundation — UX Research Certificate',
+      achievements:'• Awwwards Honorable Mention 2023\n• Swiggy Design Excellence Award 2022\n• NID Best Design Project Award\n• Featured in India Design Awards 2023',
+      hobbies:'Illustration, Photography, Hiking, Design Mentoring'
+    }
+  },
+  {
+    id: 'prism',
+    name: 'Ashish Karki',
+    role: 'Data Scientist',
+    field: 'Data Science / ML',
+    score: 97,
+    badge: 'popular',
+    badgeText: '🔥 Hot',
+    tags: ['Data Science', 'ATS 97/100', 'Tech'],
+    color: '#a3e635',
+    data: {
+      name:'Ashish Karki', jobTitle:'Senior Data Scientist',
+      email:'ashishkarki@gmail.com', phone:'+91 76543 21098',
+      location:'Chennai, Tamil Nadu', linkedin:'linkedin.com/in/ashish-karki',
+      github:'github.com/ashishkarki', portfolio:'Ashish.io',
+      summary:'Senior Data Scientist with 5+ years developing machine learning models and AI solutions generating $15M+ in business value. Expert in Python, TensorFlow, PyTorch, deep learning, and large-scale data pipelines using SQL and Spark. Published 4 research papers in NeurIPS and ICML. Skilled in NLP, statistical analysis, and cross-functional leadership.',
+      experience:[
+        {title:'Senior Data Scientist',company:'Flipkart',location:'Chennai',start:'Apr 2020',end:'Present',desc:'• Built recommendation engine using machine learning and deep learning, increasing CTR by 23% and revenue by ₹45Cr annually\n• Developed fraud detection model using Python and TensorFlow, reducing financial losses by 67% ($8M saved)\n• Led team of 4 data scientists delivering 6 production ML models with 99.5% uptime\n• Implemented real-time ML inference pipeline using Spark and Kafka processing 50M+ events daily\n• Designed NLP-based customer sentiment analysis system achieving 94% accuracy across 10M+ reviews'},
+        {title:'Data Scientist',company:'Mu Sigma',location:'Bangalore',start:'Jul 2018',end:'Mar 2020',desc:'• Built NLP model for sentiment analysis achieving 94% accuracy using Python and deep learning frameworks\n• Reduced customer churn by 19% using predictive modeling and machine learning for telecom client\n• Analyzed 5TB+ datasets using SQL, Spark, and Python to derive actionable business insights\n• Developed statistical models and A/B testing framework improving campaign ROI by 28%\n• Collaborated cross-functionally with engineering and product teams using agile methodology'}
+      ],
+      education:[{degree:'M.Tech Data Science',inst:'IIT Madras',location:'Chennai',start:'2016',end:'2018',grade:'9.2 CGPA (Top 2% of batch)'}],
+      skills:[
+        {name:'Python',level:'Expert'},{name:'Machine Learning',level:'Expert'},
+        {name:'TensorFlow',level:'Expert'},{name:'PyTorch',level:'Advanced'},
+        {name:'SQL',level:'Expert'},{name:'Spark',level:'Advanced'},
+        {name:'NLP',level:'Advanced'},{name:'Deep Learning',level:'Advanced'},
+        {name:'Data Analysis',level:'Expert'},{name:'Statistical Modeling',level:'Advanced'},
+        {name:'Kafka',level:'Intermediate'},{name:'Git',level:'Advanced'},
+        {name:'Docker',level:'Intermediate'},{name:'AWS',level:'Intermediate'}
+      ],
+      projects:[{name:'RecoFlip Engine',tech:'Python, TensorFlow, Kafka, Redis, Spark',link:'github.com/ashishkarki/recoflip',desc:'Real-time product recommendation system using deep learning and machine learning, handling 10M+ daily users with sub-100ms latency. Increased revenue by ₹45Cr annually and improved CTR by 23%.'}],
+      languages:'English (Fluent), Hindi (Fluent), Tamil (Native)',
+      certifications:'Google Professional Machine Learning Engineer\nAWS Certified ML Specialty\nDeepLearning.AI Specialization (5 Courses)\nKaggle Python & ML Certificates',
+      achievements:'• NeurIPS 2023 Research Paper Published — Deep Learning for Recommendation Systems\n• Flipkart Innovation Award 2022\n• Kaggle Competition Master (Top 0.1% globally)\n• ICML 2022 Workshop Paper Published',
+      hobbies:'AI Research, Competitive Programming, Teaching Machine Learning Online'
+    }
+  }
+];
+
+/* Mini resume preview SVGs */
+function getMiniSVG(id, color) {
+  const c = color;
+  return `<svg viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="160" height="200" fill="#f8f9fa" rx="4"/>
+    <rect width="160" height="52" fill="${c}" rx="4" style="border-radius:4px 4px 0 0"/>
+    <rect x="10" y="65" width="60" height="5" rx="2" fill="#1e293b"/>
+    <rect x="10" y="73" width="45" height="3" rx="1.5" fill="#94a3b8"/>
+    <rect x="10" y="88" width="135" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="95" width="130" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="102" width="120" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="112" width="50" height="3" rx="1.5" fill="#334155"/>
+    <rect x="10" y="119" width="130" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="125" width="125" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="131" width="115" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="141" width="50" height="3" rx="1.5" fill="#334155"/>
+    <rect x="10" y="148" width="30" height="8" rx="4" fill="${c}" opacity=".2"/>
+    <rect x="43" y="148" width="30" height="8" rx="4" fill="${c}" opacity=".2"/>
+    <rect x="76" y="148" width="30" height="8" rx="4" fill="${c}" opacity=".2"/>
+    <rect x="10" y="162" width="50" height="3" rx="1.5" fill="#334155"/>
+    <rect x="10" y="169" width="130" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="175" width="110" height="2" rx="1" fill="#e2e8f0"/>
+    <rect x="10" y="185" width="90" height="2" rx="1" fill="#e2e8f0"/>
+  </svg>`;
+}
+
+function loadSampleInBuilder(sample) {
+  // Save sample data as AI fulldata + set template
+  localStorage.setItem('readycv_ai_fulldata', JSON.stringify(sample.data));
+  localStorage.removeItem('readycv_draft'); // Start fresh with sample
+  window.location.href = `resume_maker.html?tpl=${sample.id}&fromsample=1`;
+}
+
+function downloadSampleHint(sample) {
+  // Show a toast hint and redirect to builder
+  loadSampleInBuilder(sample);
+}
+
+/* Build sample cards */
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('samplesGrid');
+  if (!grid) return;
+
+  SAMPLES.forEach(s => {
+    const card = document.createElement('div');
+    card.className = 'sample-card reveal';
+    card.innerHTML = `
+      <div class="sample-preview">
+        ${getMiniSVG(s.id, s.color)}
+        <div class="sample-overlay"></div>
+        <span class="sample-badge badge-${s.badge}">${s.badgeText}</span>
+        <div class="sample-score">
+          <span class="material-symbols-outlined">auto_awesome</span>${s.score}/100
+        </div>
+      </div>
+      <div class="sample-info">
+        <p class="sample-name">${s.name}</p>
+        <p class="sample-role">${s.role} · ${s.field}</p>
+        <div class="sample-tags">
+          ${s.tags.map(t => `<span class="s-tag">${t}</span>`).join('')}
+        </div>
+        <div class="sample-actions">
+          <button class="btn btn-secondary" onclick='downloadSampleHint(${JSON.stringify(s)})'>
+            <span class="material-symbols-outlined">edit</span> Edit & Use
+          </button>
+          <button class="btn btn-primary" onclick='loadSampleInBuilder(${JSON.stringify(s)})'>
+            <span class="material-symbols-outlined">download</span> Open
+          </button>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+  });
+
+  // Re-run scroll reveal for dynamically added cards
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  }, { threshold: 0.05 });
+  grid.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadyCV — Set New Password</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,-50..200" rel="stylesheet">
+
+<style>
+/* ─── RESET & ROOT ─────────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{height:100%;scroll-behavior:smooth;}
+:root{
+  --bg:       #060b18;
+  --surface:  #0d1526;
+  --surface2: #111d35;
+  --border:   rgba(255,255,255,.08);
+  --border2:  rgba(255,255,255,.13);
+  --purple:   #9b5de5;
+  --purple2:  #c084fc;
+  --lime:     #a3e635;
+  --lime2:    #bef264;
+  --cyan:     #22d3ee;
+  --red:      #f87171;
+  --green:    #4ade80;
+  --text:     #f1f5f9;
+  --muted:    #94a3b8;
+  --dim:      #475569;
+  --grad:     linear-gradient(135deg, #9b5de5 0%, #a3e635 100%);
+  --grad90:   linear-gradient(90deg,  #9b5de5 0%, #a3e635 100%);
+  --shadow:   0 32px 80px rgba(0,0,0,.55);
+  --font:     'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+body{
+  background: var(--bg);
+  font-family: var(--font);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  padding: 1.25rem;
+  position: relative;
+}
+
+/* ─── BACKGROUND LAYERS ────────────────────────────────── */
+
+/* Noise grain */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  z-index:0; pointer-events:none;
+}
+
+/* Animated orbs */
+.orb{
+  position:fixed; border-radius:50%;
+  filter: blur(70px); pointer-events:none; z-index:0;
+}
+.orb-1{
+  width:520px; height:520px;
+  background: radial-gradient(circle, rgba(155,93,229,.22) 0%, transparent 70%);
+  top:-160px; left:-160px;
+  animation: orbFloat1 18s ease-in-out infinite alternate;
+}
+.orb-2{
+  width:440px; height:440px;
+  background: radial-gradient(circle, rgba(163,230,53,.13) 0%, transparent 70%);
+  bottom:-140px; right:-120px;
+  animation: orbFloat2 22s ease-in-out infinite alternate;
+}
+.orb-3{
+  width:280px; height:280px;
+  background: radial-gradient(circle, rgba(34,211,238,.09) 0%, transparent 70%);
+  top:50%; right:8%;
+  animation: orbFloat3 14s ease-in-out infinite alternate;
+}
+@keyframes orbFloat1{from{transform:translate(0,0)}  to{transform:translate(70px,55px)}}
+@keyframes orbFloat2{from{transform:translate(0,0)}  to{transform:translate(-55px,-40px)}}
+@keyframes orbFloat3{from{transform:translateY(0)}   to{transform:translateY(-60px)}}
+
+/* Grid */
+.grid-lines{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    linear-gradient(rgba(155,93,229,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155,93,229,.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Floating particles canvas */
+#ptcl{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55;}
+
+/* ─── LOGO ──────────────────────────────────────────────── */
+.logo{
+  position:fixed; top:1.5rem; left:clamp(1rem,4vw,2.5rem);
+  z-index:10; display:flex; align-items:center; gap:.625rem;
+  text-decoration:none;
+}
+.logo-mark{
+  width:34px; height:34px; border-radius:9px;
+  background: var(--grad);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.8rem; font-weight:900; color:#0a0f1e;
+  letter-spacing:-.04em; flex-shrink:0;
+}
+.logo-mark img{width:100%;height:100%;object-fit:contain;border-radius:9px;}
+.logo-name{
+  font-size:1.15rem; font-weight:800;
+  background: var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  letter-spacing:-.03em;
+}
+
+/* ─── MAIN CARD ─────────────────────────────────────────── */
+.card{
+  position: relative; z-index:1;
+  width:100%; max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 1.75rem;
+  padding: clamp(2rem,5vw,2.75rem) clamp(1.75rem,5vw,2.5rem);
+  box-shadow: var(--shadow);
+  animation: cardReveal .6s cubic-bezier(.34,1.56,.64,1) both;
+  overflow: hidden;
+}
+@keyframes cardReveal{
+  from{opacity:0; transform:translateY(28px) scale(.95)}
+  to  {opacity:1; transform:translateY(0)    scale(1)}
+}
+/* Top gradient line */
+.card::before{
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:2px;
+  background: var(--grad90);
+  border-radius:1.75rem 1.75rem 0 0;
+}
+/* Inner glow */
+.card::after{
+  content:''; position:absolute;
+  top:0; left:0; right:0; height:220px;
+  background: linear-gradient(180deg, rgba(155,93,229,.06) 0%, transparent 100%);
+  pointer-events:none; border-radius:inherit;
+}
+
+/* ─── SHIELD SVG ────────────────────────────────────────── */
+.shield-wrap{
+  display:flex; justify-content:center;
+  margin-bottom:1.75rem;
+  position:relative; z-index:1;
+}
+.shield-svg{
+  filter: drop-shadow(0 0 22px rgba(155,93,229,.35));
+  animation: shieldHover 4s ease-in-out infinite;
+}
+@keyframes shieldHover{
+  0%,100%{transform:translateY(0)   rotate(0deg)}
+  33%    {transform:translateY(-9px) rotate(-1deg)}
+  66%    {transform:translateY(-5px) rotate(1deg)}
+}
+/* Pulse ring behind shield */
+.shield-pulse{
+  position:absolute; top:50%; left:50%;
+  width:80px; height:80px;
+  border-radius:50%;
+  border:2px solid rgba(155,93,229,.2);
+  transform:translate(-50%,-50%);
+  animation:pulseRing 2.5s ease-out infinite;
+}
+.shield-pulse:nth-child(2){animation-delay:.8s; width:100px; height:100px;}
+.shield-pulse:nth-child(3){animation-delay:1.6s; width:120px; height:120px;}
+@keyframes pulseRing{
+  0%  {transform:translate(-50%,-50%) scale(.85); opacity:.6}
+  100%{transform:translate(-50%,-50%) scale(1.5);  opacity:0}
+}
+
+/* ─── HEADER ────────────────────────────────────────────── */
+.card-head{text-align:center; margin-bottom:2rem; position:relative; z-index:1;}
+.card-title{
+  font-size: clamp(1.6rem,4vw,1.9rem);
+  font-weight:900; letter-spacing:-.05em;
+  line-height:1.1; margin-bottom:.5rem;
+}
+.grad-word{
+  background: var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.card-sub{font-size:.875rem; color:var(--muted); line-height:1.65;}
+
+/* ─── STATUS BANNERS ────────────────────────────────────── */
+.banner{
+  display:none; align-items:flex-start; gap:.625rem;
+  padding:.875rem 1rem; border-radius:.875rem;
+  font-size:.83rem; font-weight:600; line-height:1.55;
+  margin-bottom:1.25rem; position:relative; z-index:1;
+  animation: bannerIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes bannerIn{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:none}}
+.banner.show{display:flex;}
+.banner .material-symbols-outlined{font-size:1.15rem;flex-shrink:0;margin-top:1px;}
+.banner-err {background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.2); color:var(--red);}
+.banner-ok  {background:rgba(74,222,128,.08);  border:1px solid rgba(74,222,128,.2);  color:var(--green);}
+.banner-info{background:rgba(155,93,229,.08);  border:1px solid rgba(155,93,229,.22); color:var(--purple2);}
+.banner-warn{background:rgba(251,191,36,.08);  border:1px solid rgba(251,191,36,.2);  color:#fbbf24;}
+
+/* ─── FORM ──────────────────────────────────────────────── */
+.form{display:flex; flex-direction:column; gap:1.1rem; position:relative; z-index:1;}
+.field{display:flex; flex-direction:column; gap:.4rem;}
+.lbl{
+  font-size:.78rem; font-weight:700; color:var(--muted);
+  letter-spacing:.4px; text-transform:uppercase;
+}
+
+/* Input wrapper */
+.inp-wrap{position:relative;}
+.inp{
+  width:100%; height:3.1rem;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius:.875rem;
+  padding:0 3.25rem 0 1.1rem;
+  color:var(--text); font-family:var(--font); font-size:.95rem;
+  transition: border-color .2s, background .2s, box-shadow .2s;
+  letter-spacing: .03em;
+}
+.inp:focus{
+  outline:none;
+  border-color:var(--purple);
+  background: rgba(155,93,229,.07);
+  box-shadow: 0 0 0 3.5px rgba(155,93,229,.18);
+}
+.inp.ok { border-color: var(--lime); background:rgba(163,230,53,.04); }
+.inp.ok:focus{ box-shadow:0 0 0 3.5px rgba(163,230,53,.14); }
+.inp.err{ border-color:var(--red); }
+.inp.err:focus{ box-shadow:0 0 0 3.5px rgba(248,113,113,.15); }
+.inp::placeholder{color:var(--dim);}
+
+/* Input icons */
+.inp-icon{
+  position:absolute; right:.9rem; top:50%;
+  transform:translateY(-50%);
+  display:flex; align-items:center; gap:.2rem;
+}
+.inp-icon .material-symbols-outlined{
+  font-size:1.15rem; color:var(--dim);
+  cursor:pointer; transition:color .2s;
+  user-select:none;
+}
+.inp-icon .material-symbols-outlined:hover{color:var(--muted);}
+.inp-icon .status-ic{
+  font-size:1rem;
+  transition:all .25s;
+}
+.inp-icon .status-ic.ok   {color:var(--lime);}
+.inp-icon .status-ic.err  {color:var(--red);}
+
+/* Strength bar */
+.strength-wrap{margin-top:.5rem;}
+.strength-label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--dim);margin-bottom:.3rem;}
+.strength-label span:last-child{font-weight:700;transition:color .3s;}
+.strength-bar-bg{height:4px;border-radius:4px;background:rgba(255,255,255,.07);overflow:hidden;}
+.strength-bar-fill{height:100%;border-radius:4px;width:0%;transition:width .4s ease,background .4s ease;}
+
+/* Requirements checklist */
+.req-list{
+  display:flex; flex-direction:column; gap:.35rem;
+  padding:.75rem .875rem;
+  background: rgba(0,0,0,.2);
+  border-radius:.625rem;
+  border:1px solid rgba(255,255,255,.05);
+  margin-top:.375rem;
+}
+.req{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--dim);transition:color .25s;}
+.req .material-symbols-outlined{font-size:.9rem;transition:all .25s;}
+.req.met{color:var(--lime);}
+.req.met .material-symbols-outlined{color:var(--lime);font-variation-settings:'FILL' 1;}
+
+/* ─── SUBMIT BUTTON ─────────────────────────────────────── */
+.submit{
+  width:100%; height:3.35rem;
+  background: var(--grad);
+  color:#07101e; border:none; border-radius:.875rem;
+  font-family:var(--font); font-weight:800; font-size:1rem;
+  letter-spacing:-.01em;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.5rem;
+  transition: filter .25s, transform .2s, box-shadow .25s;
+  position:relative; overflow:hidden; margin-top:.25rem;
+}
+.submit:not(:disabled):hover{
+  filter:brightness(1.1);
+  transform:translateY(-2px);
+  box-shadow:0 12px 35px rgba(155,93,229,.45);
+}
+.submit:not(:disabled):active{transform:translateY(0); filter:brightness(.97);}
+.submit:disabled{opacity:.55; cursor:not-allowed; transform:none!important;}
+.submit .material-symbols-outlined{font-size:1.1rem;}
+/* Shimmer */
+.submit::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.22) 50%,transparent 100%);
+  transform:translateX(-100%);
+}
+.submit:not(:disabled):hover::after{
+  transform:translateX(100%);
+  transition:transform .6s ease;
+}
+
+/* Spinner */
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.spin{animation:spin .8s linear infinite;}
+
+/* ─── FOOTER ────────────────────────────────────────────── */
+.card-foot{
+  text-align:center; margin-top:1.5rem;
+  font-size:.8rem; color:var(--dim);
+  position:relative; z-index:1;
+}
+.card-foot a{
+  color:var(--lime); font-weight:700; text-decoration:none;
+  transition:color .2s;
+}
+.card-foot a:hover{color:var(--lime2);}
+
+/* ─── SUCCESS SCREEN ────────────────────────────────────── */
+#successScreen{
+  display:none; text-align:center;
+  position:relative; z-index:1;
+}
+#successScreen.show{display:block;}
+
+.success-icon-wrap{
+  display:flex; justify-content:center; margin-bottom:1.5rem;
+}
+.check-circle{
+  width:88px; height:88px; border-radius:50%;
+  background: linear-gradient(135deg, rgba(74,222,128,.15), rgba(163,230,53,.1));
+  border:2px solid rgba(74,222,128,.35);
+  display:flex; align-items:center; justify-content:center;
+  animation:checkPop .6s cubic-bezier(.34,1.56,.64,1) both;
+  position:relative;
+}
+@keyframes checkPop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.check-circle::before{
+  content:''; position:absolute; inset:-8px;
+  border-radius:50%; border:2px solid rgba(74,222,128,.15);
+  animation:checkRing 1.5s ease-out both;
+}
+@keyframes checkRing{from{transform:scale(.8);opacity:1}to{transform:scale(1.4);opacity:0}}
+.check-circle .material-symbols-outlined{
+  font-size:2.5rem; color:var(--green);
+  font-variation-settings:'FILL' 1;
+  animation:checkIcon .5s .3s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes checkIcon{from{transform:scale(0) rotate(-30deg)}to{transform:scale(1) rotate(0)}}
+
+.success-title{font-size:1.5rem;font-weight:900;letter-spacing:-.04em;margin-bottom:.5rem;}
+.success-sub{font-size:.875rem;color:var(--muted);line-height:1.7;margin-bottom:1.75rem;}
+
+/* Redirect bar */
+.redirect-bar{
+  background:rgba(155,93,229,.08);
+  border:1px solid rgba(155,93,229,.2);
+  border-radius:.625rem; padding:.7rem 1rem;
+  font-size:.8rem; color:var(--muted);
+  display:flex; align-items:center; gap:.5rem;
+  margin-bottom:1.25rem;
+}
+.redirect-bar .material-symbols-outlined{color:var(--purple2);font-size:1rem;}
+.redirect-bar strong{color:var(--purple2);}
+.countdown{
+  margin-left:auto;
+  background:var(--purple); color:#fff;
+  font-size:.72rem; font-weight:800;
+  width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+
+/* Login button */
+.login-btn{
+  width:100%; height:3.25rem;
+  background:var(--grad); color:#07101e;
+  border:none; border-radius:.875rem;
+  font-family:var(--font); font-weight:800; font-size:.95rem;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.5rem;
+  transition:filter .2s,transform .2s;
+  text-decoration:none;
+}
+.login-btn:hover{filter:brightness(1.1);transform:translateY(-2px);}
+.login-btn .material-symbols-outlined{font-size:1.1rem;}
+
+/* ─── INVALID LINK SCREEN ──────────────────────────────── */
+#invalidScreen{
+  display:none; text-align:center;
+  position:relative; z-index:1;
+}
+#invalidScreen.show{display:block;}
+.warn-icon{
+  width:80px; height:80px; border-radius:50%;
+  background:rgba(251,191,36,.1); border:2px solid rgba(251,191,36,.3);
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 1.25rem;
+  animation:checkPop .5s cubic-bezier(.34,1.56,.64,1) both;
+}
+.warn-icon .material-symbols-outlined{font-size:2.2rem;color:#fbbf24;font-variation-settings:'FILL' 1;}
+.invalid-title{font-size:1.35rem;font-weight:900;letter-spacing:-.04em;margin-bottom:.5rem;}
+.invalid-sub{font-size:.875rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
+
+/* ─── MOBILE ────────────────────────────────────────────── */
+@media(max-width:480px){
+  body{padding:.75rem; align-items:stretch;}
+  .card{border-radius:1.375rem; padding:1.75rem 1.5rem; max-width:100%;}
+  .card-title{font-size:1.45rem;}
+  .logo{top:1.2rem; left:1.2rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="grid-lines"></div>
+<canvas id="ptcl"></canvas>
+
+<!-- Logo -->
+<a href="index.html" class="logo">
+  <div class="logo-mark">
+    <img src="assets/images/logo.svg" alt="R" onerror="this.parentNode.innerHTML='R'">
+  </div>
+  <span class="logo-name">ReadyCV</span>
+</a>
+
+<!-- ══════════ CARD ══════════ -->
+<div class="card">
+
+  <!-- ── DEFAULT: Password form ── -->
+  <div id="formScreen">
+
+    <!-- Shield SVG -->
+    <div class="shield-wrap">
+      <div class="shield-pulse"></div>
+      <div class="shield-pulse"></div>
+      <div class="shield-pulse"></div>
+
+      <svg class="shield-svg" width="80" height="92" viewBox="0 0 80 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sg" x1="0" y1="0" x2="80" y2="92" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#9b5de5"/>
+            <stop offset="100%" stop-color="#a3e635"/>
+          </linearGradient>
+          <linearGradient id="sg2" x1="80" y1="0" x2="0" y2="92" gradientUnits="userSpaceOnUse">
+            <stop offset="0%"   stop-color="#a3e635" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="#9b5de5" stop-opacity=".1"/>
+          </linearGradient>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Shield body -->
+        <path d="M40 4 L74 17 L74 46 Q74 70 40 88 Q6 70 6 46 L6 17 Z"
+              fill="url(#sg2)" stroke="url(#sg)" stroke-width="2" stroke-linejoin="round"/>
+
+        <!-- Inner shield -->
+        <path d="M40 14 L66 24 L66 46 Q66 64 40 78 Q14 64 14 46 L14 24 Z"
+              fill="rgba(155,93,229,.08)" stroke="rgba(155,93,229,.2)" stroke-width="1"/>
+
+        <!-- Lock icon inside -->
+        <rect x="29" y="44" width="22" height="18" rx="4"
+              fill="url(#sg)" opacity=".9" filter="url(#glow)"/>
+        <path d="M33 44 L33 38 Q33 30 40 30 Q47 30 47 38 L47 44"
+              stroke="url(#sg)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="40" cy="52" r="3" fill="#0d1526"/>
+        <rect x="39" y="52" width="2" height="5" rx="1" fill="#0d1526"/>
+
+        <!-- Sparkle top-right -->
+        <g filter="url(#glow)" opacity=".85">
+          <path d="M62 10 L63.5 14 L67 15.5 L63.5 17 L62 21 L60.5 17 L57 15.5 L60.5 14 Z"
+                fill="#a3e635"/>
+        </g>
+        <!-- Sparkle top-left -->
+        <g filter="url(#glow)" opacity=".6">
+          <path d="M16 8 L17 10.5 L19.5 11.5 L17 12.5 L16 15 L15 12.5 L12.5 11.5 L15 10.5 Z"
+                fill="#9b5de5"/>
+        </g>
+
+        <!-- Orbit dot -->
+        <circle cx="40" cy="4" r="3" fill="#a3e635" opacity=".8">
+          <animateTransform attributeName="transform" type="rotate" from="0 40 46" to="360 40 46" dur="6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="74" cy="46" r="2.5" fill="#9b5de5" opacity=".7">
+          <animateTransform attributeName="transform" type="rotate" from="0 40 46" to="-360 40 46" dur="9s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+
+    <!-- Header -->
+    <div class="card-head">
+      <h1 class="card-title">Set <span class="grad-word">New Password</span></h1>
+      <p class="card-sub">Choose a strong password to secure your account.</p>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner" id="banner">
+      <span class="material-symbols-outlined" id="bannerIcon">error</span>
+      <span id="bannerText"></span>
+    </div>
+
+    <!-- Form -->
+    <div class="form" id="pwdForm">
+
+      <!-- New password -->
+      <div class="field">
+        <label class="lbl" for="newPwd">New Password</label>
+        <div class="inp-wrap">
+          <input class="inp" type="password" id="newPwd"
+            placeholder="At least 8 characters"
+            oninput="onNewPwdInput()" autocomplete="new-password">
+          <div class="inp-icon">
+            <span class="material-symbols-outlined status-ic" id="newPwdStatus" style="display:none"></span>
+            <span class="material-symbols-outlined" id="toggleNew" onclick="toggleVis('newPwd','toggleNew')">visibility</span>
+          </div>
+        </div>
+
+        <!-- Strength meter -->
+        <div class="strength-wrap" id="strengthWrap" style="display:none">
+          <div class="strength-label">
+            <span>Strength</span>
+            <span id="strengthLabel" style="color:var(--dim)">—</span>
+          </div>
+          <div class="strength-bar-bg">
+            <div class="strength-bar-fill" id="strengthFill"></div>
+          </div>
+        </div>
+
+        <!-- Requirements -->
+        <div class="req-list" id="reqList" style="display:none">
+          <div class="req" id="req-len">
+            <span class="material-symbols-outlined">radio_button_unchecked</span>
+            At least 8 characters
+          </div>
+          <div class="req" id="req-upper">
+            <span class="material-symbols-outlined">radio_button_unchecked</span>
+            One uppercase letter (A–Z)
+          </div>
+          <div class="req" id="req-num">
+            <span class="material-symbols-outlined">radio_button_unchecked</span>
+            One number (0–9)
+          </div>
+          <div class="req" id="req-special">
+            <span class="material-symbols-outlined">radio_button_unchecked</span>
+            One special character (!@#$...)
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm password -->
+      <div class="field">
+        <label class="lbl" for="confPwd">Confirm Password</label>
+        <div class="inp-wrap">
+          <input class="inp" type="password" id="confPwd"
+            placeholder="Repeat your password"
+            oninput="onConfPwdInput()" autocomplete="new-password"
+            onkeydown="if(event.key==='Enter')submitReset()">
+          <div class="inp-icon">
+            <span class="material-symbols-outlined status-ic" id="confPwdStatus" style="display:none"></span>
+            <span class="material-symbols-outlined" id="toggleConf" onclick="toggleVis('confPwd','toggleConf')">visibility</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button class="submit" id="submitBtn" onclick="submitReset()" disabled>
+        <span class="material-symbols-outlined" id="submitIcon">lock_reset</span>
+        <span id="submitText">Reset Password</span>
+      </button>
+    </div>
+
+    <div class="card-foot">
+      Remember it? <a href="login.html">Sign In</a>
+    </div>
+  </div><!-- /formScreen -->
+
+  <!-- ── SUCCESS SCREEN ── -->
+  <div id="successScreen">
+    <div class="success-icon-wrap">
+      <div class="check-circle">
+        <span class="material-symbols-outlined">check</span>
+      </div>
+    </div>
+    <h2 class="success-title">Password <span class="grad-word">Updated!</span></h2>
+    <p class="success-sub">Your password has been reset successfully. You can now sign in with your new password.</p>
+
+    <div class="redirect-bar">
+      <span class="material-symbols-outlined">info</span>
+      Redirecting to login in <strong>&nbsp;<span id="countNum">5</span>s</strong>
+      <div class="countdown" id="countdownEl">5</div>
+    </div>
+
+    <a href="login.html" class="login-btn">
+      <span class="material-symbols-outlined">login</span>
+      Go to Login Now
+    </a>
+  </div>
+
+  <!-- ── INVALID LINK SCREEN ── -->
+  <div id="invalidScreen">
+    <div class="warn-icon">
+      <span class="material-symbols-outlined">link_off</span>
+    </div>
+    <h2 class="invalid-title">Link Expired</h2>
+    <p class="invalid-sub">This password reset link is invalid or has expired. Reset links are valid for 1 hour only.</p>
+    <a href="forgot_password.html" class="login-btn" style="margin-bottom:.875rem">
+      <span class="material-symbols-outlined">refresh</span>
+      Request New Link
+    </a>
+    <br>
+    <a href="login.html" style="font-size:.82rem;color:var(--muted);text-decoration:none;font-weight:600">← Back to Login</a>
+  </div>
+
+</div><!-- /card -->
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp }     from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, confirmPasswordReset, verifyPasswordResetCode }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+const FB = {
+  apiKey:            'AIzaSyCgK8JWEuilZmcMME9_LropW_2KUuQZItI',
+  authDomain:        'airesumebuilder-f732a.firebaseapp.com',
+  projectId:         'airesumebuilder-f732a',
+  storageBucket:     'airesumebuilder-f732a.firebasestorage.app',
+  messagingSenderId: '431208769883',
+  appId:             '1:431208769883:web:53fe68f6e95d4f810c927e'
+};
+const auth = getAuth(initializeApp(FB));
+
+/* ── Read oobCode from URL ─────────────────────────────── */
+const params  = new URLSearchParams(window.location.search);
+const oobCode = params.get('oobCode');
+
+/* ── Verify code on load ───────────────────────────────── */
+(async () => {
+  if (!oobCode) { showInvalid('No reset code found in URL.'); return; }
+  try {
+    await verifyPasswordResetCode(auth, oobCode);
+    // Code valid — show form
+  } catch (e) {
+    showInvalid(e.message);
+  }
+})();
+
+/* ── Submit new password ───────────────────────────────── */
+window.submitReset = async function() {
+  const pwd  = document.getElementById('newPwd').value;
+  const conf = document.getElementById('confPwd').value;
+
+  if (!allReqsMet(pwd))    { showBanner('error','Password doesn\'t meet requirements.'); return; }
+  if (pwd !== conf)        { showBanner('error','Passwords don\'t match. Please check.'); return; }
+  if (!oobCode)            { showBanner('error','Reset link is missing. Request a new one.'); return; }
+
+  setLoading(true);
+  hideBanner();
+
+  try {
+    await confirmPasswordReset(auth, oobCode, pwd);
+    showSuccess();
+  } catch (err) {
+    setLoading(false);
+    const msgs = {
+      'auth/expired-action-code': 'This link has expired. Please request a new one.',
+      'auth/invalid-action-code': 'Invalid reset link. Please request a new one.',
+      'auth/weak-password':       'Password is too weak. Use at least 8 characters.',
+      'auth/too-many-requests':   'Too many attempts. Please try again later.',
+    };
+    showBanner('error', msgs[err.code] || 'Something went wrong. Please try again.');
+  }
+};
+
+/* ── Success + countdown redirect ──────────────────────── */
+function showSuccess() {
+  document.getElementById('formScreen').style.display   = 'none';
+  document.getElementById('invalidScreen').style.display = 'none';
+  const ss = document.getElementById('successScreen');
+  ss.classList.add('show');
+
+  let n = 5;
+  const tick = setInterval(() => {
+    n--;
+    document.getElementById('countNum').textContent     = n;
+    document.getElementById('countdownEl').textContent  = n;
+    if (n <= 0) { clearInterval(tick); window.location.replace('login.html'); }
+  }, 1000);
+}
+
+function showInvalid(msg) {
+  document.getElementById('formScreen').style.display    = 'none';
+  document.getElementById('successScreen').style.display = 'none';
+  document.getElementById('invalidScreen').classList.add('show');
+}
+
+/* Expose to inline handlers */
+window._auth    = auth;
+window._oobCode = oobCode;
+</script>
+
+<script>
+/* ── Password validation ───────────────────────────────── */
+const REQS = {
+  len:     v => v.length >= 8,
+  upper:   v => /[A-Z]/.test(v),
+  num:     v => /\d/.test(v),
+  special: v => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(v),
+};
+function allReqsMet(v) { return Object.values(REQS).every(fn => fn(v)); }
+
+function onNewPwdInput() {
+  const v   = document.getElementById('newPwd').value;
+  const sw  = document.getElementById('strengthWrap');
+  const rl  = document.getElementById('reqList');
+  const inp = document.getElementById('newPwd');
+
+  // Show panels on first type
+  if (v.length > 0) { sw.style.display = 'block'; rl.style.display = 'flex'; }
+  else              { sw.style.display = 'none';  rl.style.display = 'none'; }
+
+  // Requirements
+  ['len','upper','num','special'].forEach(key => {
+    const el = document.getElementById('req-'+key);
+    const ic = el?.querySelector('.material-symbols-outlined');
+    if (!el) return;
+    if (REQS[key](v)) {
+      el.classList.add('met');
+      if (ic) ic.textContent = 'check_circle';
+    } else {
+      el.classList.remove('met');
+      if (ic) ic.textContent = 'radio_button_unchecked';
+    }
+  });
+
+  // Strength score
+  const score = Object.values(REQS).filter(fn => fn(v)).length;
+  const fill  = document.getElementById('strengthFill');
+  const lbl   = document.getElementById('strengthLabel');
+  const cfg   = [
+    {w:'0%',  bg:'transparent',                        t:'—',         c:'var(--dim)'},
+    {w:'25%', bg:'#f87171',                            t:'Weak',      c:'#f87171'},
+    {w:'50%', bg:'#fb923c',                            t:'Fair',      c:'#fb923c'},
+    {w:'75%', bg:'#facc15',                            t:'Good',      c:'#facc15'},
+    {w:'100%',bg:'linear-gradient(90deg,#a3e635,#4ade80)',t:'Strong', c:'var(--lime)'},
+  ];
+  const s = v.length === 0 ? 0 : score;
+  if (fill) { fill.style.width = cfg[s].w; fill.style.background = cfg[s].bg; }
+  if (lbl)  { lbl.textContent = cfg[s].t; lbl.style.color = cfg[s].c; }
+
+  // Border state
+  inp.className = 'inp' + (v.length === 0 ? '' : allReqsMet(v) ? ' ok' : '');
+
+  // Status icon
+  const si = document.getElementById('newPwdStatus');
+  if (si) {
+    si.style.display = v.length > 0 ? 'block' : 'none';
+    si.textContent = allReqsMet(v) ? 'check_circle' : 'cancel';
+    si.className = 'material-symbols-outlined status-ic ' + (allReqsMet(v) ? 'ok' : 'err');
+    si.style.fontVariationSettings = "'FILL' 1";
+  }
+
+  updateSubmitBtn();
+  onConfPwdInput(); // re-validate confirm
+}
+
+function onConfPwdInput() {
+  const v    = document.getElementById('confPwd').value;
+  const orig = document.getElementById('newPwd').value;
+  const inp  = document.getElementById('confPwd');
+  const si   = document.getElementById('confPwdStatus');
+
+  if (v.length === 0) {
+    inp.className = 'inp';
+    if (si) si.style.display = 'none';
+  } else {
+    const match = v === orig;
+    inp.className = 'inp ' + (match ? 'ok' : 'err');
+    if (si) {
+      si.style.display = 'block';
+      si.textContent = match ? 'check_circle' : 'cancel';
+      si.className = 'material-symbols-outlined status-ic ' + (match ? 'ok' : 'err');
+      si.style.fontVariationSettings = "'FILL' 1";
+    }
+  }
+  updateSubmitBtn();
+}
+
+function updateSubmitBtn() {
+  const pwd  = document.getElementById('newPwd').value;
+  const conf = document.getElementById('confPwd').value;
+  const btn  = document.getElementById('submitBtn');
+  if (btn) btn.disabled = !(allReqsMet(pwd) && pwd === conf && conf.length > 0);
+}
+
+/* ── Toggle password visibility ────────────────────────── */
+window.toggleVis = function(inputId, iconId) {
+  const inp  = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+  if (!inp || !icon) return;
+  const isHidden = inp.type === 'password';
+  inp.type = isHidden ? 'text' : 'password';
+  icon.textContent = isHidden ? 'visibility_off' : 'visibility';
+};
+
+/* ── Loading state ─────────────────────────────────────── */
+function setLoading(on) {
+  const btn  = document.getElementById('submitBtn');
+  const icon = document.getElementById('submitIcon');
+  const text = document.getElementById('submitText');
+  if (!btn) return;
+  btn.disabled = on;
+  if (icon) { icon.textContent = on ? 'sync' : 'lock_reset'; icon.style.animation = on ? 'spin .8s linear infinite' : ''; }
+  if (text) text.textContent = on ? 'Resetting...' : 'Reset Password';
+}
+
+/* ── Banners ───────────────────────────────────────────── */
+function showBanner(type, msg) {
+  const el   = document.getElementById('banner');
+  const icon = document.getElementById('bannerIcon');
+  const txt  = document.getElementById('bannerText');
+  if (!el) return;
+  el.className = 'banner banner-' + (type === 'error' ? 'err' : type === 'success' ? 'ok' : 'info') + ' show';
+  if (icon) icon.textContent = type === 'error' ? 'error' : type === 'success' ? 'check_circle' : 'info';
+  if (txt)  txt.textContent  = msg;
+}
+function hideBanner() {
+  const el = document.getElementById('banner');
+  if (el) el.classList.remove('show');
+}
+window.showBanner = showBanner;
+window.hideBanner = hideBanner;
+
+/* ── Particles ─────────────────────────────────────────── */
+(function(){
+  const c   = document.getElementById('ptcl');
+  if (!c) return;
+  const ctx = c.getContext('2d');
+  let W = c.width = innerWidth, H = c.height = innerHeight;
+  addEventListener('resize', () => { W = c.width = innerWidth; H = c.height = innerHeight; });
+
+  const pts = Array.from({length:50}, () => ({
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-.5)*.38, vy:(Math.random()-.5)*.38,
+    r:Math.random()*1.6+.4,
+    col:Math.random()>.5?'155,93,229':'163,230,53'
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // connections
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+        const d=Math.sqrt(dx*dx+dy*dy);
+        if(d<95){
+          ctx.beginPath();
+          ctx.strokeStyle=`rgba(155,93,229,${.1*(1-d/95)})`;
+          ctx.lineWidth=.5;
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    // dots
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${p.col},.55)`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+
+</body>
+</html>

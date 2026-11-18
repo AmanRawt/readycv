@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadyCVs — Help Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="css/help.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="page-wrapper">
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="logo-link">
+    <div class="logo-container">
+      <div class="logo-icon"><img src="assets/images/logo.svg" alt="ReadyCVs" onerror="this.parentNode.innerHTML='📄'"></div>
+      <h2 class="logo-text">Ready<span class="cv-grad">CV</span></h2>
+    </div>
+  </a>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="ats_page.html">ATS Checker</a>
+    <a href="resume_maker.html">Builder</a>
+    <a href="team.html">Team</a>
+  </nav>
+  <div class="header-actions">
+    <a href="login.html" class="btn btn-secondary">Log In</a>
+    <a href="resume_maker.html" class="btn btn-primary">Build Resume</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="help-hero">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">
+      <span class="material-symbols-outlined">help_center</span> Help Center
+    </span>
+    <h1 class="help-title">How can we <span class="grad-text">help you?</span></h1>
+    <p class="help-sub">Find answers to everything about ReadyCV. from resume building to ATS scores, AI features, and your account.</p>
+
+    <!-- Search -->
+    <div class="search-outer">
+      <div class="search-wrap">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search questions... e.g. 'download PDF', 'ATS score'">
+        <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="search-results-count" id="searchCount" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="help-stats">
+    <div class="hs-item"><span class="hs-num">6</span><span class="hs-lbl">Topic Categories</span></div>
+    <div class="hs-item"><span class="hs-num">100+</span><span class="hs-lbl">Questions Answered</span></div>
+    <div class="hs-item"><span class="hs-num">24h</span><span class="hs-lbl">Email Response</span></div>
+    <div class="hs-item"><span class="hs-num">Free</span><span class="hs-lbl">To Get Started</span></div>
+  </div>
+</section>
+
+<!-- BODY -->
+<div class="help-body">
+
+  <!-- Category Pills -->
+  <div class="category-pills" id="categoryPills">
+    <button class="cat-pill active" onclick="filterCat('all',this)">
+      <span class="material-symbols-outlined">apps</span> All Topics
+    </button>
+    <button class="cat-pill" onclick="filterCat('getting-started',this)">
+      <span class="material-symbols-outlined">rocket_launch</span> Getting Started
+    </button>
+    <button class="cat-pill" onclick="filterCat('resume-builder',this)">
+      <span class="material-symbols-outlined">article</span> Resume Builder
+    </button>
+    <button class="cat-pill" onclick="filterCat('ats',this)">
+      <span class="material-symbols-outlined">upload_file</span> ATS Checker
+    </button>
+    <button class="cat-pill" onclick="filterCat('ai-writer',this)">
+      <span class="material-symbols-outlined">auto_awesome</span> AI Writer
+    </button>
+    <button class="cat-pill" onclick="filterCat('account',this)">
+      <span class="material-symbols-outlined">account_circle</span> Account
+    </button>
+    <button class="cat-pill" onclick="filterCat('team',this)">
+      <span class="material-symbols-outlined">groups</span> Team
+    </button>
+  </div>
+
+  <!-- FAQ GRID -->
+  <div class="faq-container" id="faqContainer">
+
+    <!-- GETTING STARTED -->
+    <div class="faq-group reveal" data-cat="getting-started">
+      <div class="faq-group-header">
+        <div class="faq-group-icon"><span class="material-symbols-outlined">rocket_launch</span></div>
+        <span class="faq-group-title-text">Getting Started</span>
+        <span class="faq-count">5 Q&amp;A</span>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">info</span></div>
+            <span class="faq-q-text">What is ReadyCVs and how does it work?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>ReadyCVs is an AI-powered resume builder that helps you create professional, ATS-optimized resumes in minutes. Fill in your details through our guided form, choose from 6 professional templates, and download as PDF — all free! Our AI features can also write content for you and score your existing resume for ATS compatibility.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">payments</span></div>
+            <span class="faq-q-text">Is ReadyCV free to use?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Yes! The core resume builder, all 6 templates, and PDF download are completely free. 💸 AI features (AI Writer, ATS Checker)</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">account_circle</span></div>
+            <span class="faq-q-text">Do I need to create an account?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>No! You can build and download your resume without creating an account. However, creating a free account lets you save your resume progress, access it from any device, track your ATS scores, and more. Sign up takes under 30 seconds.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">play_circle</span></div>
+            <span class="faq-q-text">How do I get started quickly?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Click <strong>"Create My Resume"</strong> on the homepage. Fill in your details section by section — Personal Info → Summary → Experience → Education → Skills → Projects → Extras. The live preview updates instantly. Or try <strong>"AI Resume Generator"</strong> to let AI write your entire resume from a simple description!</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">devices</span></div>
+            <span class="faq-q-text">Which devices and browsers are supported?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>ReadyCV works on all modern browsers — Chrome, Firefox, Safari, Edge. It's fully responsive for mobile phones, tablets, and desktops. 📱 We recommend <strong>Chrome</strong> for the best PDF download experience.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESUME BUILDER -->
+    <div class="faq-group reveal" data-cat="resume-builder">
+      <div class="faq-group-header">
+        <div class="faq-group-icon" style="background:rgba(163,230,53,.1)"><span class="material-symbols-outlined" style="color:var(--lime)">article</span></div>
+        <span class="faq-group-title-text">Resume Builder</span>
+        <span class="faq-count">6 Q&amp;A</span>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">download</span></div>
+            <span class="faq-q-text">How do I download my resume as PDF?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Click <strong>"Download PDF"</strong> in the top-right of the Resume Builder. Your browser's print dialog opens — select <strong>"Save as PDF"</strong> as the destination, then click Save. For best results, use Chrome and set margins to "None" in print settings. 📄</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">style</span></div>
+            <span class="faq-q-text">Will my data be lost if I switch templates?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Absolutely not! 🎨 Switching templates only changes the visual design — all your entered data stays exactly as you typed it. Templates are just different layouts for the same content. Your data also auto-saves every 6 seconds.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">work</span></div>
+            <span class="faq-q-text">How do I add multiple work experiences?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Go to the <strong>Experience</strong> tab and click <strong>"Add Experience"</strong>. You can add as many as you need. Each card can be collapsed/expanded by clicking the header, and deleted with the trash icon. ✨</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">restore</span></div>
+            <span class="faq-q-text">My resume data disappeared — how to recover?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Your data auto-saves in browser localStorage every 6 seconds. 💾 Open the Resume Builder in the <strong>same browser</strong> — your draft should restore automatically with a notification. Note: clearing browser data/cookies will erase it. Create an account for permanent cloud saving!</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">edit_note</span></div>
+            <span class="faq-q-text">How do I write good resume bullet points?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Use the <strong>STAR format</strong>: Situation → Task → Action → Result. Start each bullet with a strong action verb (Led, Built, Designed, Achieved). Include numbers wherever possible — "Increased sales by 32%" or "Managed team of 8." Avoid vague language like "responsible for." Use our <strong>AI Writer</strong> to get professionally crafted bullets instantly! 🎯</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">palette</span></div>
+            <span class="faq-q-text">How many templates are available?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>6 professionally designed ATS-friendly templates: <strong>Nova</strong> (modern dark), <strong>Slate</strong> (corporate sidebar), <strong>Ember</strong> (warm creative), <strong>Ivory</strong> (minimalist), <strong>Sequoia</strong> (nature), and <strong>Prism</strong> (indigo elegant). Click <strong>"Templates"</strong> in the builder to switch instantly — your data is always preserved! 🎨</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ATS CHECKER -->
+    <div class="faq-group reveal" data-cat="ats">
+      <div class="faq-group-header">
+        <div class="faq-group-icon" style="background:rgba(249,115,22,.1)"><span class="material-symbols-outlined" style="color:#f97316">upload_file</span></div>
+        <span class="faq-group-title-text">ATS Checker</span>
+        <span class="faq-count">5 Q&amp;A</span>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">smart_toy</span></div>
+            <span class="faq-q-text">What is ATS and why does it matter?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>ATS (Applicant Tracking System) is software used by 98% of large companies to automatically screen resumes before a human ever sees them. 🤖 Your ATS score (0-100) measures how well your resume is optimized. Above 75 = likely to pass through. Below 60 = might get filtered out even if you're qualified!</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">folder_open</span></div>
+            <span class="faq-q-text">What file formats can I upload?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p><strong>PDF, JPG, and PNG</strong> files up to 10MB. PDF is recommended as it preserves formatting. The file must be an actual resume — if you upload a random image, the system detects it and shows an error (with a cute robot animation 😄). Photos of resumes (JPG/PNG) also work!</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">shield_check</span></div>
+            <span class="faq-q-text">Is my resume stored after scanning?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>No! Your resume file is analyzed in real-time and immediately discarded. 🔒 We never store your resume on any server. Only the score result and analysis are temporarily used to display your results page. Your privacy is our priority.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">trending_up</span></div>
+            <span class="faq-q-text">How do I improve my ATS score?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>After scanning, you'll see specific missing keywords and suggestions. Key improvements: ① Use standard headings (Work Experience, Education, Skills). ② Copy exact keywords from the job description. ③ Avoid tables, graphics, and columns. ④ Save as PDF from Word/Google Docs (not Canva). ⑤ Include quantifiable achievements. 🎯</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">error_outline</span></div>
+            <span class="faq-q-text">Why did I get an error uploading?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Common reasons: ① File isn't a resume. ② File exceeds 10MB — compress it. ③ Wrong format (only PDF/JPG/PNG). ④ Backend server not running — start with <code>node server.js</code>. ⑤ No Gemini API key set — add it at the Settings page. 🔧</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI WRITER -->
+    <div class="faq-group reveal" data-cat="ai-writer">
+      <div class="faq-group-header">
+        <div class="faq-group-icon" style="background:rgba(56,189,248,.1)"><span class="material-symbols-outlined" style="color:#38bdf8">auto_awesome</span></div>
+        <span class="faq-group-title-text">AI Resume Writer</span>
+        <span class="faq-count">4 Q&amp;A</span>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">psychology</span></div>
+            <span class="faq-q-text">How does the AI Resume Writer work?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Two modes! ✨ <strong>Bullet Points</strong>: describe what you did → AI generates 5 powerful professional bullets. <strong>Full Resume</strong>: describe yourself in a paragraph → AI creates a complete resume with all fields auto-filled in the Builder. Both are powered by Google Gemini AI.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">settings</span></div>
+            <span class="faq-q-text">How does AI work?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>The AI works by analyzing the user’s resume in detail. It evaluates different aspects such as content quality, structure, keywords, and formatting. Based on this analysis, it provides a rating and an ATS (Applicant Tracking System) score, similar to how an ATS checker reviews resumes. This helps users understand how well their resume is optimized for job applications and where improvements can be made.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">sync_alt</span></div>
+            <span class="faq-q-text">How does AI content get into my resume?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>For <strong>Bullet Points</strong>: click "Accept" → saved locally → click "Open in Resume Builder" to use. 🔄 For <strong>Full Resume</strong>: click "Open in Resume Builder →" and ALL fields auto-fill automatically — name, email, experience, skills, everything! You just review and download.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">refresh</span></div>
+            <span class="faq-q-text">Can I regenerate if I don't like the output?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Yes! Click <strong>"Regenerate"</strong> for a completely new AI response for the same prompt. Click <strong>"Try Another"</strong> to use a different example prompt. Generate unlimited times — each response is fresh from Gemini AI. 🔄</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT -->
+    <div class="faq-group reveal" data-cat="account">
+      <div class="faq-group-header">
+        <div class="faq-group-icon" style="background:rgba(250,204,21,.1)"><span class="material-symbols-outlined" style="color:#facc15">account_circle</span></div>
+        <span class="faq-group-title-text">Account &amp; Profile</span>
+        <span class="faq-count">4 Q&amp;A</span>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">person_add</span></div>
+            <span class="faq-q-text">How do I create an account?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Click <strong>"Log In"</strong> in the navigation, then switch to the <strong>"Sign Up"</strong> tab. Enter your name, email, and password (min 6 characters). Or use <strong>"Continue with Google"</strong> for instant signup! 🔐 Takes under 30 seconds.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">photo_camera</span></div>
+            <span class="faq-q-text">How do I change my profile picture?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Go to your <strong>Profile page</strong> and click the camera icon (📷) on your avatar. Select any image file — it uploads to Firebase Storage and updates everywhere instantly! You can change it as many times as you want.</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">lock_reset</span></div>
+            <span class="faq-q-text">How do I reset my password?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>On the login page, enter your email address, then click <strong>"Forgot password?"</strong>. Firebase sends a password reset email to your inbox — click the link in the email to set a new password. Check your spam folder if you don't see it! 📧</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">security</span></div>
+            <span class="faq-q-text">Is my data safe with ReadyCVs?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Yes! Auth and data storage use <strong>Firebase by Google</strong> — a secure, trusted platform. 🔒 Resume data stays in your browser locally. Profile photos go to Firebase Storage. ATS-scanned resumes are never stored. We never sell or share your data. Promise!</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="faq-group reveal" data-cat="team">
+      <div class="faq-group-header">
+        <div class="faq-group-icon" style="background:rgba(168,85,247,.1)"><span class="material-symbols-outlined" style="color:var(--purple-soft)">groups</span></div>
+        <span class="faq-group-title-text">About the Team</span>
+        <span class="faq-count">4 Q&amp;A</span>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">school</span></div>
+            <span class="faq-q-text">Who built ReadyCVs?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Team ReadyCVs — <strong>Suryoday</strong> (AI/Backend), <strong>Saurabh Devrarai</strong> (Frontend/UI), and <strong>Aman Rawat</strong> (Cloud/APIs). We built ReadyCVs because we kept getting ghosted after sending our resumes to ATS bots! 😅 Visit the <a href="team.html">Team page</a> to meet everyone!</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">mail</span></div>
+            <span class="faq-q-text">How can I contact the team?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Email us at <a href="mailto:gehuproject0@gmail.com">gehuproject0@gmail.com</a> — we reply within 24-48 hours. 📧 Or chat with Aman Rawat (our AI advisor) right here by clicking the chat button in the bottom-right corner for instant answers!</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">handshake</span></div>
+            <span class="faq-q-text">Can I contribute to ReadyCVs?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>Absolutely! We love contributions — bug reports, feature suggestions, design improvements, or code contributions. 🤝 Email <a href="mailto:gehuproject0@gmail.com">gehuproject0@gmail.com</a> to collaborate with Team ReadyCVs. We're always looking for passionate people!</p>
+          </div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <div class="faq-q-icon"><span class="material-symbols-outlined">celebration</span></div>
+            <span class="faq-q-text">Why should I visit the Team Section?</span>
+            <span class="material-symbols-outlined faq-chevron">expand_more</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">
+            <p>You should visit the Team Section to learn more about the developers behind the project, including Aman Rawat, Suryoday, and Saurabh Devrarai. It helps you understand their skills, roles, and contributions, and builds trust by showing who created and manages the platform.</p>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No results -->
+    <div class="no-results" id="noResults" style="display:none">
+      <span class="material-symbols-outlined">search_off</span>
+      <h3>No results found</h3>
+      <p>Try different keywords or <a href="mailto:gehuproject0@gmail.com">contact us</a> directly!</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="help-cta">
+      <div class="cta-left">
+        <span class="material-symbols-outlined cta-icon-big">support_agent</span>
+        <h3>Still have questions?</h3>
+        <p>Chat with Us or send us an email — we're always happy to help!</p>
+      </div>
+      <div class="cta-btns">
+        <button class="btn btn-primary" onclick="openChatSafe()">
+          <span class="material-symbols-outlined">chat</span> Chat with Us
+        </button>
+        <a href="mailto:gehuproject0@gmail.com" class="btn btn-secondary">
+          <span class="material-symbols-outlined">mail</span> Email Us
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /faq-container -->
+</div><!-- /help-body -->
+
+</div><!-- /page-wrapper -->
+
+<script src="js/core/particles.js"></script>
+<script src="js/core/main.js"></script>
+<script>
+/* ── FAQ toggle ── */
+function toggleFaq(btn) {
+  const item  = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── Search ── */
+const allItems  = document.querySelectorAll('.faq-item');
+const allGroups = document.querySelectorAll('.faq-group');
+const searchInp = document.getElementById('searchInput');
+const countEl   = document.getElementById('searchCount');
+const clearBtn  = document.getElementById('searchClear');
+const noRes     = document.getElementById('noResults');
+
+searchInp.addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  clearBtn.style.display = q ? '' : 'none';
+  countEl.style.display  = q ? '' : 'none';
+  if (!q) {
+    allItems.forEach(i => i.style.display = '');
+    allGroups.forEach(g => g.style.display = '');
+    noRes.style.display = 'none';
+    return;
+  }
+  let count = 0;
+  allGroups.forEach(g => {
+    let has = false;
+    g.querySelectorAll('.faq-item').forEach(item => {
+      const match = item.textContent.toLowerCase().includes(q);
+      item.style.display = match ? '' : 'none';
+      if (match) { has = true; count++; if(match) item.classList.add('open'); }
+    });
+    g.style.display = has ? '' : 'none';
+  });
+  countEl.textContent = count + ' result' + (count !== 1 ? 's' : '') + ' found';
+  noRes.style.display = count === 0 ? '' : 'none';
+});
+
+function clearSearch() {
+  searchInp.value = '';
+  searchInp.dispatchEvent(new Event('input'));
+  searchInp.focus();
+}
+
+/* ── Category filter ── */
+function filterCat(cat, btn) {
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  clearSearch();
+  allGroups.forEach(g => {
+    g.style.display = (cat === 'all' || g.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+/* ── Scroll reveal ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target); }});
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadyCVs — Resume Maker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700;900&family=Lato:wght@400;700;900&family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="css/resume_maker.css">
+  <link rel="stylesheet" href="css/resume_print.css" media="print">
+  <style>
+    .logo-cv-grad{background:linear-gradient(90deg,#a855f7,#a3e635);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  </style>
+</head>
+<body>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="logo-link">
+    <div class="logo-container">
+      <div class="logo-icon">
+        <img src="assets/images/logo.svg" alt="ReadyCVs" onerror="this.style.display='none'">
+      </div>
+      <h2 class="logo-text">Ready<span class="logo-cv-grad">CV</span></h2>
+    </div>
+  </a>
+  <nav class="main-nav">
+    <a href="ats_page.html">ATS Checker</a>
+    <a href="ai_resume_writer.html">AI Writer</a>
+    <a href="index.html">Home</a>
+    <a href="team.html">Team</a>
+  </nav>
+  <div class="header-actions">
+    <button class="btn btn-ghost" onclick="openTemplates()">
+      <span class="material-symbols-outlined">style</span>
+      <span class="btn-label">Templates</span>
+    </button>
+    <button class="btn btn-secondary" onclick="clearAll()">
+      <span class="material-symbols-outlined">restart_alt</span>
+      <span class="btn-label">Reset</span>
+    </button>
+    <button class="btn btn-primary" onclick="downloadPDF()">
+      <span class="material-symbols-outlined">download</span>
+      <span class="btn-label">Download PDF</span>
+    </button>
+  </div>
+</header>
+
+<!-- TEMPLATE MODAL -->
+<div class="tpl-overlay" id="tplOverlay">
+  <div class="tpl-modal">
+    <div class="tpl-modal-header">
+      <div>
+        <h2 class="tpl-modal-title">Choose a Template</h2>
+        <p class="tpl-modal-sub">6 ATS-friendly professional designs — pick your style ✨</p>
+      </div>
+      <button class="tpl-close" onclick="closeTemplates()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="tpl-grid" id="tplGrid"></div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<main class="builder-layout">
+
+  <!-- LEFT FORM PANEL -->
+  <aside class="form-panel">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-label" id="progressLabel">0% complete</span>
+    </div>
+
+    <div class="section-tabs">
+      <button class="tab-btn active" data-section="personal" onclick="switchTab(this,'personal')">
+        <span class="material-symbols-outlined">person</span><span>Personal</span>
+      </button>
+      <button class="tab-btn" data-section="summary" onclick="switchTab(this,'summary')">
+        <span class="material-symbols-outlined">description</span><span>Summary</span>
+      </button>
+      <button class="tab-btn" data-section="experience" onclick="switchTab(this,'experience')">
+        <span class="material-symbols-outlined">work</span><span>Experience</span>
+      </button>
+      <button class="tab-btn" data-section="education" onclick="switchTab(this,'education')">
+        <span class="material-symbols-outlined">school</span><span>Education</span>
+      </button>
+      <button class="tab-btn" data-section="skills" onclick="switchTab(this,'skills')">
+        <span class="material-symbols-outlined">psychology</span><span>Skills</span>
+      </button>
+      <button class="tab-btn" data-section="projects" onclick="switchTab(this,'projects')">
+        <span class="material-symbols-outlined">rocket_launch</span><span>Projects</span>
+      </button>
+      <button class="tab-btn" data-section="extras" onclick="switchTab(this,'extras')">
+        <span class="material-symbols-outlined">stars</span><span>Extras</span>
+      </button>
+    </div>
+
+    <!-- PERSONAL -->
+    <div class="form-section active" id="sec-personal">
+      <div class="section-header">
+        <span class="material-symbols-outlined">person</span><h3>Personal Information</h3>
+      </div>
+      <div class="form-grid">
+        <div class="field-group full"><label>Full Name *</label>
+          <input type="text" id="name" placeholder="e.g. Aman Rawat" oninput="updateResume()"></div>
+        <div class="field-group"><label>Job Title *</label>
+          <input type="text" id="jobTitle" placeholder="e.g. Full Stack Developer" oninput="updateResume()"></div>
+        <div class="field-group"><label>Email *</label>
+          <input type="email" id="email" placeholder="you@example.com" oninput="updateResume()"></div>
+        <div class="field-group"><label>Phone</label>
+          <input type="tel" id="phone" placeholder="+91 98765 43210" oninput="updateResume()"></div>
+        <div class="field-group"><label>Location</label>
+          <input type="text" id="location" placeholder="Ramnagar, Uttarakhand" oninput="updateResume()"></div>
+        <div class="field-group"><label>LinkedIn</label>
+          <input type="url" id="linkedin" placeholder="linkedin.com/in/yourname" oninput="updateResume()"></div>
+        <div class="field-group"><label>GitHub</label>
+          <input type="url" id="github" placeholder="github.com/yourname" oninput="updateResume()"></div>
+        <div class="field-group"><label>Portfolio</label>
+          <input type="url" id="portfolio" placeholder="yoursite.com" oninput="updateResume()"></div>
+      </div>
+      <div class="nav-buttons"><span></span>
+        <button class="btn btn-primary" onclick="nextTab()">Next: Summary <span class="material-symbols-outlined">arrow_forward</span></button>
+      </div>
+    </div>
+
+    <!-- SUMMARY -->
+    <div class="form-section" id="sec-summary">
+      <div class="section-header">
+        <span class="material-symbols-outlined">description</span><h3>Professional Summary</h3>
+      </div>
+      <div class="form-grid">
+        <div class="field-group full">
+          <label>Summary <span class="char-count" id="summaryCount">0/300</span></label>
+          <textarea id="summary" rows="6" placeholder="Write 2-3 sentences about your professional background, key skills, and what value you bring. Keep it punchy!" oninput="updateResume();countChars(this,'summaryCount',300)" maxlength="300"></textarea>
+        </div>
+      </div>
+      <div class="tip-box">
+        <span class="material-symbols-outlined">lightbulb</span>
+        <p><strong>Pro Tip:</strong> Start with years of experience, mention top 2–3 skills, end with your goal.</p>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="prevTab()"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+        <button class="btn btn-primary" onclick="nextTab()">Next: Experience <span class="material-symbols-outlined">arrow_forward</span></button>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div class="form-section" id="sec-experience">
+      <div class="section-header">
+        <span class="material-symbols-outlined">work</span><h3>Work Experience</h3>
+      </div>
+      <div id="experienceList"></div>
+      <button class="add-btn" onclick="addExperience()">
+        <span class="material-symbols-outlined">add_circle</span> Add Experience
+      </button>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="prevTab()"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+        <button class="btn btn-primary" onclick="nextTab()">Next: Education <span class="material-symbols-outlined">arrow_forward</span></button>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="form-section" id="sec-education">
+      <div class="section-header">
+        <span class="material-symbols-outlined">school</span><h3>Education</h3>
+      </div>
+      <div id="educationList"></div>
+      <button class="add-btn" onclick="addEducation()">
+        <span class="material-symbols-outlined">add_circle</span> Add Education
+      </button>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="prevTab()"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+        <button class="btn btn-primary" onclick="nextTab()">Next: Skills <span class="material-symbols-outlined">arrow_forward</span></button>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="form-section" id="sec-skills">
+      <div class="section-header">
+        <span class="material-symbols-outlined">psychology</span><h3>Skills</h3>
+      </div>
+      <div class="field-group full" style="margin-bottom:.75rem">
+        <label>Add a Skill</label>
+        <div class="skill-input-row">
+          <input type="text" id="skillInput" placeholder="e.g. React.js, Python, Figma" onkeydown="if(event.key==='Enter'){addSkill();event.preventDefault()}">
+          <select id="skillLevel">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate" selected>Intermediate</option>
+            <option value="Advanced">Advanced</option>
+            <option value="Expert">Expert</option>
+          </select>
+          <button class="btn btn-primary" onclick="addSkill()"><span class="material-symbols-outlined">add</span></button>
+        </div>
+      </div>
+      <div class="skills-tags" id="skillsTags"></div>
+      <div class="tip-box">
+        <span class="material-symbols-outlined">lightbulb</span>
+        <p><strong>ATS Tip:</strong> Use exact skill names from job descriptions. Press Enter to add quickly.</p>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="prevTab()"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+        <button class="btn btn-primary" onclick="nextTab()">Next: Projects <span class="material-symbols-outlined">arrow_forward</span></button>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="form-section" id="sec-projects">
+      <div class="section-header">
+        <span class="material-symbols-outlined">rocket_launch</span><h3>Projects</h3>
+      </div>
+      <div id="projectsList"></div>
+      <button class="add-btn" onclick="addProject()">
+        <span class="material-symbols-outlined">add_circle</span> Add Project
+      </button>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="prevTab()"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+        <button class="btn btn-primary" onclick="nextTab()">Next: Extras <span class="material-symbols-outlined">arrow_forward</span></button>
+      </div>
+    </div>
+
+    <!-- EXTRAS -->
+    <div class="form-section" id="sec-extras">
+      <div class="section-header">
+        <span class="material-symbols-outlined">stars</span><h3>Extras</h3>
+      </div>
+      <div class="form-grid">
+        <div class="field-group full"><label>Languages</label>
+          <input type="text" id="languages" placeholder="English (Fluent), Hindi (Native)" oninput="updateResume()"></div>
+        <div class="field-group full"><label>Certifications</label>
+          <textarea id="certifications" rows="3" placeholder="AWS Certified Developer (2024)&#10;Google Analytics Certified" oninput="updateResume()"></textarea></div>
+        <div class="field-group full"><label>Achievements / Awards</label>
+          <textarea id="achievements" rows="3" placeholder="Hackathon Winner — CodeFest 2023&#10;Employee of the Quarter" oninput="updateResume()"></textarea></div>
+        <div class="field-group full"><label>Hobbies / Interests</label>
+          <input type="text" id="hobbies" placeholder="Open Source, Blogging, Chess" oninput="updateResume()"></div>
+      </div>
+      <div class="nav-buttons">
+        <button class="btn btn-ghost" onclick="prevTab()"><span class="material-symbols-outlined">arrow_back</span> Back</button>
+        <button class="btn btn-primary" onclick="downloadPDF()">
+          <span class="material-symbols-outlined">download</span> Download Resume
+        </button>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MOBILE BOTTOM TAB BAR -->
+  <div class="mob-tab-bar" id="mobTabBar">
+    <button class="mob-tab active" id="tabEdit" onclick="switchMobTab('edit')">
+      <span class="material-symbols-outlined">edit_note</span>
+      Edit
+    </button>
+    <div class="mob-tab-sep"></div>
+    <button class="mob-tab" id="tabPreview" onclick="switchMobTab('preview')">
+      <span class="material-symbols-outlined">preview</span>
+      Preview
+    </button>
+  </div>
+
+  <!-- RIGHT PREVIEW PANEL -->
+  <section class="preview-panel">
+    <div class="preview-toolbar">
+      <div class="preview-label">
+        <span class="material-symbols-outlined">preview</span>
+        Live Preview
+        <span class="active-tpl-badge" id="activeTplBadge">Nova</span>
+      </div>
+      <div class="toolbar-actions">
+        <button class="tool-btn" onclick="openTemplates()"><span class="material-symbols-outlined">style</span></button>
+        <button class="tool-btn" onclick="zoomOut()"><span class="material-symbols-outlined">zoom_out</span></button>
+        <span class="zoom-level" id="zoomLevel">75%</span>
+        <button class="tool-btn" onclick="zoomIn()"><span class="material-symbols-outlined">zoom_in</span></button>
+        <button class="tool-btn" onclick="downloadPDF()"><span class="material-symbols-outlined">download</span></button>
+      </div>
+    </div>
+    <div class="preview-scroll">
+      <div class="resume-wrapper" id="resumeWrapper">
+        <div class="resume-doc" id="resumeDoc"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════
+     ATS SCORE CHECKER — Standalone Section (below builder)
+══════════════════════════════════════════════════════════ -->
+<section class="ats-standalone-section" id="atsStandaloneSection">
+  <div class="ats-standalone-inner">
+
+    <!-- Section Heading -->
+    <div class="ats-standalone-head">
+      <div class="ats-standalone-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#a3e635" stroke-width="1.8" stroke-linejoin="round" fill="rgba(163,230,53,.15)"/></svg>
+      </div>
+      <div>
+        <h2 class="ats-standalone-title">ATS Score Checker</h2>
+        <p class="ats-standalone-sub">Check how well your resume performs against ATS filters</p>
+      </div>
+    </div>
+
+    <!-- Card body -->
+    <div class="ats-standalone-card">
+
+      <!-- Last ATS Check Mini Widget -->
+      <div class="ats-mini-widget" id="atsMiniWidget">
+        <div class="ats-mini-top">
+          <div class="ats-mini-ring">
+            <svg viewBox="0 0 44 44"><circle class="bg" cx="22" cy="22" r="18"/><circle class="fg" id="atsMiniCircle" cx="22" cy="22" r="18"/></svg>
+            <div class="score-num" id="atsMiniScore">—</div>
+          </div>
+          <div class="ats-mini-info">
+            <div class="ats-mini-label">Last ATS Check</div>
+            <div class="ats-mini-badge" id="atsMiniBadge">—</div>
+          </div>
+          <a href="ats_page.html" class="ats-mini-link">
+            Full Check<span class="material-symbols-outlined">arrow_forward</span>
+          </a>
+        </div>
+        <div class="ats-mini-kw" id="atsMiniKw"></div>
+      </div>
+
+      <!-- Get Score / Loading / Result -->
+      <div id="atsGetState">
+        <button class="ats-get-btn" onclick="runAtsScore()">
+          <span class="material-symbols-outlined">psychology</span>
+          Get My ATS Score
+        </button>
+        <p class="ats-get-hint">Analyzes your resume content — no upload needed</p>
+      </div>
+
+      <div class="ats-loading" id="atsLoading">
+        <div class="ats-ai-orbs">
+          <div class="ats-ai-core">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#a3e635" opacity=".8"/></svg>
+          </div>
+          <div class="orb orb1"></div>
+          <div class="orb orb2"></div>
+          <div class="orb orb3"></div>
+        </div>
+        <div class="ats-loading-text" id="atsLoadingText">Analyzing your resume…</div>
+      </div>
+
+      <div class="ats-result" id="atsResult">
+        <!-- Score + Badge row -->
+        <div class="ats-result-top">
+          <div class="ats-ring-big">
+            <svg viewBox="0 0 72 72"><circle class="ats-rbg" cx="36" cy="36" r="30"/><circle class="ats-rfg" id="atsRingFg" cx="36" cy="36" r="30"/></svg>
+            <div class="ats-ring-num"><strong id="atsNumEl">0</strong><span>/100</span></div>
+          </div>
+          <div class="ats-score-info">
+            <div class="ats-score-badge asb-avg" id="atsBadgeEl">Analyzing…</div>
+            <div class="ats-score-desc" id="atsDescEl">Fill in your resume details to see your score.</div>
+          </div>
+        </div>
+        <!-- Breakdown + Tips in 2-col on desktop -->
+        <div class="ats-result-grid">
+          <div>
+            <div class="ats-breakdown" id="atsBreakdown"></div>
+          </div>
+          <div>
+            <div class="ats-tips-title">💡 Tips to Improve</div>
+            <div class="ats-tips-list" id="atsTipsList"></div>
+          </div>
+        </div>
+        <div class="ats-result-actions">
+          <button class="ats-retry-btn" onclick="resetAtsScore()">
+            <span class="material-symbols-outlined" style="font-size:15px">refresh</span>
+            Recalculate
+          </button>
+          <a href="ats_page.html" class="ats-fullcheck-link">
+            <span class="material-symbols-outlined" style="font-size:15px">upload_file</span>
+            Upload Resume for Full Check
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /card -->
+  </div>
+</section>
+
+<div class="toast" id="toast">
+  <span class="material-symbols-outlined">check_circle</span>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script src="js/core/particles.js"></script>
+<script src="js/templates/resume_templates.js"></script>
+<script src="js/features/resume_maker.js"></script>
+<script src="js/features/ai_resume_loader.js"></script>
+<script>
+/* ── Template from URL ───────────────────────────────────── */
+(function(){
+  const urlTpl = new URLSearchParams(window.location.search).get('tpl');
+  if (urlTpl && window.TEMPLATES) {
+    const match = window.TEMPLATES.find(t => t.id === urlTpl);
+    if (match) {
+      window.activeTemplate = urlTpl;
+      const badge = document.getElementById('activeTplBadge');
+      if (badge) badge.textContent = match.name;
+    }
+  }
+})();
+
+/* ── ATS Mini Widget (last saved score) ─────────────────── */
+(function(){
+  let sd = null;
+  try {
+    const r = sessionStorage.getItem('readycv_last_ats') || localStorage.getItem('readycv_last_ats');
+    if (r) sd = JSON.parse(r);
+  } catch {}
+  if (!sd || !sd.score) return;
+  const score = Math.min(100, Math.max(0, parseInt(sd.score)));
+  const widget = document.getElementById('atsMiniWidget');
+  const circle = document.getElementById('atsMiniCircle');
+  const scoreEl= document.getElementById('atsMiniScore');
+  const badge  = document.getElementById('atsMiniBadge');
+  const kwEl   = document.getElementById('atsMiniKw');
+  if (!widget) return;
+  const r2 = 18, circ = 2 * Math.PI * r2;
+  circle.style.strokeDasharray = circ;
+  circle.style.strokeDashoffset = circ;
+  const color = score>=75?'#a3e635':score>=55?'#f97316':'#f87171';
+  circle.style.stroke = color; scoreEl.style.color = color;
+  scoreEl.textContent = score;
+  setTimeout(()=>{ circle.style.strokeDashoffset = circ-(score/100)*circ; },300);
+  badge.textContent = score>=75?'🎉 Excellent':score>=55?'⚡ Average':'⚠️ Needs Work';
+  badge.className   = 'ats-mini-badge '+(score>=75?'ats-badge-good':score>=55?'ats-badge-average':'ats-badge-poor');
+  if (kwEl && sd.missingKeywords?.length) {
+    kwEl.innerHTML = sd.missingKeywords.slice(0,6).map(k=>`<span class="ats-kw-chip">${k}</span>`).join('');
+  }
+  widget.classList.add('visible');
+})();
+
+/* ── Mobile Tab Switcher ─────────────────────────────────── */
+function switchMobTab(tab) {
+  const fp = document.querySelector('.form-panel');
+  const pp = document.querySelector('.preview-panel');
+  const te = document.getElementById('tabEdit');
+  const tp = document.getElementById('tabPreview');
+  if (!fp || !pp) return;
+  if (tab === 'preview') {
+    fp.classList.add('tab-hidden');
+    pp.classList.add('tab-active');
+    te.classList.remove('active'); tp.classList.add('active');
+    autoScaleResume();
+  } else {
+    fp.classList.remove('tab-hidden');
+    pp.classList.remove('tab-active');
+    te.classList.add('active'); tp.classList.remove('active');
+  }
+}
+function autoScaleResume() {
+  const wrap   = document.getElementById('resumeWrapper');
+  const scroll = wrap?.parentElement;
+  if (!wrap || !scroll) return;
+  const scale = Math.min(1, (scroll.clientWidth - 16) / 794);
+  wrap.style.transform       = `scale(${scale})`;
+  wrap.style.transformOrigin = 'top center';
+  wrap.style.marginBottom    = ((1100 * scale) - 1100) + 'px';
+}
+window.addEventListener('resize', ()=>{ if(window.innerWidth<=640) autoScaleResume(); });
+
+/* ── ATS Scoring Engine (from ats_script.js logic) ──────── */
+const _ATS_VERBS = ['led','managed','developed','created','designed','implemented','built',
+  'launched','achieved','improved','increased','reduced','saved','delivered','coordinated',
+  'analyzed','analysed','presented','trained','mentored','supervised','established',
+  'spearheaded','optimized','streamlined','executed','produced','negotiated','secured',
+  'engineered','deployed','automated','scaled','collaborated','researched','initiated'];
+const _ATS_QUANT  = /\d+\s*(%|percent|k\b|m\b|million|\+|x\b|\$|₹|users|clients|projects|teams|employees)/gi;
+const _EMAIL_RE   = /[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/;
+const _PHONE_RE   = /(\+?[\d][\d\s\-\(\)\.]{5,13}[\d])/;
+const _DATE_RE    = /(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\d{4})\s*[-–]\s*(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|\d{4}|present)/i;
+const _LINKEDIN_RE= /linkedin\.com/i;
+
+const _ATS_TIPS = [
+  {e:'💡', t:'Use <strong>exact keywords</strong> from the job description — ATS matches exact phrases.'},
+  {e:'📊', t:'Add <strong>quantifiable metrics</strong>: "30% increase", "$2M budget", "500K users" — numbers stand out.'},
+  {e:'✅', t:'Start bullets with <strong>strong action verbs</strong>: Led, Built, Achieved, Designed, Managed.'},
+  {e:'🔗', t:'Include your <strong>LinkedIn URL</strong> — it adds credibility and is a standard ATS field.'},
+  {e:'📅', t:'Add <strong>date ranges</strong> to all positions: "Jan 2022 – Dec 2023" consistently.'},
+  {e:'📝', t:'Write a <strong>professional summary</strong> with 3-5 keywords from your target job description.'},
+  {e:'🎯', t:'<strong>Tailor your resume</strong> for each application — one generic resume rarely passes ATS filters.'},
+  {e:'📋', t:'Add a dedicated <strong>Skills section</strong> — many ATS systems specifically scan for this heading.'},
+  {e:'📐', t:'Use <strong>standard headings</strong>: "Work Experience", "Education", "Skills" — not creative alternatives.'},
+];
+
+function _calcAtsScore() {
+  const ids = ['name','jobTitle','email','phone','location','linkedin','github',
+               'portfolio','summary','languages','certifications','achievements','hobbies'];
+  let text = ids.map(id=>(document.getElementById(id)?.value||'')).join('\n');
+  document.querySelectorAll('.repeat-card input,.repeat-card textarea').forEach(el=>{ text+='\n'+el.value; });
+  document.querySelectorAll('.skill-tag').forEach(el=>{ text+='\n'+el.textContent; });
+  const lower = text.toLowerCase();
+
+  const hasExp  = !!document.querySelector('#experienceList .repeat-card');
+  const hasEdu  = !!document.querySelector('#educationList .repeat-card');
+  const hasSk   = !!document.querySelector('#skillsTags .skill-tag');
+  const hasSum  = (document.getElementById('summary')?.value||'').length>20;
+  const hasCont = _EMAIL_RE.test(text) && _PHONE_RE.test(text);
+  const secScore = Math.min(25, (hasExp?8:0)+(hasEdu?6:0)+(hasSk?6:0)+(hasSum?3:0)+(hasCont?2:0));
+
+  const verbs  = _ATS_VERBS.filter(v=>lower.includes(v)).length;
+  const quants = (text.match(_ATS_QUANT)||[]).length;
+  const wc     = text.trim().split(/\s+/).filter(w=>w.length>1).length;
+  const sumLen = (document.getElementById('summary')?.value||'').length;
+  let conScore = Math.min(8,verbs)+Math.min(8,quants*2);
+  conScore += wc>=300?5:wc>=150?3:wc>=60?1:0;
+  conScore += sumLen>50?4:sumLen>20?2:0;
+  conScore = Math.min(25,conScore);
+
+  let fmtScore = 0;
+  if(_EMAIL_RE.test(text))   fmtScore+=6;
+  if(_PHONE_RE.test(text))   fmtScore+=5;
+  if(_LINKEDIN_RE.test(text))fmtScore+=4;
+  fmtScore += Math.min(6,(text.match(_DATE_RE)||[]).length*2);
+  if(/github\.com|portfolio|behance/i.test(text)) fmtScore+=4;
+  fmtScore = Math.min(25,fmtScore);
+
+  const skCount = document.querySelectorAll('#skillsTags .skill-tag').length;
+  const kwScore = Math.min(25, skCount*3+Math.min(10,verbs));
+
+  return {
+    total: Math.min(100, secScore+conScore+fmtScore+kwScore),
+    breakdown: {
+      'Sections':   {score:secScore,  color:'#a855f7'},
+      'Content':    {score:conScore,  color:'#22d3ee'},
+      'Formatting': {score:fmtScore,  color:'#a3e635'},
+      'Keywords':   {score:kwScore,   color:'#6366f1'},
+    },
+    hasCont, hasExp, hasEdu, hasSk, hasSum,
+    verbs, quants, wc, sumLen, skCount
+  };
+}
+
+function _buildTips(data) {
+  const tips = [];
+  if (!data.hasExp)   tips.push({e:'💼',t:'Add at least one <strong>Work Experience</strong> entry.'});
+  if (!data.hasSk)    tips.push({e:'🔧',t:'Add <strong>skills</strong> — ATS systems scan for them specifically.'});
+  if (!data.hasSum)   tips.push({e:'📝',t:'Write a <strong>professional summary</strong> (2-3 sentences).'});
+  if (!data.hasCont)  tips.push({e:'📞',t:'Add your <strong>email and phone</strong> to the Personal section.'});
+  if (data.quants<2)  tips.push({e:'📊',t:'Add <strong>numbers/metrics</strong> to your bullets: %, $, users, teams.'});
+  if (data.verbs<4)   tips.push({e:'✅',t:'Use more <strong>action verbs</strong>: Led, Built, Delivered, Achieved.'});
+  if (data.skCount<5) tips.push({e:'🏷️',t:'Add <strong>5+ skills</strong> from the Skills tab for better keyword match.'});
+  // Pad with generic tips
+  for (const t of _ATS_TIPS) {
+    if (tips.length >= 4) break;
+    if (!tips.find(x=>x.e===t.e)) tips.push(t);
+  }
+  return tips.slice(0,4);
+}
+
+const _loadingMsgs = [
+  'Reading your resume…','Scanning keywords…',
+  'Checking ATS signals…','Calculating score…','Almost done…'
+];
+
+async function runAtsScore() {
+  // Hide button, show loader
+  document.getElementById('atsGetState').style.display='none';
+  const loader = document.getElementById('atsLoading');
+  const txtEl  = document.getElementById('atsLoadingText');
+  loader.classList.add('visible');
+
+  // Cycle through loading messages
+  let mi = 0;
+  const msgTimer = setInterval(()=>{
+    txtEl.textContent = _loadingMsgs[mi++ % _loadingMsgs.length];
+  }, 600);
+
+  // Simulate brief analysis delay for UX
+  await new Promise(r=>setTimeout(r, 2800));
+  clearInterval(msgTimer);
+
+  // Calculate
+  const data = _calcAtsScore();
+  const s    = data.total;
+
+  // Hide loader, show result
+  loader.classList.remove('visible');
+  const result = document.getElementById('atsResult');
+  result.classList.add('visible');
+
+  // Ring animation
+  const ring = document.getElementById('atsRingFg');
+  const numEl= document.getElementById('atsNumEl');
+  const circ = 2*Math.PI*30; // r=30 → 188.5
+  ring.style.strokeDasharray  = circ;
+  ring.style.strokeDashoffset = circ;
+  const ringColor = s>=75?'#a3e635':s>=55?'#f97316':'#f87171';
+  ring.style.stroke = ringColor;
+  numEl.style.color = ringColor;
+
+  // Animate number + ring together
+  setTimeout(()=>{ ring.style.strokeDashoffset = circ-(s/100)*circ; },100);
+  let cur=0; const numT=setInterval(()=>{ numEl.textContent=Math.min(++cur,s); if(cur>=s)clearInterval(numT); },18);
+
+  // Badge
+  const badge = document.getElementById('atsBadgeEl');
+  const desc  = document.getElementById('atsDescEl');
+  if (s>=85)      { badge.textContent='🎉 Excellent!'; badge.className='ats-score-badge asb-great';
+                    desc.textContent='Great job! Your resume is highly ATS-optimized.'; }
+  else if (s>=70) { badge.textContent='✅ Good';       badge.className='ats-score-badge asb-good';
+                    desc.textContent='Your resume is performing well. A few tweaks can push it higher.'; }
+  else if (s>=50) { badge.textContent='⚡ Average';    badge.className='ats-score-badge asb-avg';
+                    desc.textContent='Decent foundation. Fix the tips below to boost your score fast.'; }
+  else            { badge.textContent='⚠️ Needs Work'; badge.className='ats-score-badge asb-poor';
+                    desc.textContent='Your resume needs improvements to pass ATS filters. Start with the tips below.'; }
+
+  // Breakdown bars
+  const bdEl = document.getElementById('atsBreakdown');
+  bdEl.innerHTML = Object.entries(data.breakdown).map(([name,{score,color}])=>`
+    <div class="ats-bd-row">
+      <div class="ats-bd-label"><span>${name}</span><span class="ats-bd-val">${score}/25</span></div>
+      <div class="ats-bd-track"><div class="ats-bd-bar" style="background:${color};width:0%" data-w="${(score/25)*100}%"></div></div>
+    </div>`).join('');
+  // Animate bars
+  setTimeout(()=>{
+    bdEl.querySelectorAll('.ats-bd-bar').forEach(b=>{ b.style.width=b.dataset.w; });
+  },200);
+
+  // Tips
+  const tips = _buildTips(data);
+  document.getElementById('atsTipsList').innerHTML = tips.map((t,i)=>`
+    <div class="ats-tip-item" style="animation-delay:${i*.1}s">
+      <span class="tip-emoji">${t.e}</span>
+      <span>${t.t}</span>
+    </div>`).join('');
+}
+
+function resetAtsScore() {
+  document.getElementById('atsGetState').style.display='block';
+  document.getElementById('atsResult').classList.remove('visible');
+}
+
+/* ── ATS Section — standalone below builder, no collapse needed ── */
+function toggleAtsSection() { /* no-op: section is always visible */ }
+// ATS section is now standalone below the builder — no collapse state needed
+
+/* ── Live ATS Bar (desktop preview panel) ────────────────── */
+(function(){
+  // Live bar removed — ATS checker is now in standalone section below builder
+  window._updateLiveAts = function(){};
+  document.addEventListener('input', window._updateLiveAts);
+})();
+</script>
+</body>
+</html>

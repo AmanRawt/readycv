@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>ReadyCV — AI Resume Writer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="css/ai_resume_writer.css">
+</head>
+<body>
+
+<!-- CANVAS BG -->
+<canvas id="starCanvas" aria-hidden="true"></canvas>
+
+<!-- MESH ORBS -->
+<div class="ambient" aria-hidden="true">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="orb orb4"></div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="logo-link">
+    <div class="logo-container">
+      <div class="logo-icon"><img src="assets/images/logo.svg" alt="ReadyCVs" onerror="this.parentNode.innerHTML='📄'"></div>
+      <h2 class="logo-text">Ready<span class="logo-cv-grad">CV</span></h2>
+    </div>
+  </a>
+
+  <nav class="main-nav">
+    <a href="ats_page.html" class="nav-link">
+      ATS Checker
+    </a>
+    <a href="resume_maker.html" class="nav-link">
+      <span class="material-symbols-outlined">edit_document</span>
+      Builder
+    </a>
+    <a href="index.html" class="nav-link">
+      Home
+    </a>
+  </nav>
+
+  <a href="resume_maker.html" class="btn btn-primary">
+    <span class="material-symbols-outlined">edit_document</span>
+    <span class="btn-label">Build Resume</span>
+  </a>
+  <!-- Mobile nav — matches rest of site -->
+  <div class="mob-nav-wrap">
+    <button class="mob-nav-btn" id="mobBtn">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <div class="mob-dropdown" id="mobDrop">
+      <a href="index.html"><span class="material-symbols-outlined">home</span>Home</a>
+      <a href="resume_maker.html"><span class="material-symbols-outlined">article</span>Resume Builder</a>
+      <a href="ats_page.html"><span class="material-symbols-outlined">analytics</span>ATS Checker</a>
+      <a href="ai_resume_writer.html"><span class="material-symbols-outlined">auto_awesome</span>AI Writer</a>
+      <a href="resume_maker.html" class="mob-drop-cta"><span class="material-symbols-outlined">edit_document</span>Build Resume</a>
+    </div>
+  </div>
+</header>
+
+<main class="page-main">
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24">
+        <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z" fill="url(#hbGrad)"/>
+        <defs><linearGradient id="hbGrad" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#a3e635"/></linearGradient></defs>
+      </svg>
+      Powered by ReadyCVs Intelligence
+    </div>
+    <h1 class="hero-title">
+      <span class="grad-text hero-glow">AI Resume Writer</span>
+    </h1>
+    <p class="hero-desc">Generate ATS-optimized bullet points or a complete resume. Built-in grammar correction. 1000+ unique bullets per field.</p>
+
+    <!-- Animated stats row -->
+    <div class="stats-row">
+      <div class="stat-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z" fill="#a3e635"/></svg>
+        1000+ Unique Bullets
+      </div>
+      <div class="stat-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#a855f7" stroke-width="2"/><path d="M12 6v6l4 2" stroke="#a855f7" stroke-width="2" stroke-linecap="round"/></svg>
+        Instant Results
+      </div>
+      <div class="stat-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#22d3ee" stroke-width="2" stroke-linecap="round"/><polyline points="22 4 12 14.01 9 11.01" stroke="#22d3ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Grammar Corrected
+      </div>
+      <div class="stat-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="4" stroke="#facc15" stroke-width="2"/><path d="M8 12h8M8 8h8M8 16h5" stroke="#facc15" stroke-width="2" stroke-linecap="round"/></svg>
+        ATS Score Boost
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TWO COLUMN LAYOUT -->
+  <section class="two-col">
+
+    <!-- LEFT: INPUT -->
+    <div class="left-col">
+      <div class="input-panel-header">
+        <div class="gemini-icon" aria-hidden="true">
+          <!-- Gemini-style animated AI icon -->
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="gemini-svg">
+            <defs>
+              <linearGradient id="gem1" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#a855f7"/>
+                <stop offset="50%" stop-color="#22d3ee"/>
+                <stop offset="100%" stop-color="#a3e635"/>
+              </linearGradient>
+              <linearGradient id="gem2" x1="48" y1="0" x2="0" y2="48" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#a3e635" stop-opacity="0.5"/>
+                <stop offset="100%" stop-color="#a855f7" stop-opacity="0.5"/>
+              </linearGradient>
+            </defs>
+            <!-- Outer glow ring -->
+            <circle cx="24" cy="24" r="22" stroke="url(#gem1)" stroke-width="1" opacity="0.4" class="gem-ring-outer"/>
+            <!-- Main 4-point star -->
+            <path d="M24 4 C24 4 26 14 24 24 C22 14 24 4 24 4 Z" fill="url(#gem1)" class="gem-petal-t"/>
+            <path d="M44 24 C44 24 34 26 24 24 C34 22 44 24 44 24 Z" fill="url(#gem1)" class="gem-petal-r"/>
+            <path d="M24 44 C24 44 22 34 24 24 C26 34 24 44 24 44 Z" fill="url(#gem1)" class="gem-petal-b"/>
+            <path d="M4 24 C4 24 14 22 24 24 C14 26 4 24 4 24 Z" fill="url(#gem1)" class="gem-petal-l"/>
+            <!-- Inner circle -->
+            <circle cx="24" cy="24" r="4" fill="url(#gem1)" opacity="0.9" class="gem-core"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="input-title">AI <span class="grad-text">Writer</span></h2>
+          <p class="input-sub">Describe your experience — AI does the rest</p>
+        </div>
+      </div>
+
+      <!-- Mode tabs -->
+      <div class="mode-row">
+        <button class="mode-btn active" id="mBullets" onclick="setMode('bullets',this)">
+          <span class="material-symbols-outlined">format_list_bulleted</span>
+          <span>Bullet Points</span>
+        </button>
+        <button class="mode-btn" id="mFull" onclick="setMode('full',this)">
+          <span class="material-symbols-outlined">auto_awesome</span>
+          <span>Full Resume</span>
+        </button>
+      </div>
+
+      <!-- BULLETS PANEL -->
+      <div class="mode-panel" id="panelBullets">
+        <div class="field-block">
+          <label class="field-lbl">Section Type</label>
+          <div class="chip-row" id="typeChips">
+            <button class="chip active" onclick="setType(this,'experience')">
+              <span class="material-symbols-outlined">work</span> Experience
+            </button>
+            <button class="chip" onclick="setType(this,'summary')">
+              <span class="material-symbols-outlined">person</span> Summary
+            </button>
+            <button class="chip" onclick="setType(this,'project')">
+              <span class="material-symbols-outlined">code</span> Project
+            </button>
+            <button class="chip" onclick="setType(this,'achievement')">
+              <span class="material-symbols-outlined">emoji_events</span> Achievement
+            </button>
+            <button class="chip" onclick="setType(this,'skills')">
+              <span class="material-symbols-outlined">psychology</span> Skills
+            </button>
+            <button class="chip" onclick="setType(this,'leadership')">
+              <span class="material-symbols-outlined">groups</span> Leadership
+            </button>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label class="field-lbl">Describe what you did</label>
+          <div class="ta-wrapper">
+            <textarea id="bulletInput" class="ai-ta" rows="5"
+              placeholder="e.g. Managed a team of 5 engineers to deliver a mobile app on time and under budget"
+              oninput="onTA(this,'bCount',500)"></textarea>
+            <button class="grammar-btn" id="grammarBtnBullet" onclick="runGrammar('bulletInput')" title="Fix grammar & spelling">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M12 20h9" stroke="#a3e635" stroke-width="2" stroke-linecap="round"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke="#a3e635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Fix Grammar</span>
+            </button>
+          </div>
+          <div class="ta-foot">
+            <span class="ta-count" id="bCount">0/500</span>
+            <button class="ta-clear" onclick="clearTA('bulletInput','bCount',500)">Clear</button>
+          </div>
+        </div>
+
+        <div class="field-block">
+          <label class="field-lbl">Number of bullets</label>
+          <div class="chip-row chip-row-cnt">
+            <button class="chip chip-cnt active" onclick="setCnt(this,3)">3 Bullets</button>
+            <button class="chip chip-cnt" onclick="setCnt(this,5)">5 Bullets</button>
+            <button class="chip chip-cnt" onclick="setCnt(this,7)">7 Bullets</button>
+          </div>
+        </div>
+
+        <button class="gen-btn" onclick="generateBullets()">
+          <svg class="gen-star" width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z" fill="url(#gs1)"/>
+            <path d="M19 3l.5 1.5L21 5l-1.5.5L19 7l-.5-1.5L17 5l1.5-.5L19 3z" fill="#a3e635" opacity=".8"/>
+            <path d="M5 17l.4 1.2 1.2.4-1.2.4L5 20.2l-.4-1.2-1.2-.4 1.2-.4L5 17z" fill="#a855f7" opacity=".8"/>
+            <defs><linearGradient id="gs1" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#a3e635"/></linearGradient></defs>
+          </svg>
+          Generate Bullets
+        </button>
+
+        <div class="examples-block">
+          <p class="ex-lbl">Quick examples:</p>
+          <div class="ex-chips" id="exChips"></div>
+        </div>
+      </div>
+
+      <!-- FULL RESUME PANEL -->
+      <div class="mode-panel hidden" id="panelFull">
+        <div class="info-tip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26A7 7 0 0 1 12 2z" stroke="#facc15" stroke-width="1.8"/><path d="M10 21h4" stroke="#facc15" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span><strong>Include:</strong> Name · Role · Years exp · Company · College · Skills · Projects · Achievements</span>
+        </div>
+        <div class="field-block">
+          <label class="field-lbl">Describe yourself and your background</label>
+          <div class="ta-wrapper">
+            <textarea id="fullInput" class="ai-ta" rows="8"
+              placeholder="e.g. My name is Aman Rawat. I am a Full Stack Developer with 3 years of experience in React and Node.js. I worked at TCS as a Software Engineer where I built an e-commerce platform used by 50K customers. B.Tech Computer Science from GEHU Dehradun 2021, 8.2 CGPA. Skills: JavaScript, Python, MongoDB, AWS, Docker. Won national hackathon 2023."
+              oninput="onTA(this,'fCount',2000)"></textarea>
+            <button class="grammar-btn" id="grammarBtnFull" onclick="runGrammar('fullInput')" title="Fix grammar & spelling">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M12 20h9" stroke="#a3e635" stroke-width="2" stroke-linecap="round"/>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke="#a3e635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Fix Grammar</span>
+            </button>
+          </div>
+          <div class="ta-foot">
+            <span class="ta-count" id="fCount">0/2000</span>
+            <button class="ta-clear" onclick="clearTA('fullInput','fCount',2000)">Clear</button>
+          </div>
+        </div>
+
+        <button class="gen-btn" onclick="generateFullResume()">
+          <svg class="gen-star" width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z" fill="url(#gs2)"/>
+            <defs><linearGradient id="gs2" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#a3e635"/></linearGradient></defs>
+          </svg>
+          Generate Full Resume
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT: OUTPUT -->
+    <div class="right-col">
+      <div class="output-header">
+        <h2 class="output-title">Results</h2>
+        <p class="output-desc">AI-generated, ATS-optimized content</p>
+      </div>
+
+      <div class="output-box">
+        <!-- EMPTY STATE -->
+        <div class="st-empty" id="stEmpty">
+          <div class="empty-gem">
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" width="120" height="120">
+              <defs>
+                <linearGradient id="eg1" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#a3e635" stop-opacity="0.3"/>
+                </linearGradient>
+                <linearGradient id="eg2" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#a855f7"/>
+                  <stop offset="50%" stop-color="#22d3ee"/>
+                  <stop offset="100%" stop-color="#a3e635"/>
+                </linearGradient>
+              </defs>
+              <circle cx="60" cy="60" r="55" fill="url(#eg1)" class="empty-ring-outer"/>
+              <circle cx="60" cy="60" r="38" stroke="url(#eg2)" stroke-width="0.8" stroke-dasharray="8 4" opacity="0.4" class="empty-ring-dash"/>
+              <!-- Gemini-style star -->
+              <path d="M60 20 C60 20 63 40 60 60 C57 40 60 20 60 20 Z" fill="url(#eg2)" class="ep-t"/>
+              <path d="M100 60 C100 60 80 63 60 60 C80 57 100 60 100 60 Z" fill="url(#eg2)" class="ep-r"/>
+              <path d="M60 100 C60 100 57 80 60 60 C63 80 60 100 60 100 Z" fill="url(#eg2)" class="ep-b"/>
+              <path d="M20 60 C20 60 40 57 60 60 C40 63 20 60 20 60 Z" fill="url(#eg2)" class="ep-l"/>
+              <circle cx="60" cy="60" r="6" fill="url(#eg2)" opacity="0.8" class="ep-core"/>
+              <!-- Small orbiting dots -->
+              <circle cx="60" cy="16" r="3" fill="#a855f7" opacity="0.6" class="orbit-dot1"/>
+              <circle cx="104" cy="60" r="2.5" fill="#22d3ee" opacity="0.5" class="orbit-dot2"/>
+              <circle cx="60" cy="104" r="3" fill="#a3e635" opacity="0.6" class="orbit-dot3"/>
+              <circle cx="16" cy="60" r="2.5" fill="#a855f7" opacity="0.5" class="orbit-dot4"/>
+            </svg>
+          </div>
+          <p class="empty-main">AI-generated content appears here</p>
+          <p class="empty-sub">Describe your experience and click Generate</p>
+        </div>
+
+        <!-- LOADING STATE -->
+        <div class="st-loading hidden" id="stLoading">
+          <div class="loading-gem">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" height="90">
+              <defs>
+                <linearGradient id="lg1" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#a855f7"/>
+                  <stop offset="50%" stop-color="#22d3ee"/>
+                  <stop offset="100%" stop-color="#a3e635"/>
+                </linearGradient>
+              </defs>
+              <!-- Rotating outer ring -->
+              <circle cx="50" cy="50" r="44" stroke="url(#lg1)" stroke-width="2" stroke-dasharray="60 80" stroke-linecap="round" class="load-ring1"/>
+              <!-- Counter-rotating ring -->
+              <circle cx="50" cy="50" r="34" stroke="rgba(163,230,53,0.3)" stroke-width="1.5" stroke-dasharray="40 80" stroke-linecap="round" class="load-ring2"/>
+              <!-- Pulsing core star -->
+              <path d="M50 20 C50 20 53 35 50 50 C47 35 50 20 50 20 Z" fill="url(#lg1)" class="load-petal-t"/>
+              <path d="M80 50 C80 50 65 53 50 50 C65 47 80 50 80 50 Z" fill="url(#lg1)" class="load-petal-r"/>
+              <path d="M50 80 C50 80 47 65 50 50 C53 65 50 80 50 80 Z" fill="url(#lg1)" class="load-petal-b"/>
+              <path d="M20 50 C20 50 35 47 50 50 C35 53 20 50 20 50 Z" fill="url(#lg1)" class="load-petal-l"/>
+              <circle cx="50" cy="50" r="5" fill="url(#lg1)" class="load-core"/>
+            </svg>
+          </div>
+          <p class="lmsg" id="lmsg">Analyzing your input…</p>
+          <div class="lbar-wrap">
+            <div class="lbar" id="lbar"></div>
+            <div class="lbar-shine"></div>
+          </div>
+        </div>
+
+        <!-- Bullets result -->
+        <div class="st-bullets hidden" id="stBullets">
+          <div class="res-head">
+            <span class="res-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24"><path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z" fill="#a3e635"/></svg>
+              AI Generated
+            </span>
+            <span class="ats-badge" id="atsBadge"></span>
+          </div>
+          <div class="bullets-out" id="bulletsOut"></div>
+          <div class="res-actions">
+            <button class="ra-btn ra-green" onclick="acceptAll()">
+              <span class="material-symbols-outlined">done_all</span>Accept All
+            </button>
+            <button class="ra-btn ra-ghost" onclick="generateBullets()">
+              <span class="material-symbols-outlined">refresh</span>Regenerate
+            </button>
+            <button class="ra-btn ra-ghost" onclick="copyAll()">
+              <span class="material-symbols-outlined">content_copy</span>Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Full resume result -->
+        <div class="st-full hidden" id="stFull">
+          <div class="full-ok">
+            <div class="full-ok-ico">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#a3e635" stroke-width="2" stroke-linecap="round"/>
+                <polyline points="22 4 12 14.01 9 11.01" stroke="#a3e635" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="full-ok-t">Resume Generated! 🎉</div>
+              <div class="full-ok-s" id="fullSub"></div>
+            </div>
+          </div>
+          <div class="full-chips" id="fullChips"></div>
+          <div class="full-prev" id="fullPrev"></div>
+          <button class="gen-btn" onclick="openBuilder()" style="margin:.75rem 0 .5rem">
+            <span class="material-symbols-outlined" style="font-size:19px">edit_document</span>
+            Edit in Resume Builder →
+          </button>
+          <button class="ra-btn ra-ghost" style="width:100%;justify-content:center" onclick="generateFullResume()">
+            <span class="material-symbols-outlined">refresh</span> Regenerate
+          </button>
+        </div>
+      </div>
+
+      <!-- Saved bullets -->
+      <div class="saved-card hidden" id="savedCard">
+        <div class="saved-head">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <polyline points="20 6 9 17 4 12" stroke="#a3e635" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Saved Bullets</span>
+          <span class="saved-cnt" id="savedCnt">0</span>
+          <button class="icon-del" onclick="clearSaved()">
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+        <div class="saved-list" id="savedList"></div>
+        <div class="saved-acts">
+          <button class="ra-btn ra-green" onclick="copySaved()">
+            <span class="material-symbols-outlined">content_copy</span>Copy All
+          </button>
+          <a href="resume_maker.html" class="ra-btn ra-ghost" style="text-decoration:none">
+            <span class="material-symbols-outlined">edit_document</span>Open Builder
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIPS TICKER -->
+  <div class="tips-wrap">
+    <div class="tips-head">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-2.26A7 7 0 0 1 12 2z" stroke="#facc15" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M10 21h4" stroke="#facc15" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <span class="tips-head-txt">Resume &amp; ATS Pro Tips</span>
+      <span class="tips-cnt-badge">50+ tips</span>
+    </div>
+    <div class="tips-track-wrap">
+      <div class="tips-fade tips-fade-l"></div>
+      <div class="tips-fade tips-fade-r"></div>
+      <div class="tips-track" id="tipsTrack"></div>
+    </div>
+  </div>
+
+  <!-- EXAMPLE PROMPTS -->
+  <div class="prompts-section">
+    <div class="prompts-header">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2l2.09 6.26L20 10l-5.91 1.74L12 18l-2.09-6.26L4 10l5.91-1.74L12 2z" fill="url(#ph1)"/>
+        <defs><linearGradient id="ph1" x1="0" y1="0" x2="24" y2="24"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#a3e635"/></linearGradient></defs>
+      </svg>
+      <span class="prompts-title">Try These Example Prompts</span>
+      <span class="prompts-sub">Click any card to load it into the writer instantly</span>
+    </div>
+    <div class="prompts-grid">
+      <div class="prompt-card" onclick="loadPrompt('bullets','Led a team of 5 engineers to build a real-time payment gateway handling 10,000+ transactions per day on AWS. Reduced transaction latency by 40% and improved system uptime to 99.9%. Used React, Node.js, PostgreSQL and Redis.')">
+        <div class="pc-tag pc-tag-exp">Experience</div>
+        <div class="pc-title">Payment Gateway Project</div>
+        <div class="pc-preview">"Led a team of 5 engineers to build a real-time payment gateway handling 10K+ transactions/day on AWS..."</div>
+        <div class="pc-footer"><span class="pc-mode">Bullet Points</span><span class="pc-arrow">Try it →</span></div>
+      </div>
+      <div class="prompt-card" onclick="loadPrompt('bullets','Increased organic website traffic by 200% in 6 months through SEO strategy, content optimization and technical fixes. Reduced bounce rate from 72% to 38%. Managed Google Ads campaigns with $50K monthly budget achieving 4x ROAS.')">
+        <div class="pc-tag pc-tag-mkt">Marketing</div>
+        <div class="pc-title">SEO &amp; Paid Ads Growth</div>
+        <div class="pc-preview">"Increased organic traffic by 200% in 6 months through SEO strategy and technical fixes..."</div>
+        <div class="pc-footer"><span class="pc-mode">Bullet Points</span><span class="pc-arrow">Try it →</span></div>
+      </div>
+      <div class="prompt-card" onclick="loadPrompt('full','My name is Aman Rawat. I am a Full Stack Developer with 3 years of experience in React and Node.js. I worked at TCS as a Software Engineer where I built an e-commerce platform used by 50,000 customers. I have a B.Tech in Computer Science from GEHU Dehradun completed in 2021 with 8.2 CGPA. My skills include JavaScript, TypeScript, Python, MongoDB, AWS, Docker, Git and Figma. I won a national hackathon in 2023. I speak English and Hindi fluently.')">
+        <div class="pc-tag pc-tag-full">Full Resume</div>
+        <div class="pc-title">Full Stack Developer</div>
+        <div class="pc-preview">"My name is Aman Rawat. Full Stack Developer with 3 years experience in React and Node.js at TCS..."</div>
+        <div class="pc-footer"><span class="pc-mode">Full Resume</span><span class="pc-arrow">Try it →</span></div>
+      </div>
+      <div class="prompt-card" onclick="loadPrompt('full','My name is Neha Gupta. I am a Data Scientist with 4 years of experience at Infosys. I built ML models for fraud detection that saved the company $2M annually. I have a B.Tech from IIT Delhi 2020 with 9.1 CGPA. My skills are Python, TensorFlow, PyTorch, SQL, Spark, Tableau and AWS SageMaker. I published 2 research papers at IEEE. I speak English, Hindi and Bengali.')">
+        <div class="pc-tag pc-tag-data">Data Science</div>
+        <div class="pc-title">Data Scientist at IIT Delhi</div>
+        <div class="pc-preview">"My name is Neha Gupta. Data Scientist with 4 years at Infosys. Built fraud detection saving $2M..."</div>
+        <div class="pc-footer"><span class="pc-mode">Full Resume</span><span class="pc-arrow">Try it →</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FEATURES SECTION — moved below AI writer -->
+  <section class="features-section">
+    <div class="features-header">
+      <h2 class="features-title">Why Use Our <span class="grad-text">AI Writer</span></h2>
+      <p class="features-sub">Everything you need to build a standout resume</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card fc-purple">
+        <div class="fc-visual">
+          <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="fc-svg">
+            <defs>
+              <linearGradient id="fcg1" x1="0" y1="0" x2="120" y2="100" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#a855f7"/>
+                <stop offset="100%" stop-color="#7c3aed"/>
+              </linearGradient>
+            </defs>
+            <!-- Resume mockup cards -->
+            <rect x="8" y="12" width="50" height="70" rx="6" fill="rgba(168,85,247,0.12)" stroke="rgba(168,85,247,0.3)" stroke-width="1"/>
+            <rect x="12" y="20" width="30" height="3" rx="2" fill="rgba(168,85,247,0.5)"/>
+            <rect x="12" y="27" width="22" height="2" rx="1" fill="rgba(168,85,247,0.25)"/>
+            <rect x="12" y="33" width="38" height="2" rx="1" fill="rgba(168,85,247,0.2)"/>
+            <rect x="12" y="38" width="35" height="2" rx="1" fill="rgba(168,85,247,0.2)"/>
+            <rect x="12" y="43" width="40" height="2" rx="1" fill="rgba(168,85,247,0.15)"/>
+            <rect x="20" y="16" width="60" height="72" rx="6" fill="rgba(168,85,247,0.18)" stroke="rgba(168,85,247,0.4)" stroke-width="1"/>
+            <rect x="25" y="24" width="35" height="4" rx="2" fill="rgba(168,85,247,0.6)"/>
+            <rect x="25" y="32" width="28" height="2" rx="1" fill="rgba(168,85,247,0.35)"/>
+            <rect x="25" y="38" width="44" height="2" rx="1" fill="rgba(168,85,247,0.25)"/>
+            <rect x="25" y="43" width="40" height="2" rx="1" fill="rgba(168,85,247,0.25)"/>
+            <rect x="25" y="48" width="44" height="2" rx="1" fill="rgba(168,85,247,0.2)"/>
+            <rect x="25" y="53" width="38" height="2" rx="1" fill="rgba(168,85,247,0.2)"/>
+            <!-- Sparkles -->
+            <path d="M95 18 L97 24 L103 18 L97 12 Z" fill="#a855f7" opacity="0.8" class="anim-sparkle1"/>
+            <path d="M88 72 L89.5 76 L93 72 L89.5 68 Z" fill="#a3e635" opacity="0.7" class="anim-sparkle2"/>
+          </svg>
+        </div>
+        <div class="fc-content">
+          <div class="fc-icon">
+            <span class="material-symbols-outlined">auto_awesome</span>
+          </div>
+          <h3 class="fc-title">New, professional designs</h3>
+          <p class="fc-desc">Choose from a wide range of styles for every job level and type. From fun and creative to simple and modern, we offer designs for all types of job seekers.</p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card fc-lime">
+        <div class="fc-visual">
+          <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="fc-svg">
+            <defs>
+              <linearGradient id="fcg2" x1="0" y1="0" x2="120" y2="100" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#a3e635"/>
+                <stop offset="100%" stop-color="#65a30d"/>
+              </linearGradient>
+            </defs>
+            <!-- Robot/ATS checker -->
+            <rect x="30" y="20" width="60" height="60" rx="12" fill="rgba(163,230,53,0.1)" stroke="rgba(163,230,53,0.3)" stroke-width="1.5"/>
+            <rect x="42" y="32" width="36" height="8" rx="4" fill="rgba(163,230,53,0.2)" stroke="rgba(163,230,53,0.4)" stroke-width="1"/>
+            <circle cx="50" cy="36" r="2.5" fill="#a3e635" class="ats-eye1"/>
+            <circle cx="70" cy="36" r="2.5" fill="#a3e635" class="ats-eye2"/>
+            <path d="M50 48 Q60 55 70 48" stroke="#a3e635" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <rect x="42" y="57" width="36" height="12" rx="4" fill="rgba(163,230,53,0.1)"/>
+            <rect x="46" y="61" width="20" height="2" rx="1" fill="rgba(163,230,53,0.4)"/>
+            <rect x="46" y="65" width="14" height="2" rx="1" fill="rgba(163,230,53,0.3)"/>
+            <!-- Check marks -->
+            <circle cx="95" cy="30" r="8" fill="rgba(163,230,53,0.15)" stroke="rgba(163,230,53,0.4)" stroke-width="1"/>
+            <polyline points="91,30 94,33 99,27" stroke="#a3e635" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="anim-check"/>
+          </svg>
+        </div>
+        <div class="fc-content">
+          <div class="fc-icon fc-icon-lime">
+            <span class="material-symbols-outlined">verified</span>
+          </div>
+          <h3 class="fc-title">ATS-friendly</h3>
+          <p class="fc-desc">Employers use applicant tracking systems (ATS) to filter out candidates. With our templates, you'll have ATS-friendly resumes that will help you stand out.</p>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card fc-cyan">
+        <div class="fc-visual">
+          <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="fc-svg">
+            <!-- AI writing animation -->
+            <rect x="20" y="15" width="80" height="70" rx="8" fill="rgba(34,211,238,0.08)" stroke="rgba(34,211,238,0.2)" stroke-width="1"/>
+            <rect x="28" y="25" width="64" height="6" rx="3" fill="rgba(34,211,238,0.15)"/>
+            <rect x="28" y="35" width="50" height="3" rx="1.5" fill="rgba(34,211,238,0.2)" class="anim-line1"/>
+            <rect x="28" y="41" width="60" height="3" rx="1.5" fill="rgba(34,211,238,0.15)" class="anim-line2"/>
+            <rect x="28" y="47" width="44" height="3" rx="1.5" fill="rgba(34,211,238,0.15)" class="anim-line3"/>
+            <rect x="28" y="58" width="52" height="3" rx="1.5" fill="rgba(34,211,238,0.1)"/>
+            <rect x="28" y="64" width="40" height="3" rx="1.5" fill="rgba(34,211,238,0.1)"/>
+            <!-- Star cursor -->
+            <path d="M85 55 L87 61 L93 55 L87 49 Z" fill="#22d3ee" opacity="0.8" class="anim-cursor"/>
+          </svg>
+        </div>
+        <div class="fc-content">
+          <div class="fc-icon fc-icon-cyan">
+            <span class="material-symbols-outlined">psychology</span>
+          </div>
+          <h3 class="fc-title">AI-powered content</h3>
+          <p class="fc-desc">Get AI-generated content suggestions, refined by our career experts, for maximum impact on your resume. 1000+ unique bullets per field, never the same twice.</p>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-card fc-yellow">
+        <div class="fc-visual">
+          <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="fc-svg">
+            <!-- Grammar check -->
+            <rect x="15" y="18" width="90" height="65" rx="8" fill="rgba(250,204,21,0.06)" stroke="rgba(250,204,21,0.18)" stroke-width="1"/>
+            <rect x="24" y="28" width="72" height="3" rx="1.5" fill="rgba(250,204,21,0.2)"/>
+            <rect x="24" y="35" width="58" height="3" rx="1.5" fill="rgba(250,204,21,0.15)"/>
+            <!-- Error squiggle -->
+            <path d="M24 45 Q28 43 32 45 Q36 47 40 45 Q44 43 48 45" stroke="#f87171" stroke-width="1.5" stroke-linecap="round" fill="none" class="anim-squiggle"/>
+            <!-- Check -->
+            <rect x="24" y="42" width="28" height="3" rx="1.5" fill="rgba(250,204,21,0.15)"/>
+            <rect x="24" y="52" width="66" height="3" rx="1.5" fill="rgba(250,204,21,0.12)"/>
+            <rect x="24" y="58" width="50" height="3" rx="1.5" fill="rgba(250,204,21,0.12)"/>
+            <!-- Correction bubble -->
+            <rect x="55" y="38" width="38" height="18" rx="5" fill="rgba(250,204,21,0.12)" stroke="rgba(250,204,21,0.3)" stroke-width="1"/>
+            <rect x="60" y="43" width="20" height="2" rx="1" fill="rgba(250,204,21,0.4)"/>
+            <rect x="60" y="48" width="16" height="2" rx="1" fill="rgba(250,204,21,0.25)"/>
+          </svg>
+        </div>
+        <div class="fc-content">
+          <div class="fc-icon fc-icon-yellow">
+            <span class="material-symbols-outlined">spellcheck</span>
+          </div>
+          <h3 class="fc-title">Grammar corrected</h3>
+          <p class="fc-desc">Auto-correct grammar and spelling mistakes as you type. Professional-sounding bullets, every time, without any extra effort from you.</p>
+        </div>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-card fc-purple2">
+        <div class="fc-visual">
+          <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="fc-svg">
+            <!-- Cover letter -->
+            <rect x="18" y="15" width="55" height="70" rx="7" fill="rgba(168,85,247,0.08)" stroke="rgba(168,85,247,0.2)" stroke-width="1"/>
+            <rect x="26" y="25" width="22" height="4" rx="2" fill="rgba(168,85,247,0.4)"/>
+            <rect x="26" y="33" width="38" height="2" rx="1" fill="rgba(168,85,247,0.15)"/>
+            <rect x="26" y="38" width="34" height="2" rx="1" fill="rgba(168,85,247,0.15)"/>
+            <rect x="26" y="43" width="38" height="2" rx="1" fill="rgba(168,85,247,0.12)"/>
+            <rect x="26" y="55" width="28" height="6" rx="3" fill="rgba(168,85,247,0.25)"/>
+            <!-- Second doc -->
+            <rect x="48" y="22" width="55" height="62" rx="7" fill="rgba(163,230,53,0.08)" stroke="rgba(163,230,53,0.25)" stroke-width="1"/>
+            <rect x="56" y="31" width="18" height="4" rx="2" fill="rgba(163,230,53,0.4)"/>
+            <rect x="56" y="39" width="38" height="2" rx="1" fill="rgba(163,230,53,0.15)"/>
+            <rect x="56" y="44" width="32" height="2" rx="1" fill="rgba(163,230,53,0.15)"/>
+            <rect x="56" y="49" width="36" height="2" rx="1" fill="rgba(163,230,53,0.12)"/>
+            <rect x="56" y="60" width="28" height="6" rx="3" fill="rgba(163,230,53,0.25)"/>
+          </svg>
+        </div>
+        <div class="fc-content">
+          <div class="fc-icon fc-icon-purple2">
+            <span class="material-symbols-outlined">description</span>
+          </div>
+          <h3 class="fc-title">Matching cover letter</h3>
+          <p class="fc-desc">Easily create a memorable cover letter with customizable suggested text. Choose a design that aligns with your resume for a cohesive professional look.</p>
+        </div>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-card fc-green">
+        <div class="fc-visual">
+          <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="fc-svg">
+            <!-- Unlimited resumes -->
+            <rect x="10" y="25" width="42" height="55" rx="6" fill="rgba(34,197,94,0.08)" stroke="rgba(34,197,94,0.2)" stroke-width="1"/>
+            <rect x="39" y="18" width="42" height="55" rx="6" fill="rgba(34,197,94,0.1)" stroke="rgba(34,197,94,0.25)" stroke-width="1"/>
+            <rect x="68" y="12" width="42" height="55" rx="6" fill="rgba(34,197,94,0.13)" stroke="rgba(34,197,94,0.35)" stroke-width="1"/>
+            <rect x="74" y="22" width="24" height="3" rx="1.5" fill="rgba(34,197,94,0.5)"/>
+            <rect x="74" y="29" width="18" height="2" rx="1" fill="rgba(34,197,94,0.3)"/>
+            <rect x="74" y="34" width="22" height="2" rx="1" fill="rgba(34,197,94,0.25)"/>
+            <rect x="74" y="39" width="20" height="2" rx="1" fill="rgba(34,197,94,0.2)"/>
+            <!-- Infinity symbol -->
+            <path d="M44 80 Q50 74 56 80 Q62 86 68 80 Q62 74 56 80 Q50 86 44 80 Z" stroke="rgba(34,197,94,0.5)" stroke-width="1.5" fill="none" class="anim-infinity"/>
+          </svg>
+        </div>
+        <div class="fc-content">
+          <div class="fc-icon fc-icon-green">
+            <span class="material-symbols-outlined">all_inclusive</span>
+          </div>
+          <h3 class="fc-title">Unlimited resumes</h3>
+          <p class="fc-desc">Make and edit unlimited resumes, experiment with multiple templates, and download your resumes in various file formats. No limits, ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+<script src="js/features/grammar_checker.js"></script>
+<script src="js/features/ai_resume_writer.js"></script>
+<script src="js/core/particles.js"></script>
+</body>
+</html>

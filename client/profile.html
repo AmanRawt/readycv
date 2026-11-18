@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ReadyCV — My Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+<div class="bg-glow"></div>
+<div class="bg-orb3"></div>
+<div class="noise"></div>
+
+<div class="page-loader" id="pageLoader">
+  <div class="loader-logo">ReadyCV</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<header class="site-header">
+  <a href="index.html" class="logo-link">
+    <div class="logo-icon"><img src="assets/images/logo.svg" alt="ReadyCV" onerror="this.parentNode.innerHTML='📄'"></div>
+    <span class="logo-text">Ready<span class="cv-grad">CV</span></span>
+  </a>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="ats_page.html">ATS</a>
+    <a href="resume_maker.html">Builder</a>
+    <a href="ai_resume_writer.html">AI</a>
+  </nav>
+  <div class="header-right">
+    <button class="btn btn-danger-sm" onclick="handleLogout()">
+      <span class="material-symbols-outlined">logout</span>
+      <span class="btn-label-text">Logout</span>
+    </button>
+  </div>
+</header>
+
+<main class="main-content" id="mainContent" style="display:none">
+  <div class="content-wrapper">
+
+    <!-- HERO -->
+    <div class="profile-hero-card">
+      <div class="hero-bg"></div>
+      <div class="hero-inner">
+        <div class="avatar-wrap" onclick="openAvatarPicker()" title="Change avatar">
+          <svg class="avatar-ring-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#a855f7"/>
+                <stop offset="50%" stop-color="#a3e635"/>
+                <stop offset="100%" stop-color="#f97316"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="48" fill="none" stroke="url(#ringGrad)" stroke-width="3" stroke-dasharray="12 4" stroke-linecap="round" opacity=".85"/>
+          </svg>
+          <div class="avatar" id="avatar">
+            <div class="avatar-overlay"><span class="material-symbols-outlined">face</span></div>
+          </div>
+          <div class="avatar-edit-badge"><span class="material-symbols-outlined">edit</span></div>
+        </div>
+
+        <div class="profile-info">
+          <div class="name-row">
+            <h1 id="userName">Loading...</h1>
+            <button class="edit-name-btn" onclick="openNamePopup()" title="Edit name">
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+          </div>
+          <p id="userEmail" class="user-email">—</p>
+          <div class="meta-chips">
+            <span class="chip"><span class="material-symbols-outlined">calendar_today</span><span id="joinedText">—</span></span>
+            <span class="chip chip-lime"><span class="material-symbols-outlined">verified</span>Verified</span>
+          </div>
+        </div>
+
+        <div class="hero-actions">
+          <a href="resume_maker.html" class="btn btn-primary">
+            <span class="material-symbols-outlined">add</span>
+            <span class="btn-label-text">New Resume</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card sc-purple">
+        <div class="stat-icon si-purple"><span class="material-symbols-outlined">description</span></div>
+        <div class="stat-body"><div class="stat-num" id="statResumes">0</div><div class="stat-lbl">Resumes</div></div>
+      </div>
+      <div class="stat-card sc-lime">
+        <div class="stat-icon si-lime"><span class="material-symbols-outlined">upload_file</span></div>
+        <div class="stat-body"><div class="stat-num" id="statATS">0</div><div class="stat-lbl">ATS Checks</div></div>
+      </div>
+      <div class="stat-card sc-orange">
+        <div class="stat-icon si-orange"><span class="material-symbols-outlined">auto_awesome</span></div>
+        <div class="stat-body"><div class="stat-num" id="statAI">0</div><div class="stat-lbl">AI Resumes</div></div>
+      </div>
+      <div class="stat-card sc-blue">
+        <div class="stat-icon si-blue"><span class="material-symbols-outlined">trending_up</span></div>
+        <div class="stat-body"><div class="stat-num" id="statScore">—</div><div class="stat-lbl">Best Score</div></div>
+      </div>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="actions-grid">
+      <a href="resume_maker.html" class="qcard qc-p">
+        <div class="qi qi-p"><span class="material-symbols-outlined">article</span></div>
+        <div class="qt"><h3>Resume Builder</h3><p>Build or edit your resume</p></div>
+        <span class="material-symbols-outlined qa-arrow">arrow_forward</span>
+      </a>
+      <a href="ats_page.html" class="qcard qc-l">
+        <div class="qi qi-l"><span class="material-symbols-outlined">upload_file</span></div>
+        <div class="qt"><h3>ATS Checker</h3><p>Score your resume instantly</p></div>
+        <span class="material-symbols-outlined qa-arrow">arrow_forward</span>
+      </a>
+      <a href="ai_resume_writer.html" class="qcard qc-o">
+        <div class="qi qi-o"><span class="material-symbols-outlined">auto_awesome</span></div>
+        <div class="qt"><h3>AI Writer</h3><p>Generate AI resume content</p></div>
+        <span class="material-symbols-outlined qa-arrow">arrow_forward</span>
+      </a>
+      <a href="help.html" class="qcard qc-b">
+        <div class="qi qi-b"><span class="material-symbols-outlined">help</span></div>
+        <div class="qt"><h3>Help Center</h3><p>Tips, FAQ, and guides</p></div>
+        <span class="material-symbols-outlined qa-arrow">arrow_forward</span>
+      </a>
+    </div>
+
+    <!-- DRAFT -->
+    <div class="panel">
+      <div class="panel-head">
+        <h2><span class="material-symbols-outlined">edit_document</span>Current Resume Draft</h2>
+        <a href="resume_maker.html" class="btn btn-ghost btn-sm"><span class="material-symbols-outlined">edit</span>Continue</a>
+      </div>
+      <div class="panel-body" id="draftContent">
+        <div class="empty-state">
+          <span class="material-symbols-outlined">description</span>
+          <p>No draft saved yet.</p>
+          <a href="resume_maker.html" class="btn btn-primary btn-sm" style="margin-top:.5rem">Start Building →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- NAME POPUP -->
+<div class="popup-overlay" id="namePopup" onclick="if(event.target===this)closeNamePopup()">
+  <div class="popup-card">
+    <div class="popup-head">
+      <h3>Edit Display Name</h3>
+      <button class="popup-close" onclick="closeNamePopup()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="pop-field">
+      <label class="pop-label">Your Name</label>
+      <input type="text" class="pop-input" id="popNameInput" placeholder="Enter your name" onkeydown="if(event.key==='Enter')saveName()">
+    </div>
+    <div class="pop-msg" id="popMsg"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="saveName()">
+      <span class="material-symbols-outlined">save</span>Save Name
+    </button>
+  </div>
+</div>
+
+<!-- AVATAR POPUP -->
+<div class="popup-overlay" id="avatarPopup" onclick="if(event.target===this)closeAvatarPicker()">
+  <div class="popup-card av-popup-card">
+    <div class="popup-head">
+      <h3>Choose Your Avatar ✨</h3>
+      <button class="popup-close" onclick="closeAvatarPicker()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <p style="font-size:.8rem;color:var(--s400);margin-bottom:1rem">Stays saved until you change it</p>
+    <div class="av-grid" id="avGrid"></div>
+    <div class="pop-msg" id="avMsg"></div>
+    <button class="av-save-btn" id="avSaveBtn" disabled onclick="saveAvatar()">
+      <span class="material-symbols-outlined">check_circle</span>Use This Avatar
+    </button>
+  </div>
+</div>
+
+<div class="upload-progress" id="uploadProgress">
+  <div class="up-spinner"></div>
+  <span class="up-text">Saving...</span>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, onAuthStateChanged, signOut, updateProfile }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, doc, getDoc, setDoc, updateDoc, serverTimestamp }
+  from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+const FB = {
+  apiKey:'AIzaSyCgK8JWEuilZmcMME9_LropW_2KUuQZItI',
+  authDomain:'airesumebuilder-f732a.firebaseapp.com',
+  projectId:'airesumebuilder-f732a',
+  storageBucket:'airesumebuilder-f732a.firebasestorage.app',
+  messagingSenderId:'431208769883',
+  appId:'1:431208769883:web:53fe68f6e95d4f810c927e'
+};
+
+const app  = initializeApp(FB);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+let currentUser=null, userDocRef=null, redirected=false;
+
+function hideLoader(){
+  document.getElementById('pageLoader').style.display='none';
+  document.getElementById('mainContent').style.display='';
+}
+const safetyTimer=setTimeout(()=>{ if(!currentUser&&!redirected){redirected=true;window.location.replace('login.html');} },8000);
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ══ AVATARS — SVG inline ══ */
+const AVATARS=[
+  {id:'coder',name:'Coder Bro 🧑‍💻',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="cg1" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#0a1628"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#cg1)"/><ellipse cx="50" cy="36" rx="19" ry="21" fill="#fdd5b0"/><path d="M31 28 Q50 15 69 28 Q67 20 50 17 Q33 20 31 28Z" fill="#1a1a2e"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#2563eb"/><rect x="18" y="58" width="13" height="22" rx="6" fill="#2563eb"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#2563eb"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0c090"/><ellipse cx="42" cy="34" rx="4.5" ry="5" fill="#1a1a2e"/><ellipse cx="58" cy="34" rx="4.5" ry="5" fill="#1a1a2e"/><circle cx="43.5" cy="33" r="1.8" fill="white"/><circle cx="59.5" cy="33" r="1.8" fill="white"/><path d="M43 45 Q50 51 57 45" stroke="#e8956d" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M31 31 Q31 18 50 17 Q69 18 69 31" fill="none" stroke="#111" stroke-width="3" stroke-linecap="round"/><rect x="27" y="29" width="8" height="10" rx="3" fill="#333"/><rect x="65" y="29" width="8" height="10" rx="3" fill="#333"/><rect x="34" y="69" width="32" height="12" rx="2" fill="#1e293b"/><text x="50" y="78" text-anchor="middle" font-size="6" fill="#a3e635" font-family="monospace" font-weight="bold">&lt;/&gt;</text></svg>`},
+  {id:'nerd',name:'Nerdy Guy 🤓',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ng1" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#1a3a2a"/><stop offset="100%" stop-color="#0a1a12"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#ng1)"/><ellipse cx="50" cy="36" rx="19" ry="21" fill="#ffe0b2"/><path d="M31 27 Q50 16 69 27 Q67 21 50 18 Q33 21 31 27Z" fill="#4a3000"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#16a34a"/><rect x="18" y="58" width="13" height="22" rx="6" fill="#16a34a"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#16a34a"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0c090"/><ellipse cx="42" cy="34" rx="4.5" ry="5" fill="#1a1a2e"/><ellipse cx="58" cy="34" rx="4.5" ry="5" fill="#1a1a2e"/><circle cx="43.5" cy="33" r="1.8" fill="white"/><circle cx="59.5" cy="33" r="1.8" fill="white"/><rect x="36" y="30" width="14" height="9" rx="3.5" fill="none" stroke="#666" stroke-width="2.2"/><rect x="50" y="30" width="14" height="9" rx="3.5" fill="none" stroke="#666" stroke-width="2.2"/><path d="M44 46 Q50 51 56 46" stroke="#c0724a" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="34" y="76" width="32" height="12" rx="2" fill="#1e293b"/><text x="50" y="85" text-anchor="middle" font-size="6" fill="#fbbf24" font-family="monospace">GPA:10</text></svg>`},
+  {id:'cool',name:'Cool Dude 😎',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="cdg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#1a1a2e"/><stop offset="100%" stop-color="#0d0d18"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#cdg)"/><ellipse cx="50" cy="36" rx="19" ry="21" fill="#fdbcb4"/><path d="M31 27 Q50 16 69 27 Q67 21 50 18 Q33 21 31 27Z" fill="#c0724a" opacity=".9"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#7c3aed"/><rect x="18" y="58" width="13" height="22" rx="6" fill="#7c3aed"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#7c3aed"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0a080"/><rect x="33" y="29" width="16" height="10" rx="5" fill="#0a0a1a" opacity=".9"/><rect x="51" y="29" width="16" height="10" rx="5" fill="#0a0a1a" opacity=".9"/><line x1="49" y1="34" x2="51" y2="34" stroke="#555" stroke-width="1.5"/><line x1="33" y1="34" x2="30" y2="33" stroke="#555" stroke-width="1.5"/><line x1="67" y1="34" x2="70" y2="33" stroke="#555" stroke-width="1.5"/><path d="M44 47 Q50 52 56 47" stroke="#d07060" stroke-width="2.5" fill="none" stroke-linecap="round"/><text x="50" y="83" text-anchor="middle" font-size="8" fill="#a3e635" font-family="monospace" font-weight="bold">YOLO</text></svg>`},
+  {id:'messi',name:'Messi ⚽',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="mg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#0a1628"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#mg)"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#74b9e8"/><path d="M38 58 Q44 68 44 90 L37 90Z" fill="white" opacity=".4"/><rect x="18" y="58" width="13" height="22" rx="6" fill="#74b9e8"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#74b9e8"/><ellipse cx="50" cy="36" rx="19" ry="21" fill="#f5d0a9"/><path d="M31 27 Q38 14 50 13 Q62 14 69 27 Q65 18 50 16 Q35 18 31 27Z" fill="#2c1810"/><path d="M35 46 Q50 52 65 46 Q62 52 50 54 Q38 52 35 46Z" fill="#2c1810" opacity=".25"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0c090"/><ellipse cx="43" cy="35" rx="4" ry="4.5" fill="#2c1810"/><ellipse cx="57" cy="35" rx="4" ry="4.5" fill="#2c1810"/><circle cx="44" cy="34" r="1.6" fill="white"/><circle cx="58" cy="34" r="1.6" fill="white"/><path d="M44 46 Q50 51 56 46" stroke="#c08060" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="50" cy="82" r="8" fill="white" stroke="#333" stroke-width=".8"/><text x="76" y="28" font-size="12">🏆</text></svg>`},
+  {id:'rolando',name:'Rolando 💪',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="rg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#8b1a1a"/><stop offset="100%" stop-color="#3a0a0a"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#rg)"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#c41230"/><text x="50" y="80" text-anchor="middle" font-size="7" fill="gold" font-weight="bold">7</text><rect x="18" y="58" width="13" height="22" rx="6" fill="#c41230"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#c41230"/><ellipse cx="50" cy="36" rx="19" ry="21" fill="#e0b090"/><path d="M31 26 Q44 13 56 13 Q68 16 69 26 Q63 18 50 16 Q37 18 31 26Z" fill="#111"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#d09070"/><ellipse cx="43" cy="33" rx="4" ry="4.5" fill="#111"/><ellipse cx="57" cy="33" rx="4" ry="4.5" fill="#111"/><circle cx="44" cy="32" r="1.5" fill="white"/><circle cx="58" cy="32" r="1.5" fill="white"/><path d="M39 28 Q43 26 47 28" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M53 28 Q57 26 61 28" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M43 46 Q50 50 57 46" stroke="#b07050" stroke-width="2.5" fill="none" stroke-linecap="round"/><text x="50" y="92" text-anchor="middle" font-size="7" fill="gold" font-weight="bold">SIUUU!</text><animate attributeName="opacity" values="1;0.95;1" dur="1.5s" repeatCount="indefinite"/></svg>`},
+  {id:'bambarbola',name:'Bambarbola 🎵',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="bbg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#2d1b69"/><stop offset="100%" stop-color="#1a0a3e"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#bbg)"/><text x="20" y="25" font-size="10" fill="#a855f7" opacity=".3">♪</text><text x="70" y="35" font-size="8" fill="#a3e635" opacity=".4">♫</text><ellipse cx="50" cy="36" rx="19" ry="21" fill="#ffcba4"/><path d="M31 26 Q50 15 69 26 Q67 19 50 17 Q33 19 31 26Z" fill="#5c3317"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#6d28d9"/><rect x="18" y="58" width="13" height="22" rx="6" fill="#6d28d9"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#6d28d9"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0b080"/><ellipse cx="43" cy="34" rx="4.5" ry="5" fill="#2d1b69"/><ellipse cx="57" cy="34" rx="4.5" ry="5" fill="#2d1b69"/><circle cx="44" cy="33" r="1.8" fill="white"/><circle cx="58" cy="33" r="1.8" fill="white"/><path d="M41 45 Q50 55 59 45" stroke="#c0724a" stroke-width="2.5" fill="none" stroke-linecap="round"/><text x="50" y="90" text-anchor="middle" font-size="7" fill="#f9a8d4" font-weight="bold">bam bam!</text><animateTransform attributeName="transform" type="translate" values="0,0;0,-2;0,0" dur="1s" repeatCount="indefinite"/></svg>`},
+  {id:'bamolistan',name:'Bamolistan 🌍',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="blg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#064e3b"/><stop offset="100%" stop-color="#022c22"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#blg)"/><circle cx="50" cy="37" r="22" fill="#fde68a"/><path d="M28 30 Q50 14 72 30 Q70 22 50 19 Q30 22 28 30Z" fill="#7c4a00"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#059669"/><rect x="18" y="58" width="13" height="22" rx="6" fill="#059669"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#059669"/><rect x="44" y="57" width="12" height="6" rx="3" fill="#f5c882"/><circle cx="41" cy="34" r="6" fill="white"/><circle cx="59" cy="34" r="6" fill="white"/><circle cx="41" cy="34" r="3.5" fill="#111"/><circle cx="59" cy="34" r="3.5" fill="#111"/><circle cx="42" cy="33" r="1.5" fill="white"/><circle cx="60" cy="33" r="1.5" fill="white"/><path d="M37 46 Q50 58 63 46" stroke="#a0522d" stroke-width="3" fill="none" stroke-linecap="round"/><text x="50" y="90" text-anchor="middle" font-size="6" fill="#fde68a" font-weight="bold">BAMOLISTAN</text></svg>`},
+  {id:'broccoli',name:'Broccoli 🥦',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="vcg" cx="50%" cy="35%" r="55%"><stop offset="0%" stop-color="#166534"/><stop offset="100%" stop-color="#052e16"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#vcg)"/><rect x="46" y="65" width="8" height="28" rx="4" fill="#84cc16"/><circle cx="50" cy="42" r="22" fill="#22c55e"/><circle cx="36" cy="40" r="14" fill="#16a34a"/><circle cx="64" cy="40" r="14" fill="#16a34a"/><circle cx="50" cy="28" r="14" fill="#15803d"/><circle cx="38" cy="30" r="10" fill="#22c55e"/><circle cx="62" cy="30" r="10" fill="#22c55e"/><circle cx="50" cy="38" r="12" fill="#4ade80"/><circle cx="40" cy="36" r="8" fill="#86efac"/><circle cx="60" cy="36" r="8" fill="#86efac"/><ellipse cx="44" cy="45" rx="4" ry="4.5" fill="#052e16"/><ellipse cx="56" cy="45" rx="4" ry="4.5" fill="#052e16"/><circle cx="45" cy="44" r="1.5" fill="white"/><circle cx="57" cy="44" r="1.5" fill="white"/><path d="M43 53 Q50 59 57 53" stroke="#052e16" stroke-width="2.5" fill="none" stroke-linecap="round"/><text x="50" y="97" text-anchor="middle" font-size="6" fill="#86efac" font-weight="bold">eat ur veggies</text><animateTransform attributeName="transform" type="rotate" values="0 50 50;2 50 50;-2 50 50;0 50 50" dur="3s" repeatCount="indefinite"/></svg>`},
+  {id:'sigma',name:'Sigma 💀',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="skg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#050505"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#skg)"/><ellipse cx="50" cy="36" rx="22" ry="24" fill="#e8e8e8"/><rect x="37" y="55" width="26" height="12" rx="3" fill="#e0e0e0"/><rect x="39" y="57" width="5" height="8" rx="1.5" fill="white"/><rect x="46" y="57" width="5" height="8" rx="1.5" fill="white"/><rect x="53" y="57" width="5" height="8" rx="1.5" fill="white"/><ellipse cx="41" cy="34" rx="8" ry="9" fill="#1c1c1c"/><ellipse cx="59" cy="34" rx="8" ry="9" fill="#1c1c1c"/><ellipse cx="41" cy="34" rx="5" ry="5.5" fill="#a855f7" opacity=".7"/><ellipse cx="59" cy="34" rx="5" ry="5.5" fill="#a855f7" opacity=".7"/><ellipse cx="41" cy="33" rx="2.5" ry="3" fill="white" opacity=".6"/><ellipse cx="59" cy="33" rx="2.5" ry="3" fill="white" opacity=".6"/><path d="M47 44 Q50 48 53 44" fill="#1c1c1c"/><path d="M28 68 L50 62 L72 68 L70 90 Q50 96 30 90Z" fill="#111"/><text x="50" y="92" text-anchor="middle" font-size="6" fill="#a855f7" font-weight="bold">SIGMA GRIND</text><circle cx="41" cy="34" r="7" fill="none" stroke="#a855f7" stroke-width="1" opacity=".4"><animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.4;0;0.4" dur="2s" repeatCount="indefinite"/></circle></svg>`},
+  {id:'studygirl',name:'Study Girl 📚',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sgg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#3b1f5e"/><stop offset="100%" stop-color="#1a0a2e"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#sgg)"/><ellipse cx="50" cy="36" rx="19" ry="21" fill="#ffe0cc"/><path d="M30 26 Q50 14 70 26 Q68 38 50 36 Q32 38 30 26Z" fill="#4a3000"/><ellipse cx="30" cy="40" rx="5" ry="8" fill="#ffe0cc"/><ellipse cx="70" cy="40" rx="5" ry="8" fill="#ffe0cc"/><rect x="43" y="15" width="14" height="6" rx="3" fill="#f472b6"/><path d="M28 58 Q50 68 72 58 L75 90 Q50 98 25 90Z" fill="#db2777"/><rect x="18" y="58" width="12" height="20" rx="5" fill="#db2777"/><rect x="70" y="58" width="12" height="20" rx="5" fill="#db2777"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0c0a0"/><ellipse cx="42" cy="34" rx="4" ry="5" fill="#1a1a2e"/><ellipse cx="58" cy="34" rx="4" ry="5" fill="#1a1a2e"/><circle cx="43" cy="33" r="1.8" fill="white"/><circle cx="59" cy="33" r="1.8" fill="white"/><path d="M43 47 Q50 53 57 47" stroke="#c06050" stroke-width="2.5" fill="none" stroke-linecap="round"/><rect x="34" y="72" width="32" height="18" rx="2" fill="#2563eb"/><rect x="34" y="72" width="16" height="18" rx="2" fill="#3b82f6"/><line x1="50" y1="72" x2="50" y2="90" stroke="#1e3a8a" stroke-width="1.5"/></svg>`},
+  {id:'bosslady',name:'Boss Lady 👑',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="blg2" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#1e3a5f"/><stop offset="100%" stop-color="#0a1628"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#blg2)"/><ellipse cx="50" cy="37" rx="19" ry="21" fill="#fcd5ce"/><path d="M32 22 Q50 10 68 22 L65 30 Q50 24 35 30Z" fill="#fbbf24"/><path d="M50 10 L52 18 L50 16 L48 18Z" fill="#fbbf24"/><circle cx="50" cy="12" r="3" fill="#f97316"/><circle cx="38" cy="14" r="2" fill="#a855f7"/><circle cx="62" cy="14" r="2" fill="#38bdf8"/><ellipse cx="30" cy="41" rx="5" ry="8" fill="#fcd5ce"/><ellipse cx="70" cy="41" rx="5" ry="8" fill="#fcd5ce"/><path d="M28 58 Q50 68 72 58 L75 90 Q50 98 25 90Z" fill="#0369a1"/><rect x="18" y="58" width="12" height="20" rx="5" fill="#0369a1"/><rect x="70" y="58" width="12" height="20" rx="5" fill="#0369a1"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0c0b0"/><ellipse cx="42" cy="35" rx="4.5" ry="5" fill="#1a1a2e"/><ellipse cx="58" cy="35" rx="4.5" ry="5" fill="#1a1a2e"/><circle cx="43" cy="34" r="2" fill="white"/><circle cx="59" cy="34" r="2" fill="white"/><path d="M43 47 Q50 53 57 47" stroke="#c06878" stroke-width="2.5" fill="none" stroke-linecap="round"/><text x="50" y="85" text-anchor="middle" font-size="8" fill="gold">👑 CEO</text></svg>`},
+  {id:'sleepy',name:'Sleepy Boi 😴',svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="slg" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#2d1b4e"/><stop offset="100%" stop-color="#120a22"/></radialGradient></defs><circle cx="50" cy="50" r="50" fill="url(#slg)"/><ellipse cx="50" cy="36" rx="19" ry="21" fill="#ffcba4"/><path d="M31 26 Q50 16 69 26 Q67 20 50 18 Q33 20 31 26Z" fill="#4a3000"/><path d="M29 58 Q50 68 71 58 L75 90 Q50 98 25 90Z" fill="#9333ea"/><rect x="18" y="58" width="13" height="22" rx="6" fill="#9333ea"/><rect x="69" y="58" width="13" height="22" rx="6" fill="#9333ea"/><rect x="44" y="55" width="12" height="8" rx="4" fill="#f0b080"/><path d="M37 34 Q42 38 47 34" stroke="#2d1b4e" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M53 34 Q58 38 63 34" stroke="#2d1b4e" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M43 47 Q50 51 57 47" stroke="#d08060" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="42" cy="43" r="5" fill="#ffb3b3" opacity=".4"/><circle cx="58" cy="43" r="5" fill="#ffb3b3" opacity=".4"/><text x="63" y="26" font-size="9" fill="white" font-weight="bold" opacity=".8">z</text><text x="70" y="20" font-size="7" fill="white" opacity=".6">z</text><text x="76" y="15" font-size="5" fill="white" opacity=".4">z</text></svg>`},
+];
+
+function getAvatarSvg(id){ return AVATARS.find(a=>a.id===id)?.svg||null; }
+
+function renderAvatarById(id){
+  const svg=getAvatarSvg(id); if(!svg)return;
+  const av=document.getElementById('avatar'); if(!av)return;
+  av.innerHTML=svg+'<div class="avatar-overlay"><span class="material-symbols-outlined">face</span></div>';
+}
+function renderInitial(name){
+  const av=document.getElementById('avatar'); if(!av)return;
+  av.innerHTML=`${(name||'?')[0].toUpperCase()}<div class="avatar-overlay"><span class="material-symbols-outlined">face</span></div>`;
+}
+
+/* ══ AUTH ══ */
+onAuthStateChanged(auth, async user=>{
+  clearTimeout(safetyTimer);
+  if(!user&&!redirected){redirected=true;window.location.replace('login.html');return;}
+  if(!user)return;
+  currentUser=user; userDocRef=doc(db,'users',user.uid);
+
+  const name=user.displayName||user.email?.split('@')[0]||'User';
+  document.getElementById('userName').textContent=name;
+  document.getElementById('userEmail').textContent=user.email||'—';
+  const joined=user.metadata?.creationTime?new Date(user.metadata.creationTime).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):'Recently';
+  document.getElementById('joinedText').textContent='Joined '+joined;
+
+  // Show cached avatar instantly
+  const cachedId=localStorage.getItem('rcv_avid');
+  if(cachedId) renderAvatarById(cachedId); else renderInitial(name);
+
+  try{
+    let snap=await getDoc(userDocRef);
+    if(!snap.exists()){
+      // ONLY safe small fields — no photoURL dataURL
+      await setDoc(userDocRef,{
+        displayName:user.displayName||'',email:user.email,
+        avatarId:'',resumes:0,atsChecks:0,
+        aiGenerations:0,bestScore:0,createdAt:serverTimestamp()
+      });
+      snap=await getDoc(userDocRef);
+    }
+    const data=snap.data()||{};
+    // Sync avatarId from Firestore
+    if(data.avatarId&&data.avatarId!==cachedId){
+      localStorage.setItem('rcv_avid',data.avatarId);
+      renderAvatarById(data.avatarId);
+    }
+    await loadAndSyncStats(data);
+  }catch(e){
+    console.warn('Firestore:',e.message);
+    // Page still shows — avatar from localStorage works fine
+  }
+
+  loadDraft();
+  hideLoader();
+});
+
+/* ══ STATS ══ */
+async function loadAndSyncStats(data){
+  let bestScore=data.bestScore||0, atsChecks=data.atsChecks||0;
+  const lastAts=(()=>{try{return JSON.parse(localStorage.getItem('readycv_last_ats')||'null');}catch{return null;}})();
+  if(lastAts?.score){
+    const c=parseInt(localStorage.getItem('readycv_last_ats_counted')||'0');
+    const t=parseInt(localStorage.getItem('readycv_last_ats_time')||'0');
+    if(t>c){atsChecks++;localStorage.setItem('readycv_last_ats_counted',String(t));if(lastAts.score>bestScore)bestScore=lastAts.score;await safeUpdate({atsChecks,bestScore});}
+    else if(lastAts.score>bestScore){bestScore=lastAts.score;await safeUpdate({bestScore});}
+  }
+  let resumes=data.resumes||0;
+  const lsC=parseInt(localStorage.getItem('readycv_resume_count')||'0',10);
+  const lsCF=parseInt(localStorage.getItem('readycv_resume_count_fb')||'0',10);
+  if(lsC>lsCF){resumes+=lsC-lsCF;localStorage.setItem('readycv_resume_count_fb',String(lsC));await safeUpdate({resumes});}
+  else{
+    const hd=(()=>{try{const d=JSON.parse(localStorage.getItem('readycv_draft')||'{}');return !!(d.name||d.jobTitle);}catch{return false;}})();
+    const dt=parseInt(localStorage.getItem('readycv_draft_time')||'0');
+    const dc=parseInt(localStorage.getItem('readycv_draft_counted')||'0');
+    if(hd&&dt>dc){resumes++;localStorage.setItem('readycv_draft_counted',String(dt));await safeUpdate({resumes});}
+    else if(hd&&resumes===0){resumes=1;await safeUpdate({resumes});}
+  }
+  let ai=data.aiGenerations||0;
+  const at=parseInt(localStorage.getItem('readycv_ai_gen_time')||'0');
+  const ac=parseInt(localStorage.getItem('readycv_ai_gen_counted')||'0');
+  if(at>ac){ai++;localStorage.setItem('readycv_ai_gen_counted',String(at));await safeUpdate({aiGenerations:ai});}
+  animateNum('statResumes',resumes);animateNum('statATS',atsChecks);animateNum('statAI',ai);
+  document.getElementById('statScore').textContent=bestScore>0?bestScore+'/100':'—';
+  if(lastAts?.score)showMiniAtsBanner(lastAts);
+}
+
+// Safe wrapper — swallows permission errors silently
+async function safeUpdate(fields){
+  try{await updateDoc(userDocRef,fields);}catch(e){console.warn('Update skipped:',e.message);}
+}
+
+function animateNum(id,target){
+  const el=document.getElementById(id);if(!el)return;
+  if(!target){el.textContent=0;return;}
+  let cur=0;const step=Math.ceil(target/25);
+  const t=setInterval(()=>{cur=Math.min(cur+step,target);el.textContent=cur;if(cur>=target)clearInterval(t);},40);
+}
+
+function showMiniAtsBanner(ats){
+  if(document.getElementById('miniAtsBanner'))return;
+  const score=ats.score||0,missing=(ats.missingKeywords||[]).slice(0,5);
+  const color=score>=75?'#a3e635':score>=55?'#f97316':'#f87171';
+  const label=score>=75?'🎉 Excellent':score>=55?'⚡ Average':'⚠️ Needs Work';
+  const circ=2*Math.PI*18;
+  const b=document.createElement('div');b.id='miniAtsBanner';
+  b.style.cssText='background:rgba(15,23,42,.88);border:1px solid rgba(255,255,255,.07);border-radius:1.25rem;overflow:hidden;';
+  b.innerHTML=`<div style="display:flex;align-items:center;justify-content:space-between;padding:.875rem 1.25rem;border-bottom:1px solid rgba(255,255,255,.05)"><h2 style="display:flex;align-items:center;gap:.4rem;font-size:.95rem;font-weight:700"><span class="material-symbols-outlined" style="font-size:1.15rem;color:var(--lime)">analytics</span>Last ATS Result</h2><a href="ats_page.html" style="display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:700;color:var(--lime);text-decoration:none;background:rgba(163,230,53,.1);border:1px solid rgba(163,230,53,.18);padding:.28rem .7rem;border-radius:100px">Check Again <span class="material-symbols-outlined" style="font-size:.8rem">arrow_forward</span></a></div><div style="padding:1rem 1.25rem;display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap"><div style="position:relative;width:64px;height:64px;flex-shrink:0"><svg width="64" height="64" viewBox="0 0 44 44" style="transform:rotate(-90deg)"><circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="4"/><circle cx="22" cy="22" r="18" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${circ.toFixed(1)}" stroke-dashoffset="${circ.toFixed(1)}" style="transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1)" id="miniScoreCircle"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:${color}">${score}</div></div><div style="flex:1;min-width:0"><div style="font-size:.68rem;color:var(--s500);font-weight:600;text-transform:uppercase;letter-spacing:.3px;margin-bottom:.2rem">Overall Score</div><div style="display:inline-flex;font-size:.75rem;font-weight:700;padding:.18rem .6rem;border-radius:100px;background:${color}18;color:${color};border:1px solid ${color}33">${label}</div>${missing.length?`<div style="display:flex;flex-wrap:wrap;gap:.25rem;margin-top:.5rem">${missing.map(k=>`<span style="font-size:.65rem;font-weight:600;padding:.12rem .45rem;border-radius:100px;background:rgba(249,115,22,.08);color:#f97316;border:1px solid rgba(249,115,22,.18)">${esc(k)}</span>`).join('')}<span style="font-size:.65rem;color:var(--s500)"> missing</span></div>`:''}</div></div>`;
+  const sg=document.querySelector('.stats-grid');
+  if(sg?.nextSibling)sg.parentNode.insertBefore(b,sg.nextSibling);
+  setTimeout(()=>{const c=document.getElementById('miniScoreCircle');if(c)c.style.strokeDashoffset=String(circ-(score/100)*circ);},400);
+}
+
+function loadDraft(){
+  try{
+    const raw=localStorage.getItem('readycv_draft');if(!raw)return;
+    const d=JSON.parse(raw);if(!d.name&&!d.jobTitle)return;
+    const skills=(()=>{try{return JSON.parse(d._skills||'[]');}catch{return[];}})();
+    document.getElementById('draftContent').innerHTML=`<div class="draft-card"><div class="draft-icon"><span class="material-symbols-outlined">description</span></div><div class="draft-info"><div class="draft-name">${esc(d.name||'Unnamed Resume')}</div><div class="draft-role">${esc(d.jobTitle||'No title')}${d.email?' · '+esc(d.email):''}</div><div class="draft-tags">${skills.length?`<span class="dtag">🎯 ${skills.length} skill${skills.length>1?'s':''}</span>`:''}${d.summary?'<span class="dtag">📝 Summary</span>':''}${d.linkedin?'<span class="dtag">🔗 LinkedIn</span>':''}${d.github?'<span class="dtag">💻 GitHub</span>':''}</div></div><a href="resume_maker.html" class="btn btn-primary btn-sm"><span class="material-symbols-outlined">edit</span>Edit</a></div>`;
+  }catch(e){}
+}
+
+/* ══ AVATAR PICKER ══ */
+let selectedAvatarId=null;
+
+window.openAvatarPicker=function(){
+  const grid=document.getElementById('avGrid');if(!grid)return;
+  if(!grid.children.length){
+    grid.innerHTML=AVATARS.map(av=>`<div class="av-option" id="avOpt_${av.id}" onclick="selectAvatar('${av.id}')">${av.svg}<span>${av.name}</span></div>`).join('');
+  }
+  const cur=localStorage.getItem('rcv_avid')||'';
+  document.querySelectorAll('.av-option').forEach(el=>el.classList.remove('selected'));
+  if(cur)document.getElementById('avOpt_'+cur)?.classList.add('selected');
+  selectedAvatarId=cur||null;
+  document.getElementById('avSaveBtn').disabled=!cur;
+  document.getElementById('avatarPopup').classList.add('open');
+};
+window.closeAvatarPicker=function(){
+  document.getElementById('avatarPopup').classList.remove('open');
+  document.getElementById('avMsg').style.display='none';
+};
+window.selectAvatar=function(id){
+  document.querySelectorAll('.av-option').forEach(el=>el.classList.remove('selected'));
+  document.getElementById('avOpt_'+id)?.classList.add('selected');
+  selectedAvatarId=id;
+  document.getElementById('avSaveBtn').disabled=false;
+};
+
+window.saveAvatar=async function(){
+  if(!selectedAvatarId||!currentUser)return;
+  const btn=document.getElementById('avSaveBtn');
+  const prog=document.getElementById('uploadProgress');
+  const msg=document.getElementById('avMsg');
+  if(btn){btn.disabled=true;btn.innerHTML='<span class="material-symbols-outlined">hourglass_top</span>Saving...';}
+  if(prog)prog.classList.add('show');
+
+  // ✅ ONLY save tiny string to Firestore — guaranteed < 1KB
+  try{
+    await updateDoc(userDocRef,{avatarId:selectedAvatarId});
+    localStorage.setItem('rcv_avid',selectedAvatarId);
+    renderAvatarById(selectedAvatarId);
+    msg.className='pop-msg ok';msg.textContent='Avatar saved! 🎉';msg.style.display='block';
+    setTimeout(closeAvatarPicker,1300);
+  }catch(e){
+    // Firestore failed — still save locally so it persists
+    localStorage.setItem('rcv_avid',selectedAvatarId);
+    renderAvatarById(selectedAvatarId);
+    msg.className='pop-msg ok';msg.textContent='Saved locally ✅';msg.style.display='block';
+    setTimeout(closeAvatarPicker,1300);
+  }
+
+  if(prog)prog.classList.remove('show');
+  if(btn){btn.disabled=false;btn.innerHTML='<span class="material-symbols-outlined">check_circle</span>Use This Avatar';}
+};
+
+window.openNamePopup=function(){
+  const i=document.getElementById('popNameInput');if(i)i.value=currentUser?.displayName||'';
+  document.getElementById('namePopup').classList.add('open');setTimeout(()=>i?.focus(),200);
+};
+window.closeNamePopup=function(){
+  document.getElementById('namePopup').classList.remove('open');
+  document.getElementById('popMsg').style.display='none';
+};
+window.saveName=async function(){
+  const name=document.getElementById('popNameInput').value.trim();
+  if(!name){showPopMsg('Name cannot be empty.',false);return;}
+  try{
+    await updateProfile(currentUser,{displayName:name});
+    await safeUpdate({displayName:name});
+    document.getElementById('userName').textContent=name;
+    showPopMsg('Name updated! ✅',true);setTimeout(closeNamePopup,1200);
+  }catch(e){showPopMsg('Error: '+e.message,false);}
+};
+function showPopMsg(msg,ok){
+  const el=document.getElementById('popMsg');
+  el.textContent=msg;el.className='pop-msg '+(ok?'ok':'err');el.style.display='block';
+}
+window.handleLogout=async function(){await signOut(auth);window.location.replace('index.html');};
+</script>
+</body>
+</html>

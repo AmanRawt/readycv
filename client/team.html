@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReadyCV — Meet the Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <link rel="stylesheet" href="chatbot.css">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+:root{
+  --lime:#a3e635;--lime-soft:#bef264;
+  --purple:#a855f7;--purple-soft:#c084fc;
+  --blue:#38bdf8;--orange:#f97316;
+  --s950:#0a0f1e;--s900:#0f172a;--s800:#1e293b;
+  --s700:#334155;--s600:#475569;--s400:#94a3b8;--s300:#cbd5e1;
+  --white:#fff;
+  --grad:linear-gradient(135deg,#a855f7,#a3e635);
+  --r:14px;--rl:20px;--rxl:28px;
+}
+body{background:var(--s950);font-family:'Inter',-apple-system,sans-serif;color:var(--white);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;}
+
+/* ── BG ── */
+.bg-glows{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.bg-glows::before{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%);top:-250px;left:-200px;filter:blur(60px);animation:g1 15s ease-in-out infinite alternate;}
+.bg-glows::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(163,230,53,.09),transparent 70%);bottom:-200px;right:-200px;filter:blur(60px);animation:g2 18s ease-in-out infinite alternate;}
+@keyframes g1{from{transform:translate(0,0)}to{transform:translate(70px,55px)}}
+@keyframes g2{from{transform:translate(0,0)}to{transform:translate(-55px,-40px)}}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.025;}
+.wrap{position:relative;z-index:2;}
+
+/* ── HEADER ── */
+.site-header{display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,2.5rem);height:64px;background:rgba(10,15,30,.92);backdrop-filter:blur(24px);position:sticky;top:0;z-index:200;border-bottom:1px solid rgba(255,255,255,.07);}
+.logo-link{display:flex;align-items:center;gap:.65rem;}
+.logo-icon{width:36px;height:36px;}
+.logo-icon img{width:100%;height:100%;object-fit:contain;border-radius:9px;}
+.logo-text{font-size:1.25rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.cv-gr{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.main-nav{display:flex;align-items:center;}
+.main-nav a{color:var(--s400);font-size:.875rem;font-weight:500;padding:0 .75rem;transition:color .2s;position:relative;}
+.main-nav a::after{content:'';position:absolute;bottom:-2px;left:.75rem;right:.75rem;height:2px;background:var(--grad);border-radius:2px;transform:scaleX(0);transition:transform .25s;}
+.main-nav a:hover{color:var(--white);}
+.main-nav a:hover::after{transform:scaleX(1);}
+.header-acts{display:flex;align-items:center;gap:.5rem;position:relative;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.875rem;border-radius:.5rem;padding:0 1.25rem;height:2.5rem;transition:all .25s;white-space:nowrap;text-decoration:none;}
+.btn .material-symbols-outlined{font-size:18px;}
+.btn-primary{background:var(--grad);color:var(--s900);font-weight:700;}
+.btn-primary:hover{filter:brightness(1.1);box-shadow:0 8px 28px rgba(168,85,247,.4);transform:translateY(-1px);}
+.btn-secondary{background:rgba(255,255,255,.07);color:var(--s300);border:1px solid rgba(255,255,255,.1);}
+.btn-secondary:hover{background:rgba(255,255,255,.13);color:var(--white);}
+.mob-btn{display:none;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:var(--s300);width:40px;height:40px;border-radius:.5rem;cursor:pointer;align-items:center;justify-content:center;}
+.mob-btn .material-symbols-outlined{font-size:1.3rem;}
+.mob-drop{display:none;flex-direction:column;position:absolute;top:calc(100% + .5rem);right:0;background:rgba(10,15,30,.97);border:1px solid rgba(255,255,255,.1);border-radius:.875rem;padding:.5rem;min-width:220px;backdrop-filter:blur(20px);box-shadow:0 20px 50px rgba(0,0,0,.6);z-index:300;}
+.mob-drop.open{display:flex;}
+.mob-drop a{display:flex;align-items:center;gap:.55rem;padding:.65rem .875rem;border-radius:.5rem;color:var(--s300);font-size:.875rem;font-weight:500;transition:background .2s;}
+.mob-drop a:hover{background:rgba(255,255,255,.07);color:var(--white);}
+.mob-drop a .material-symbols-outlined{font-size:1.1rem;color:var(--s400);}
+.mob-cta{background:linear-gradient(135deg,rgba(168,85,247,.15),rgba(163,230,53,.1));color:var(--lime)!important;font-weight:700!important;border:1px solid rgba(163,230,53,.2);margin-top:.25rem;}
+
+/* ── HERO ── */
+.hero{padding:clamp(5rem,10vw,9rem) clamp(1.25rem,5vw,3rem) clamp(3rem,6vw,5rem);text-align:center;position:relative;background:linear-gradient(180deg,rgba(168,85,247,.07) 0%,transparent 100%);}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(168,85,247,.13) 0%,transparent 60%);pointer-events:none;}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.28);color:var(--purple-soft);font-size:.73rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:.4rem 1.1rem;border-radius:100px;margin-bottom:1.75rem;}
+.badge-dot{width:6px;height:6px;background:var(--purple-soft);border-radius:50%;animation:bdot 2s ease-in-out infinite;}
+@keyframes bdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(1.4)}}
+
+/* Glow heading effect */
+.hero h1{font-size:clamp(2.8rem,7vw,5.2rem);font-weight:900;letter-spacing:-.05em;line-height:1.02;margin-bottom:1.25rem;position:relative;}
+.glow-txt{
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 28px rgba(168,85,247,.5)) drop-shadow(0 0 60px rgba(163,230,53,.25));
+  animation:headingGlow 3s ease-in-out infinite;
+}
+@keyframes headingGlow{
+  0%,100%{filter:drop-shadow(0 0 20px rgba(168,85,247,.5)) drop-shadow(0 0 50px rgba(163,230,53,.2));}
+  50%{filter:drop-shadow(0 0 40px rgba(168,85,247,.8)) drop-shadow(0 0 80px rgba(163,230,53,.45));}
+}
+.grad-txt{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-sub{font-size:clamp(.95rem,2vw,1.1rem);color:var(--s400);line-height:1.78;max-width:580px;margin:0 auto 2.5rem;}
+.hero-sub strong{color:var(--white);}
+.hero-stats{display:inline-flex;gap:0;background:rgba(20,32,55,.65);border:1px solid rgba(255,255,255,.08);border-radius:1rem;padding:1.5rem 0;box-shadow:0 0 40px rgba(168,85,247,.07);backdrop-filter:blur(12px);flex-wrap:wrap;}
+.hs{text-align:center;padding:0 2.5rem;}
+.hs-n{font-size:2rem;font-weight:900;letter-spacing:-.04em;display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hs-l{font-size:.7rem;color:var(--s400);font-weight:600;letter-spacing:.4px;margin-top:.25rem;display:block;}
+.hs-div{width:1px;background:rgba(255,255,255,.09);}
+
+/* ── SECTION WRAPPER ── */
+.sec-wrap{max-width:1200px;margin:0 auto;padding:0 clamp(1.25rem,5vw,3rem);}
+.sec-tag{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem;}
+.sec-tag::before{content:'';width:3px;height:20px;background:var(--grad);border-radius:2px;}
+.sec-tag span{font-size:.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--s400);}
+.sec-h{
+  font-size:clamp(1.5rem,3.5vw,2rem);font-weight:900;letter-spacing:-.035em;margin-bottom:.4rem;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 16px rgba(168,85,247,.4));
+  animation:headingGlow 3s ease-in-out infinite;
+  display:inline-block;
+}
+.sec-sub{color:var(--s400);font-size:.9rem;margin-bottom:2rem;}
+
+/* ── PROJECT ── */
+.project-section{padding:clamp(3rem,6vw,5rem) 0;}
+.project-card{background:rgba(15,23,42,.85);border:1px solid rgba(255,255,255,.07);border-radius:var(--rxl);padding:clamp(1.75rem,4vw,2.75rem);position:relative;overflow:hidden;backdrop-filter:blur(12px);animation:fadeUp .7s .2s both;}
+.project-card::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:var(--grad);}
+.project-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% -20%,rgba(168,85,247,.07),transparent 55%);pointer-events:none;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.proj-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
+.proj-name{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;letter-spacing:-.04em;line-height:1.1;}
+.live-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(163,230,53,.1);border:1px solid rgba(163,230,53,.25);color:var(--lime);font-size:.75rem;font-weight:700;padding:.4rem .875rem;border-radius:100px;}
+.live-dot{width:7px;height:7px;background:var(--lime);border-radius:50%;animation:bdot 1.8s infinite;}
+.proj-desc{color:var(--s400);font-size:.95rem;line-height:1.78;margin-bottom:2rem;max-width:680px;}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.875rem;}
+.feat-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:1.1rem;transition:all .25s;}
+.feat-card:hover{background:rgba(255,255,255,.06);border-color:rgba(168,85,247,.3);transform:translateY(-3px);}
+.feat-icon{font-size:1.5rem;margin-bottom:.6rem;display:block;}
+.feat-name{font-size:.875rem;font-weight:700;margin-bottom:.3rem;}
+.feat-desc{font-size:.78rem;color:var(--s400);line-height:1.55;}
+
+/* ── TEAM CARDS ── */
+.team-section{padding:clamp(3rem,6vw,5rem) 0;}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.75rem;}
+.member-card{background:rgba(15,23,42,.88);border:1px solid rgba(255,255,255,.07);border-radius:var(--rxl);overflow:hidden;transition:transform .35s,border-color .35s,box-shadow .35s;backdrop-filter:blur(12px);position:relative;}
+.member-card:nth-child(1){animation-delay:.1s;}
+.member-card:nth-child(2){animation-delay:.2s;}
+.member-card:nth-child(3){animation-delay:.3s;}
+.member-card:hover{transform:translateY(-10px);border-color:rgba(168,85,247,.38);box-shadow:0 28px 70px rgba(0,0,0,.5),0 0 0 1px rgba(168,85,247,.18),0 0 40px rgba(168,85,247,.06);}
+.accent-bar{height:3px;}
+.accent-purple{background:linear-gradient(90deg,#7c3aed,#a855f7,#c084fc);}
+.accent-lime{background:linear-gradient(90deg,#4d7c0f,#a3e635,#bef264);}
+.accent-blue{background:linear-gradient(90deg,#0284c7,#38bdf8,#7dd3fc);}
+.card-inner{padding:1.75rem 1.75rem 0;}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;gap:1rem;}
+
+/* ── SVG AVATARS ── */
+.avatar-svg-wrap{position:relative;flex-shrink:0;}
+/* Pulsing glow ring */
+.avatar-svg-wrap::before{
+  content:'';position:absolute;inset:-4px;border-radius:20px;
+  animation:avatarGlow 3s ease-in-out infinite;
+  z-index:0;
+}
+.av-purple-glow::before{background:linear-gradient(135deg,rgba(168,85,247,.5),rgba(192,132,252,.3));filter:blur(6px);}
+.av-lime-glow::before{background:linear-gradient(135deg,rgba(163,230,53,.45),rgba(190,242,100,.25));filter:blur(6px);}
+.av-blue-glow::before{background:linear-gradient(135deg,rgba(56,189,248,.45),rgba(125,211,252,.25));filter:blur(6px);}
+@keyframes avatarGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+.avatar-svg{position:relative;z-index:1;border-radius:18px;overflow:hidden;display:block;}
+.av-online{position:absolute;bottom:2px;right:2px;width:12px;height:12px;background:var(--lime);border:2.5px solid var(--s900);border-radius:50%;z-index:2;animation:bdot 2.5s infinite;}
+
+.role-chip{font-size:.7rem;font-weight:700;padding:.3rem .75rem;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;}
+.chip-purple{background:rgba(168,85,247,.14);color:#c084fc;border:1px solid rgba(168,85,247,.25);}
+.chip-lime{background:rgba(163,230,53,.1);color:#a3e635;border:1px solid rgba(163,230,53,.25);}
+.chip-blue{background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.25);}
+
+.member-name{font-size:1.3rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.15rem;}
+.member-role{font-size:.78rem;color:var(--s400);margin-bottom:1rem;font-weight:500;}
+.quote-box{font-size:.82rem;color:var(--s400);line-height:1.6;font-style:italic;padding:.75rem 1rem;border-radius:.75rem;background:rgba(255,255,255,.03);border-left:2.5px solid;margin-bottom:1.1rem;}
+.q-purple{border-color:var(--purple);}
+.q-lime{border-color:var(--lime);}
+.q-blue{border-color:#38bdf8;}
+.skills-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--s600);margin-bottom:.6rem;}
+.skill-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+.sc{font-size:.7rem;font-weight:600;padding:.22rem .55rem;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--s300);transition:all .2s;}
+.sc:hover{background:rgba(168,85,247,.1);border-color:rgba(168,85,247,.25);color:var(--white);}
+.bars{margin-bottom:1rem;}
+.bar-row{margin-bottom:.6rem;}
+.bar-hd{display:flex;justify-content:space-between;font-size:.72rem;margin-bottom:.3rem;}
+.bar-nm{color:var(--s400);}
+.bar-vl{font-weight:700;}
+.bar-vl.purple{color:var(--purple-soft);}
+.bar-vl.lime{color:var(--lime);}
+.bar-vl.blue{color:#38bdf8;}
+.bar-track{height:4px;background:rgba(255,255,255,.06);border-radius:100px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:100px;width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1);}
+.fill-purple{background:linear-gradient(90deg,#7c3aed,#a855f7);}
+.fill-lime{background:linear-gradient(90deg,#4d7c0f,#a3e635);}
+.fill-blue{background:linear-gradient(90deg,#075985,#38bdf8);}
+.fun-fact{display:flex;gap:.75rem;align-items:flex-start;background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.08);border-radius:.75rem;padding:.875rem;margin-bottom:1rem;}
+.fun-em{font-size:1.25rem;flex-shrink:0;}
+.fun-txt{font-size:.78rem;color:var(--s400);line-height:1.58;}
+.fun-txt strong{color:var(--white);}
+.egg-wrap{margin:.25rem 0 .5rem;}
+.egg-locked{width:100%;border:1px dashed rgba(168,85,247,.3);background:rgba(168,85,247,.04);border-radius:.875rem;padding:.875rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.45rem;}
+.egg-lock-icon{font-size:1.5rem;}
+.egg-lock-lbl{font-size:.68rem;color:var(--s400);font-weight:600;letter-spacing:.5px;}
+.egg-unlock-btn{display:inline-flex;align-items:center;gap:.35rem;background:var(--grad);color:var(--s900);border:none;border-radius:.4rem;padding:.4rem .875rem;font-size:.75rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s;}
+.egg-unlock-btn:hover{opacity:.88;}
+.egg-unlock-btn .material-symbols-outlined{font-size:.875rem;}
+.egg-unlocked-btn{width:100%;border:1px dashed rgba(255,255,255,.1);background:transparent;color:var(--s400);border-radius:.875rem;padding:.75rem;font-size:.78rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;letter-spacing:.4px;}
+.egg-unlocked-btn:hover{background:rgba(255,255,255,.04);color:var(--white);border-style:solid;}
+.card-footer{padding:.875rem 1.75rem 1.5rem;border-top:1px solid rgba(255,255,255,.05);}
+.li-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;width:100%;background:rgba(10,102,194,.1);border:1px solid rgba(10,102,194,.2);color:#60a5fa;border-radius:.6rem;padding:.55rem;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .25s;font-family:'Inter',sans-serif;}
+.li-btn:hover{background:rgba(10,102,194,.2);color:#93c5fd;}
+.li-btn svg{width:16px;height:16px;flex-shrink:0;}
+.li-btn .material-symbols-outlined{font-size:1rem;}
+.li-locked{opacity:.4;cursor:not-allowed;}
+.li-locked:hover{background:rgba(10,102,194,.1);color:#60a5fa;}
+
+/* ── TECH STACK ── */
+.stack-section{padding:clamp(2rem,5vw,4rem) 0;}
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1.5rem;}
+.tech-card{
+  background:rgba(15,23,42,.8);border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r);padding:1.25rem;
+  display:flex;gap:1rem;align-items:flex-start;
+  transition:all .28s;position:relative;overflow:hidden;
+}
+.tech-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;transform:scaleX(0);transform-origin:left;transition:transform .35s;border-radius:var(--r) var(--r) 0 0;}
+.tech-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.3);}
+.tech-card:hover::before{transform:scaleX(1);}
+.tech-icon-box{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.25rem;}
+.tech-info{flex:1;min-width:0;}
+.tech-name{font-size:.9rem;font-weight:700;margin-bottom:.2rem;display:flex;align-items:center;gap:.5rem;}
+.tech-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.tech-role{font-size:.72rem;font-weight:600;padding:.15rem .5rem;border-radius:100px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:var(--s400);white-space:nowrap;}
+.tech-desc{font-size:.78rem;color:var(--s400);line-height:1.6;margin-top:.3rem;}
+.tech-where{font-size:.7rem;color:var(--s600);margin-top:.35rem;font-style:italic;}
+
+/* ── TIMELINE ── */
+.timeline-section{padding:clamp(2rem,5vw,4rem) 0;}
+.tl{display:flex;flex-direction:column;}
+.tl-row{display:flex;gap:1.25rem;padding-bottom:1.75rem;}
+.tl-row:last-child{padding-bottom:0;}
+.tl-spine{display:flex;flex-direction:column;align-items:center;flex-shrink:0;}
+.tl-dot{width:12px;height:12px;border-radius:50%;border:2px solid;flex-shrink:0;}
+.tl-line{width:2px;flex:1;min-height:16px;background:rgba(255,255,255,.07);margin-top:4px;}
+.tl-row:last-child .tl-line{display:none;}
+.tl-h{font-weight:700;font-size:.95rem;margin-bottom:.35rem;}
+.tl-p{font-size:.82rem;color:var(--s400);line-height:1.65;}
+
+/* ── FOOTER ── */
+.site-footer{border-top:1px solid rgba(255,255,255,.07);padding:2.5rem clamp(1.25rem,5vw,3rem) 3rem;text-align:center;position:relative;z-index:2;}
+.footer-logo{font-size:1.2rem;font-weight:900;margin-bottom:.75rem;}
+.footer-logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.footer-txt{color:var(--s400);font-size:.85rem;line-height:1.8;}
+.footer-txt em{color:var(--purple-soft);font-style:normal;}
+.footer-copy{margin-top:.75rem;font-size:.72rem;color:var(--s600);}
+
+/* ── EASTER EGG MODAL ── */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.8);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:1.25rem;}
+.modal-overlay.show{display:flex;}
+.egg-modal{background:rgba(15,23,42,.97);border:1px solid rgba(168,85,247,.35);border-radius:var(--rl);padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center;animation:popIn .35s cubic-bezier(.34,1.56,.64,1);position:relative;overflow:hidden;}
+.egg-modal::before{content:'';position:absolute;top:-1px;left:0;right:0;height:2px;background:var(--grad);}
+@keyframes popIn{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+.egg-em{font-size:3rem;margin-bottom:.875rem;}
+.egg-name{font-size:1.25rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.6rem;}
+.egg-txt{color:var(--s400);font-size:.875rem;line-height:1.7;margin-bottom:1.5rem;white-space:pre-line;}
+.egg-close{background:var(--grad);color:var(--s900);border:none;border-radius:.625rem;padding:.7rem 1.5rem;font-weight:700;font-size:.9rem;cursor:pointer;font-family:'Inter',sans-serif;transition:filter .2s;}
+.egg-close:hover{filter:brightness(1.1);}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── NEW: DEVENDRA (orange) + DESKTOP-ONLY ── */
+.accent-orange{background:linear-gradient(90deg,#c2410c,#f97316,#fdba74);}
+.av-orange-glow::before{background:linear-gradient(135deg,rgba(249,115,22,.5),rgba(253,186,116,.3));filter:blur(6px);}
+.chip-orange{background:rgba(249,115,22,.12);color:#fb923c;border:1px solid rgba(249,115,22,.28);}
+.q-orange{border-color:var(--orange);}
+.bar-vl.orange{color:#fb923c;}
+.fill-orange{background:linear-gradient(90deg,#c2410c,#f97316);}
+@media(max-width:768px){.member-card.desktop-only{display:none;}}
+
+/* ── NEW: ANIMATIONS ── */
+.scroll-progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;z-index:400;pointer-events:none;}
+@keyframes gradShift{from{background-position:0% 50%}to{background-position:100% 50%}}
+.glow-txt,.sec-h{background-size:200% 200%;}
+.glow-txt{animation:headingGlow 3s ease-in-out infinite,gradShift 6s ease-in-out infinite alternate;}
+.sec-h{animation:headingGlow 3s ease-in-out infinite,gradShift 7s ease-in-out infinite alternate;}
+.hero-badge,.hero h1,.hero-sub,.hero-stats{animation:fadeUp .85s cubic-bezier(.2,.8,.2,1) both;}
+.hero h1{animation-delay:.12s;}.hero-sub{animation-delay:.26s;}.hero-stats{animation-delay:.4s;}
+.hs{transition:transform .3s;}.hs:hover{transform:translateY(-4px) scale(1.06);}
+/* cards: staggered entrance, 3D tilt, cursor spotlight */
+@keyframes cardIn{from{opacity:0;transform:translateY(46px) scale(.95)}to{opacity:1;transform:none}}
+.member-card.reveal{transition:transform .5s cubic-bezier(.2,.8,.2,1),border-color .35s,box-shadow .35s;}
+.member-card.reveal.visible{animation:cardIn .9s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*.14s);}
+.member-card.reveal.visible:hover{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-10px);}
+.member-card.tilt{transition:transform .12s ease-out,border-color .35s,box-shadow .35s;}
+.member-card::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(168,85,247,.16),transparent 45%);}
+.member-card:hover::after{opacity:1;}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-1.5deg)}}
+.avatar-svg-wrap{animation:floaty 4.5s ease-in-out infinite;}
+.member-card:nth-child(2) .avatar-svg-wrap{animation-delay:-1.5s;}
+.member-card:nth-child(3) .avatar-svg-wrap{animation-delay:-3s;}
+.member-card:nth-child(4) .avatar-svg-wrap{animation-delay:-2.2s;}
+@keyframes barSlide{from{background-position:0% 0}to{background-position:100% 0}}
+.accent-bar{background-size:200% 100%;animation:barSlide 3.5s ease-in-out infinite alternate;}
+@keyframes chipPop{from{opacity:0;transform:scale(.6) translateY(8px)}to{opacity:1;transform:none}}
+.member-card.visible .sc{animation:chipPop .5s cubic-bezier(.34,1.56,.64,1) backwards;animation-delay:calc(.4s + var(--ci,0)*.05s + var(--i,0)*.14s);}
+.bar-fill{position:relative;overflow:hidden;}
+.bar-fill::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transform:translateX(-100%);animation:barShine 2.8s 1.6s ease-in-out infinite;}
+@keyframes barShine{to{transform:translateX(100%)}}
+.btn-primary,.egg-unlock-btn{position:relative;overflow:hidden;}
+.btn-primary::after,.egg-unlock-btn::after{content:'';position:absolute;top:0;left:-70%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .6s;}
+.btn-primary:hover::after,.egg-unlock-btn:hover::after{left:130%;}
+.feat-card:hover .feat-icon{animation:iconBounce .6s;}
+@keyframes iconBounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-8px) scale(1.15)}70%{transform:translateY(0) scale(.95)}}
+.tech-card:hover .tech-icon-box{transform:rotate(-8deg) scale(1.12);}
+.tech-icon-box{transition:transform .3s cubic-bezier(.34,1.56,.64,1);}
+/* timeline: rows slide in, line draws, dots ping */
+.tl-row{opacity:0;transform:translateX(-24px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1);}
+.tl-row.in{opacity:1;transform:none;}
+.tl-line{transform-origin:top;transform:scaleY(0);transition:transform .8s .25s ease;}
+.tl-row.in .tl-line{transform:scaleY(1);}
+.tl-dot{position:relative;}
+.tl-dot::after{content:'';position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--dc,#a855f7);opacity:0;}
+.tl-row.in .tl-dot::after{animation:ring 2.4s ease-out infinite;}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.8);opacity:0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}}
+
+/* ── TEAM GRID: 4 in one row on wide screens, 2+2 on medium ── */
+.team-section .sec-wrap{max-width:1440px;}
+@media(min-width:1280px){
+  .team-grid{grid-template-columns:repeat(4,1fr);gap:1.25rem;}
+  .card-inner{padding:1.5rem 1.4rem 0;}
+  .card-footer{padding:.875rem 1.4rem 1.4rem;}
+  .role-chip{white-space:normal;text-align:center;line-height:1.3;}
+}
+@media(min-width:601px) and (max-width:1279px){
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .main-nav{display:none;}
+  .mob-btn{display:flex;}
+  .hero-stats{flex-wrap:wrap;}
+  .hs-div{display:none;}
+  .hs{width:calc(50% - .5rem);padding:.875rem 0;}
+}
+@media(max-width:600px){
+  .team-grid{grid-template-columns:1fr;}
+  .feat-grid{grid-template-columns:1fr 1fr;}
+  .tech-grid{grid-template-columns:1fr;}
+  .card-inner{padding:1.25rem 1.25rem 0;}
+  .card-footer{padding:.75rem 1.25rem 1.25rem;}
+}
+@media(max-width:380px){
+  .feat-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="bg-glows"></div>
+<div class="noise"></div>
+<div class="scroll-progress" id="sp"></div>
+
+<!-- EASTER EGG MODAL -->
+<div class="modal-overlay" id="eggModal">
+  <div class="egg-modal">
+    <div class="egg-em" id="eggEm"></div>
+    <div class="egg-name" id="eggName"></div>
+    <div class="egg-txt" id="eggTxt"></div>
+    <button class="egg-close" onclick="closeEgg()">Okay, impressive! 🫡</button>
+  </div>
+</div>
+
+<div class="wrap">
+<!-- HEADER -->
+<header class="site-header">
+  <a href="index.html" class="logo-link">
+    <div class="logo-icon"><img src="assets/images/logo.svg" alt="ReadyCV" onerror="this.parentNode.innerHTML='📄'"></div>
+    <span class="logo-text">Ready<span class="cv-gr">CV</span></span>
+  </a>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="ats_page.html">ATS Checker</a>
+    <a href="resume_maker.html">Builder</a>
+    <a href="ai_resume_writer.html">AI Writer</a>
+    <a href="help.html">Help</a>
+  </nav>
+  <div class="header-acts">
+    <a href="login.html" class="btn btn-secondary" id="hdrLoginBtn">Log In</a>
+    <button class="mob-btn" id="mobBtn"><span class="material-symbols-outlined">menu</span></button>
+    <div class="mob-drop" id="mobDrop">
+      <a href="index.html"><span class="material-symbols-outlined">home</span>Home</a>
+      <a href="ats_page.html"><span class="material-symbols-outlined">upload_file</span>ATS Checker</a>
+      <a href="resume_maker.html"><span class="material-symbols-outlined">article</span>Builder</a>
+      <a href="ai_resume_writer.html"><span class="material-symbols-outlined">auto_awesome</span>AI Writer</a>
+      <a href="help.html"><span class="material-symbols-outlined">help</span>Help</a>
+      <a href="login.html" id="mobLoginLink"><span class="material-symbols-outlined">login</span>Log In</a>
+      <a href="resume_maker.html" class="mob-cta"><span class="material-symbols-outlined">rocket_launch</span>Build Resume</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="badge-dot"></span>THE BUILDERS</div>
+    <h1>The Team Behind<br><span class="glow-txt">Your Dream Resume</span></h1>
+    <p class="hero-sub"><span id="engWord">Four</span> engineers from <strong>GEHU (Graphic Era Hill University)</strong> who got tired of getting ghosted after sending great resumes to heartless ATS bots. So we built the antidote. ⚡</p>
+    <div class="hero-stats">
+      <div class="hs"><span class="hs-n" data-count="4" id="engCount">0</span><span class="hs-l">Engineers</span></div>
+      <div class="hs-div"></div>
+      <div class="hs"><span class="hs-n">100%</span><span class="hs-l">Dedication</span></div>
+      <div class="hs-div"></div>
+      <div class="hs"><span class="hs-n" data-count="98">0</span><span class="hs-l">ATS Accuracy</span></div>
+      <div class="hs-div"></div>
+      <div class="hs"><span class="hs-n">∞</span><span class="hs-l">Bugs Fixed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT -->
+<section class="project-section">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-tag"><span>The Product</span></div>
+      <h2 class="sec-h">What We Built</h2>
+      <p class="sec-sub">Your unfair advantage in the job market.</p>
+    </div>
+    <div class="project-card reveal">
+      <div class="proj-top">
+        <div class="proj-name">Ready<span class="grad-txt">CV</span></div>
+        <div class="live-badge"><span class="live-dot"></span>Live &amp; Shipping</div>
+      </div>
+      <p class="proj-desc">An AI-powered resume builder that doesn't just look pretty — it talks to ATS bots, reads job descriptions like a recruiter, and gives your resume an actual fighting chance. Powered by <strong style="color:var(--white)">Google Gemini AI</strong>.</p>
+      <div class="feat-grid">
+        <div class="feat-card"><span class="feat-icon">🤖</span><div class="feat-name">AI Resume Builder</div><div class="feat-desc">Gemini-powered bullet points tailored to your job role and keywords.</div></div>
+        <div class="feat-card"><span class="feat-icon">📊</span><div class="feat-name">ATS Score Checker</div><div class="feat-desc">Real-time compatibility score. Know your shortlist odds before you hit send.</div></div>
+        <div class="feat-card"><span class="feat-icon">⚡</span><div class="feat-name">6 Templates</div><div class="feat-desc">ATS-friendly, designer-approved. Pick, edit, export PDF in seconds.</div></div>
+        <div class="feat-card"><span class="feat-icon">🎯</span><div class="feat-name">Keyword Match</div><div class="feat-desc">Auto-match exact keywords that recruiters actually search for.</div></div>
+        <div class="feat-card"><span class="feat-icon">🔒</span><div class="feat-name">Firebase Cloud</div><div class="feat-desc">Secure auth &amp; storage. Access your resume from any device.</div></div>
+        <div class="feat-card"><span class="feat-icon">💬</span><div class="feat-name">AI Career Chat</div><div class="feat-desc">Chat with our AI career advisor for instant resume &amp; job help.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-tag"><span>The Dream Team</span></div>
+      <h2 class="sec-h">Meet the Builders</h2>
+      <p class="sec-sub">Login to unlock secret achievements 🔒 and LinkedIn access 🔗</p>
+    </div>
+    <div class="team-grid">
+
+      <!-- SURYODAY -->
+      <div class="member-card reveal" style="--i:0">
+        <div class="accent-bar accent-purple"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <!-- SVG Avatar: Suryoday — Sunrise coder / Backend AI -->
+            <div class="avatar-svg-wrap av-purple-glow">
+              <svg class="avatar-svg" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="avBg1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#4a1f9e"/>
+                    <stop offset="100%" stop-color="#7c3aed"/>
+                  </linearGradient>
+                  <linearGradient id="avAcc1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#a855f7"/>
+                    <stop offset="100%" stop-color="#c084fc"/>
+                  </linearGradient>
+                  <filter id="avGl1"><feGaussianBlur stdDeviation="2" result="b"/><feComposite in="SourceGraphic" in2="b" operator="over"/></filter>
+                </defs>
+                <!-- Background -->
+                <rect width="72" height="72" rx="18" fill="url(#avBg1)"/>
+                <!-- Inner gradient overlay -->
+                <rect width="72" height="72" rx="18" fill="rgba(168,85,247,0.15)"/>
+                <!-- Sunrise / code symbol -->
+                <!-- Sun rays -->
+                <line x1="36" y1="12" x2="36" y2="20" stroke="url(#avAcc1)" stroke-width="2.5" stroke-linecap="round" filter="url(#avGl1)"/>
+                <line x1="50" y1="16" x2="46" y2="22" stroke="url(#avAcc1)" stroke-width="2" stroke-linecap="round"/>
+                <line x1="22" y1="16" x2="26" y2="22" stroke="url(#avAcc1)" stroke-width="2" stroke-linecap="round"/>
+                <line x1="56" y1="28" x2="50" y2="30" stroke="url(#avAcc1)" stroke-width="2" stroke-linecap="round"/>
+                <line x1="16" y1="28" x2="22" y2="30" stroke="url(#avAcc1)" stroke-width="2" stroke-linecap="round"/>
+                <!-- Sun semicircle -->
+                <path d="M22 40 A14 14 0 0 1 50 40" fill="none" stroke="url(#avAcc1)" stroke-width="3" stroke-linecap="round" filter="url(#avGl1)"/>
+                <circle cx="36" cy="40" r="8" fill="url(#avAcc1)" filter="url(#avGl1)"/>
+                <!-- Code brackets below -->
+                <text x="36" y="62" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-weight="900" font-family="monospace">UX/UI</text>
+                <!-- Initial -->
+                <text x="36" y="42" text-anchor="middle" fill="white" font-size="9" font-weight="900" font-family="Inter" opacity="0">S</text>
+              </svg>
+              <div class="av-online"></div>
+            </div>
+            <span class="role-chip chip-purple">UI/UX &amp; Ideas</span>
+          </div>
+          <h3 class="member-name">Suryoday</h3>
+          <p class="member-role">UI/UX Designer &amp; Idea Architect</p>
+          <div class="quote-box q-purple">"I turn messy ideas into clean screens. Also fluent in Figma frames and 3 AM brainstorms."</div>
+          <div class="skills-label">Core Stack</div>
+          <div class="skill-chips"><span class="sc">Figma</span><span class="sc">UI/UX Design</span><span class="sc">Wireframing</span><span class="sc">Prototyping</span><span class="sc">Idea Design</span><span class="sc">Design System</span><span class="sc">User Research</span></div>
+          <div class="bars">
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">UI/UX Design</span><span class="bar-vl purple">96%</span></div><div class="bar-track"><div class="bar-fill fill-purple" data-w="96"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Idea Design</span><span class="bar-vl purple">94%</span></div><div class="bar-track"><div class="bar-fill fill-purple" data-w="94"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Prototyping</span><span class="bar-vl purple">91%</span></div><div class="bar-track"><div class="bar-fill fill-purple" data-w="91"></div></div></div>
+            </div>
+          <div class="fun-fact"><span class="fun-em">🌅</span><span class="fun-txt"><strong>"Suryoday"</strong> means sunrise. Every big idea of ReadyCV started on his whiteboard, and he designs best at 2 AM.</span></div>
+          <div class="egg-wrap">
+            <div class="egg-locked" id="el-s"><span class="egg-lock-icon">🔒</span><span class="egg-lock-lbl">SECRET ACHIEVEMENT LOCKED</span><button class="egg-unlock-btn" onclick="location.href='login.html'"><span class="material-symbols-outlined">login</span>Login to Unlock</button></div>
+            <button class="egg-unlocked-btn" id="eu-s" style="display:none" onclick="openEgg('s')">🥚 Unlock Secret Achievement</button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="li-btn li-locked" id="li-s" title="Login to access LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span>LinkedIn</span><span class="material-symbols-outlined">lock</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SAURABH DEVRARI -->
+      <div class="member-card reveal" style="--i:1">
+        <div class="accent-bar accent-lime"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <!-- SVG Avatar: Saurabh — Frontend / UI/UX designer -->
+            <div class="avatar-svg-wrap av-lime-glow">
+              <svg class="avatar-svg" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="avBg2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#1a3a0f"/>
+                    <stop offset="100%" stop-color="#4d7c0f"/>
+                  </linearGradient>
+                  <linearGradient id="avAcc2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#a3e635"/>
+                    <stop offset="100%" stop-color="#bef264"/>
+                  </linearGradient>
+                </defs>
+                <rect width="72" height="72" rx="18" fill="url(#avBg2)"/>
+                <rect width="72" height="72" rx="18" fill="rgba(163,230,53,0.1)"/>
+                <!-- Monitor/design icon -->
+                <rect x="14" y="18" width="44" height="28" rx="5" fill="none" stroke="url(#avAcc2)" stroke-width="2"/>
+                <rect x="18" y="22" width="36" height="20" rx="2" fill="rgba(163,230,53,0.12)"/>
+                <!-- CSS brackets on screen -->
+                <text x="36" y="36" text-anchor="middle" fill="rgba(163,230,53,0.9)" font-size="11" font-weight="900" font-family="monospace">API</text>
+                <!-- Stand -->
+                <rect x="32" y="46" width="8" height="7" rx="1" fill="rgba(163,230,53,0.35)"/>
+                <rect x="24" y="53" width="24" height="3" rx="1.5" fill="rgba(163,230,53,0.35)"/>
+                <!-- Pixel dots decoration -->
+                <circle cx="18" cy="14" r="2" fill="rgba(163,230,53,0.6)"/>
+                <circle cx="26" cy="10" r="1.5" fill="rgba(163,230,53,0.4)"/>
+                <circle cx="54" cy="14" r="2" fill="rgba(163,230,53,0.6)"/>
+                <!-- Color palette dots bottom -->
+                <circle cx="28" cy="62" r="3" fill="#a855f7" opacity="0.7"/>
+                <circle cx="36" cy="62" r="3" fill="url(#avAcc2)" opacity="0.9"/>
+                <circle cx="44" cy="62" r="3" fill="#38bdf8" opacity="0.7"/>
+              </svg>
+              <div class="av-online"></div>
+            </div>
+            <span class="role-chip chip-lime">Backend &amp; AI</span>
+          </div>
+          <h3 class="member-name">Saurabh Devrari</h3>
+          <p class="member-role">Full-Stack Backend Engineer &amp; AI Architect</p>
+          <div class="quote-box q-lime">"I talk to servers so you do not have to. Fluent in Python tracebacks and 3 AM Stack Overflow."</div>
+          <div class="skills-label">Core Stack</div>
+          <div class="skill-chips"><span class="sc">Python</span><span class="sc">FastAPI</span><span class="sc">Gemini API</span><span class="sc">NLP</span><span class="sc">ATS Engine</span><span class="sc">REST APIs</span><span class="sc">JWT Auth</span><span class="sc">Resume Parser</span></div>
+          <div class="bars">
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">AI/ML Integration</span><span class="bar-vl lime">95%</span></div><div class="bar-track"><div class="bar-fill fill-lime" data-w="95"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Backend Architecture</span><span class="bar-vl lime">93%</span></div><div class="bar-track"><div class="bar-fill fill-lime" data-w="93"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">ATS Algorithm</span><span class="bar-vl lime">97%</span></div><div class="bar-track"><div class="bar-fill fill-lime" data-w="97"></div></div></div>
+            </div>
+          <div class="fun-fact"><span class="fun-em">⚙️</span><span class="fun-txt"><strong>Saurabh</strong> took over the backend and the ATS engine. His APIs are so clean that even the logs look organised.</span></div>
+          <div class="egg-wrap">
+            <div class="egg-locked" id="el-a"><span class="egg-lock-icon">🔒</span><span class="egg-lock-lbl">SECRET ACHIEVEMENT LOCKED</span><button class="egg-unlock-btn" onclick="location.href='login.html'"><span class="material-symbols-outlined">login</span>Login to Unlock</button></div>
+            <button class="egg-unlocked-btn" id="eu-a" style="display:none" onclick="openEgg('a')">🥚 Unlock Secret Achievement</button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="li-btn li-locked" id="li-a" title="Login to access LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span>LinkedIn</span><span class="material-symbols-outlined">lock</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- AMAN RAWAT -->
+      <div class="member-card reveal" style="--i:2">
+        <div class="accent-bar accent-blue"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <!-- SVG Avatar: Aman — Cloud / DevOps / Full-Stack -->
+            <div class="avatar-svg-wrap av-blue-glow">
+              <svg class="avatar-svg" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="avBg3" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0c4a6e"/>
+                    <stop offset="100%" stop-color="#075985"/>
+                  </linearGradient>
+                  <linearGradient id="avAcc3" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#38bdf8"/>
+                    <stop offset="100%" stop-color="#7dd3fc"/>
+                  </linearGradient>
+                </defs>
+                <rect width="72" height="72" rx="18" fill="url(#avBg3)"/>
+                <rect width="72" height="72" rx="18" fill="rgba(56,189,248,0.1)"/>
+                <!-- Cloud icon -->
+                <path d="M20 40 C20 33 26 28 34 30 C35 24 42 20 50 24 C56 24 61 29 60 35 C63 36 65 40 62 44 C60 47 56 48 52 47 L22 47 C18 46 17 42 20 40Z" fill="none" stroke="url(#avAcc3)" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M20 40 C20 33 26 28 34 30 C35 24 42 20 50 24 C56 24 61 29 60 35 C63 36 65 40 62 44 C60 47 56 48 52 47 L22 47 C18 46 17 42 20 40Z" fill="rgba(56,189,248,0.1)"/>
+                <!-- Upload/deploy arrow -->
+                <line x1="36" y1="56" x2="36" y2="47" stroke="url(#avAcc3)" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M30 52 L36 47 L42 52" fill="none" stroke="url(#avAcc3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Stars/nodes -->
+                <circle cx="16" cy="18" r="2.5" fill="rgba(56,189,248,0.7)"/>
+                <circle cx="56" cy="14" r="2" fill="rgba(56,189,248,0.5)"/>
+                <circle cx="62" cy="22" r="1.5" fill="rgba(56,189,248,0.4)"/>
+                <!-- Text: AR initial in cloud -->
+                <text x="36" y="41" text-anchor="middle" fill="rgba(56,189,248,0.9)" font-size="10" font-weight="900" font-family="Inter">AR</text>
+              </svg>
+              <div class="av-online"></div>
+            </div>
+            <span class="role-chip chip-blue">Management &amp; Database</span>
+          </div>
+          <h3 class="member-name">Aman Rawat</h3>
+          <p class="member-role">Project Manager, Frontend &amp; Database Developer</p>
+          <div class="quote-box q-blue">"I keep the team on schedule and the database in order. Deadlines are scared of me."</div>
+          <div class="skills-label">Core Stack</div>
+          <div class="skill-chips"><span class="sc">Project Mgmt</span><span class="sc">Planning</span><span class="sc">Teamwork</span><span class="sc">UI/UX</span><span class="sc">Responsive UI</span><span class="sc">Firebase</span><span class="sc">MongoDB</span><span class="sc">Node.js</span><span class="sc">Git</span></div>
+          <div class="bars">
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Team Management</span><span class="bar-vl blue">95%</span></div><div class="bar-track"><div class="bar-fill fill-blue" data-w="95"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Firebase &amp; Database</span><span class="bar-vl blue">90%</span></div><div class="bar-track"><div class="bar-fill fill-blue" data-w="90"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Planning &amp; Delivery</span><span class="bar-vl blue">93%</span></div><div class="bar-track"><div class="bar-fill fill-blue" data-w="93"></div></div></div>
+            </div>
+          <div class="fun-fact"><span class="fun-em">🛰️</span><span class="fun-txt"><strong>Aman</strong> runs the plan, the deadlines and the database. His standups end in 9 minutes, a record nobody believes.</span></div>
+          <div class="egg-wrap">
+            <div class="egg-locked" id="el-m"><span class="egg-lock-icon">🔒</span><span class="egg-lock-lbl">SECRET ACHIEVEMENT LOCKED</span><button class="egg-unlock-btn" onclick="location.href='login.html'"><span class="material-symbols-outlined">login</span>Login to Unlock</button></div>
+            <button class="egg-unlocked-btn" id="eu-m" style="display:none" onclick="openEgg('m')">🥚 Unlock Secret Achievement</button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="li-btn li-locked" id="li-m" title="Login to access LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span>LinkedIn</span><span class="material-symbols-outlined">lock</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- DEVENDRA SINGH -->
+      <div class="member-card reveal desktop-only" style="--i:3">
+        <div class="accent-bar accent-orange"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <!-- SVG Avatar: Saurabh — Frontend / UI/UX designer -->
+            <div class="avatar-svg-wrap av-orange-glow">
+              <svg class="avatar-svg" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="avBg4" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#7c2d12"/>
+                    <stop offset="100%" stop-color="#c2410c"/>
+                  </linearGradient>
+                  <linearGradient id="avAcc4" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#f97316"/>
+                    <stop offset="100%" stop-color="#fdba74"/>
+                  </linearGradient>
+                </defs>
+                <rect width="72" height="72" rx="18" fill="url(#avBg4)"/>
+                <rect width="72" height="72" rx="18" fill="rgba(249,115,22,0.1)"/>
+                <!-- Monitor/design icon -->
+                <rect x="14" y="18" width="44" height="28" rx="5" fill="none" stroke="url(#avAcc4)" stroke-width="2"/>
+                <rect x="18" y="22" width="36" height="20" rx="2" fill="rgba(249,115,22,0.12)"/>
+                <!-- CSS brackets on screen -->
+                <text x="28" y="35" fill="rgba(249,115,22,0.9)" font-size="11" font-weight="900" font-family="monospace">{ }</text>
+                <!-- Stand -->
+                <rect x="32" y="46" width="8" height="7" rx="1" fill="rgba(249,115,22,0.35)"/>
+                <rect x="24" y="53" width="24" height="3" rx="1.5" fill="rgba(249,115,22,0.35)"/>
+                <!-- Pixel dots decoration -->
+                <circle cx="18" cy="14" r="2" fill="rgba(249,115,22,0.6)"/>
+                <circle cx="26" cy="10" r="1.5" fill="rgba(249,115,22,0.4)"/>
+                <circle cx="54" cy="14" r="2" fill="rgba(249,115,22,0.6)"/>
+                <!-- Color palette dots bottom -->
+                <circle cx="28" cy="62" r="3" fill="#a855f7" opacity="0.7"/>
+                <circle cx="36" cy="62" r="3" fill="url(#avAcc4)" opacity="0.9"/>
+                <circle cx="44" cy="62" r="3" fill="#38bdf8" opacity="0.7"/>
+              </svg>
+              <div class="av-online"></div>
+            </div>
+            <span class="role-chip chip-orange">Frontend</span>
+          </div>
+          <h3 class="member-name">Devendra Singh</h3>
+          <p class="member-role">Frontend Engineer &amp; UI Developer</p>
+          <div class="quote-box q-orange">"Design is how it looks. Frontend is how it feels, and I make it feel smooth at 60fps."</div>
+          <div class="skills-label">Core Stack</div>
+          <div class="skill-chips"><span class="sc">HTML5</span><span class="sc">CSS3</span><span class="sc">JavaScript</span><span class="sc">React.js</span><span class="sc">Animations</span><span class="sc">PDF Export</span><span class="sc">Responsive UI</span></div>
+          <div class="bars">
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Frontend Architecture</span><span class="bar-vl orange">92%</span></div><div class="bar-track"><div class="bar-fill fill-orange" data-w="92"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">CSS &amp; Animations</span><span class="bar-vl orange">94%</span></div><div class="bar-track"><div class="bar-fill fill-orange" data-w="94"></div></div></div>
+            <div class="bar-row"><div class="bar-hd"><span class="bar-nm">Responsive UI</span><span class="bar-vl orange">90%</span></div><div class="bar-track"><div class="bar-fill fill-orange" data-w="90"></div></div></div>
+            </div>
+          <div class="fun-fact"><span class="fun-em">🖥️</span><span class="fun-txt"><strong>Devendra</strong> turns designs into pixel-perfect screens. If it does not look great on a 5-inch phone, it does not ship.</span></div>
+          <div class="egg-wrap">
+            <div class="egg-locked" id="el-d"><span class="egg-lock-icon">🔒</span><span class="egg-lock-lbl">SECRET ACHIEVEMENT LOCKED</span><button class="egg-unlock-btn" onclick="location.href='login.html'"><span class="material-symbols-outlined">login</span>Login to Unlock</button></div>
+            <button class="egg-unlocked-btn" id="eu-d" style="display:none" onclick="openEgg('d')">🥚 Unlock Secret Achievement</button>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button class="li-btn li-locked" id="li-d" title="Login to access LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <span>LinkedIn</span><span class="material-symbols-outlined">lock</span>
+          </button>
+        </div>
+      </div>
+
+
+    </div><!-- /team-grid -->
+  </div>
+</section>
+
+<!-- TECH STACK — with descriptions and where used -->
+<section class="stack-section">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-tag"><span>Under the Hood</span></div>
+      <h2 class="sec-h">Tech Stack</h2>
+      <p class="sec-sub">Every technology we use — what it does in ReadyCV and who owns it.</p>
+    </div>
+    <div class="tech-grid reveal" id="techGrid"></div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="sec-wrap">
+    <div class="reveal">
+      <div class="sec-tag"><span>The Journey</span></div>
+      <h2 class="sec-h">Build Timeline</h2>
+      <p class="sec-sub">From frustrated job seekers to builders.</p>
+    </div>
+    <div class="tl reveal" id="tlWrap"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-logo">Ready<span>CV</span></div>
+  <p class="footer-txt">Built with ❤️ by <span id="engWord2">four</span> engineers from <em>GEHU</em> who refused to let ATS bots win.<br>We are students. We are builders. We ship.</p>
+  <p class="footer-copy">© 2026 ReadyCV · All errors reserved · Built with ♥ &amp; way too much coffee</p>
+</footer>
+</div><!-- /wrap -->
+
+<!-- EASTER EGG MODAL DATA + LINKEDIN -->
+<script>
+const LI_URLS={s:'https://www.linkedin.com/in/suryoday',a:'https://www.linkedin.com/in/saurabh-devrarai',m:'https://www.linkedin.com/in/aman-rawat-dev',d:'https://www.linkedin.com/in/devendra-singh'};
+const EGGS={
+  s:{em:'🌅',name:'Suryoday — The Sunrise Designer',txt:'ACHIEVEMENT UNLOCKED: "Pixel Prophet" 🎨\n\nSuryoday once redesigned the whole resume flow on a napkin during chai break. Aman approved it before the chai got cold. Figma still has 47 versions of one button.'},
+  a:{em:'⚙️',name:'Saurabh Devrarai — The Backend Boss',txt:'ACHIEVEMENT UNLOCKED: "Zero 500 Errors" 🛡️\n\nSaurabh shipped the ATS engine in one weekend. His logs are so clean that the server sends him thank-you notes.'},
+  m:{em:'🛰️',name:'Aman Rawat — The Sprint Wizard',txt:'ACHIEVEMENT UNLOCKED: "Zero Delays" ⏰\n\nAman keeps the whole team on schedule and the database tidy. Deadlines fear him, and standups end in 9 minutes.'},
+  d:{em:'⚡',name:'Devendra Singh — The Frontend Wizard',txt:'ACHIEVEMENT UNLOCKED: "60 FPS Always" ⚡\n\nDevendra can spot a 1px misalignment from across the room. He has never shipped a layout that breaks on a phone. Not once.'}
+};
+function openEgg(id){const e=EGGS[id];document.getElementById('eggEm').textContent=e.em;document.getElementById('eggName').textContent=e.name;document.getElementById('eggTxt').textContent=e.txt;document.getElementById('eggModal').classList.add('show');}
+function closeEgg(){document.getElementById('eggModal').classList.remove('show');}
+document.getElementById('eggModal').addEventListener('click',e=>{if(e.target===document.getElementById('eggModal'))closeEgg();});
+
+function showChalaMeme(url){
+  const ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(10,15,30,.96);backdrop-filter:blur(16px);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;animation:fadeI .25s ease;';
+  ov.innerHTML=`<style>@keyframes fadeI{from{opacity:0}to{opacity:1}}</style>
+    <div style="font-size:5rem"><img src="assets/images/sideeye.gif" style="width:220px;"></div>
+    <audio id="faahSound" src="assets/audio/faah.mp3"></audio>
+    <h2 style="font-size:2rem;font-weight:900;color:#a3e635;text-align:center">FAAAAAAHHH</h2>
+    <p style="color:#94a3b8;font-size:1rem;text-align:center;max-width:360px;padding:0 1rem">LinkedIn. Wahan ja, connect kar, aur apni job dhundh! 💪</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+      <a href="${url}" target="_blank" rel="noopener" style="background:linear-gradient(135deg,#a855f7,#a3e635);color:#0f172a;padding:.75rem 2rem;border-radius:.625rem;font-weight:800;font-size:1rem;text-decoration:none" onclick="this.closest('div[style]').remove()">LinkedIn Kholo →</a>
+      <button onclick="playFaah()" style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:#94a3b8;padding:.75rem 1.5rem;border-radius:.625rem;font-weight:600;font-size:.95rem;cursor:pointer">Don't click me</button>
+    </div>`;
+  document.body.appendChild(ov);
+  ov.addEventListener('click',e=>{if(e.target===ov)ov.remove();});
+}
+function playFaah(){const s=document.getElementById('faahSound');if(s){s.currentTime=0;s.play().catch(()=>{});}}
+</script>
+
+<!-- TECH STACK DATA -->
+<script>
+const TECHS=[
+  {n:'HTML5',c:'#e34c26',icon:'🌐',role:'Frontend',desc:'Structure of all pages — resume templates, ATS checker UI, landing page.',where:'All pages · resume_maker.html · ats_page.html · index.html',owner:'Devendra'},
+  {n:'CSS3',c:'#264de4',icon:'🎨',role:'Frontend',desc:'All animations, responsive layouts, dark theme, gradient effects across the site.',where:'landing_page.css · index_extra.css · team.css · resume templates',owner:'Devendra'},
+  {n:'JavaScript',c:'#f7df1e',icon:'⚡',role:'Frontend + Logic',desc:'DOM manipulation, typewriter effects, ATS score animations, template switching, carousel logic.',where:'index.js · resume_maker.js · ats_page.js · main.js',owner:'Devendra + Aman'},
+  {n:'Python',c:'#306998',icon:'🐍',role:'Backend',desc:'Core backend language powering the ATS scoring engine, NLP keyword extraction, and resume parsing.',where:'ATS Engine · AI Writer API · Score Calculator',owner:'Saurabh'},
+  {n:'FastAPI',c:'#009688',icon:'🚀',role:'Backend API',desc:'High-performance REST API framework. Handles resume upload, ATS analysis, and AI generation endpoints.',where:'api/ats · api/ai-writer · api/resume-parse',owner:'Saurabh'},
+  {n:'Google Gemini',c:'#4285f4',icon:'✨',role:'AI Engine',desc:'Powers the AI Resume Generator and AI Career Chat. Generates tailored bullet points, summaries, and JD keyword matching.',where:'ai_resume_writer.html · AI Chat · Bullet Generator',owner:'Saurabh'},
+  {n:'Firebase',c:'#ff6b35',icon:'🔥',role:'Auth + Cloud',desc:'User authentication (email/Google), Firestore for resume storage, real-time sync across devices.',where:'auth_manager.js · profile.html · resume_maker.html',owner:'Aman'},
+  {n:'MongoDB',c:'#4db33d',icon:'🍃',role:'Database',desc:'Stores user resume data, ATS score history, template preferences, and session info.',where:'Resume storage · User profiles · ATS score logs',owner:'Aman'},
+  {n:'Node.js',c:'#68a063',icon:'🟢',role:'Runtime',desc:'Server runtime for backend services and PDF export pipeline.',where:'PDF generation · Server utilities · API middleware',owner:'Aman'},
+  {n:'React.js',c:'#61dafb',icon:'⚛️',role:'Frontend',desc:'Component-based UI for the live resume preview, template switcher, and form builder.',where:'resume_maker.html · Live preview · Template grid',owner:'Devendra'},
+  {n:'PDF.js',c:'#ff6b6b',icon:'📄',role:'PDF Export',desc:'Client-side PDF rendering and export. What you see in preview is exactly what downloads.',where:'resume_maker.js · PDF download · Print view',owner:'Devendra + Aman'},
+  {n:'Git',c:'#f05033',icon:'📦',role:'Version Control',desc:'Full project history, feature branches, and collaborative workflow for all three engineers.',where:'All source code · GitHub repo',owner:'All'},
+];
+
+const grid=document.getElementById('techGrid');
+const roleColors={
+  'Frontend':'rgba(163,230,53,.12)',
+  'Backend':'rgba(168,85,247,.12)',
+  'Backend API':'rgba(168,85,247,.12)',
+  'AI Engine':'rgba(56,189,248,.12)',
+  'Auth + Cloud':'rgba(249,115,22,.12)',
+  'Database':'rgba(77,179,61,.12)',
+  'Runtime':'rgba(104,160,99,.12)',
+  'Frontend + Logic':'rgba(247,223,30,.1)',
+  'PDF Export':'rgba(255,107,107,.1)',
+        'Version Control':'rgba(240,80,51,.1)',
+};
+TECHS.forEach(t=>{
+  const card=document.createElement('div');
+  card.className='tech-card reveal';
+  card.style.setProperty('--tc',t.c);
+  card.style.borderLeftColor=t.c+'44';
+  card.style.borderLeft='2px solid '+t.c+'44';
+  card.innerHTML=`
+    <div class="tech-icon-box" style="background:${t.c}18;border:1px solid ${t.c}33;">${t.icon}</div>
+    <div class="tech-info">
+      <div class="tech-name">
+        <div class="tech-dot" style="background:${t.c}"></div>
+        ${t.n}
+        <span class="tech-role" style="background:${roleColors[t.role]||'rgba(255,255,255,.05)'};color:${t.c}">${t.role}</span>
+      </div>
+      <div class="tech-desc">${t.desc}</div>
+      <div class="tech-where">📍 Used in: ${t.where} · 👤 ${t.owner}</div>
+    </div>`;
+  card.querySelector('.tech-card,.tech-icon-box')
+  // Add before-border color via JS
+  card.style.cssText += `border-left:2px solid ${t.c}55;`;
+  grid.appendChild(card);
+});
+</script>
+
+<!-- TIMELINE DATA -->
+<script>
+const TL=[
+  {dot:'#a855f7',h:'💡 The Idea — Aug 2026',p:'Aman, Suryoday and Saurabh sit together and decide: ATS bots keep ghosting good resumes, so let us build a better tool. Suryoday sketches the first concept, Aman turns it into a plan and a schedule, and Devendra joins in to bring it to life. Everyone agrees immediately.'},
+  {dot:'#38bdf8',h:'🛠️ First Build — Sep 2026',p:'Aman sets up Firebase, the database and the task board. Saurabh starts the backend and the ATS engine. Suryoday designs the UI/UX flow and templates, and Devendra starts turning them into frontend pages.'},
+  {dot:'#a3e635',h:'🤖 AI Integration — Oct 2026',p:'Saurabh integrates the Google Gemini API while Aman and Devendra connect it with the frontend. The AI Resume Generator goes from idea to working prototype in 4 days. First test resume scores 91 on ATS. The team celebrates with chai.'},
+  {dot:'#f97316',h:'🎨 UI Overhaul — Early Nov 2026',p:'Aman and Devendra build the final frontend from the new designs by Suryoday: dark theme, animations, mobile-first. The landing page, resume maker, and ATS checker get their final look. "Zero !important," Devendra insists.'},
+  {dot:'#a855f7',h:'🚀 Launch — Nov 2026',p:'ReadyCV.in goes live. 50+ resumes created in the first week. 85% ATS pass rate achieved. Aman, Suryoday, Saurabh and Devendra look at the live product and feel genuinely proud.'},
+];
+const tro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');tro.unobserve(e.target);}}),{threshold:.25});
+const tl=document.getElementById('tlWrap');
+TL.forEach((r,i)=>{
+  const div=document.createElement('div');
+  div.className='tl-row';
+  div.innerHTML=`<div class="tl-spine"><div class="tl-dot" style="--dc:${r.dot};border-color:${r.dot};background:${r.dot}22"></div><div class="tl-line"></div></div><div><div class="tl-h" style="color:${r.dot}">${r.h}</div><p class="tl-p">${r.p}</p></div>`;
+  tl.appendChild(div);tro.observe(div);
+});
+</script>
+
+<!-- PHONE COUNT + CARD TILT + SCROLL PROGRESS -->
+<script>
+(function(){
+  if(matchMedia('(max-width:768px)').matches){
+    const w=document.getElementById('engWord'),w2=document.getElementById('engWord2'),c=document.getElementById('engCount');
+    if(w)w.textContent='Three';if(w2)w2.textContent='three';if(c)c.dataset.count='3';
+  }
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  document.querySelectorAll('.member-card').forEach(c=>{
+    c.querySelectorAll('.sc').forEach((s,i)=>s.style.setProperty('--ci',i));
+    if(!fine)return;
+    c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.classList.add('tilt');c.style.setProperty('--ry',((x-.5)*8)+'deg');c.style.setProperty('--rx',((.5-y)*6)+'deg');c.style.setProperty('--mx',(x*100)+'%');c.style.setProperty('--my',(y*100)+'%');});
+    c.addEventListener('pointerleave',()=>{c.classList.remove('tilt');c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg');});
+  });
+  const sp=document.getElementById('sp'),de=document.documentElement;
+  addEventListener('scroll',()=>{sp.style.transform='scaleX('+(de.scrollTop/((de.scrollHeight-de.clientHeight)||1))+')';},{passive:true});
+})();
+</script>
+
+<!-- SCROLL REVEAL + COUNTERS + BARS -->
+<script>
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=parseInt(e.target.dataset.count);if(!isNaN(t)){let v=0;const iv=setInterval(()=>{v=Math.min(v+Math.ceil(t/60),t);e.target.textContent=v+(t===98?'%':'');if(v>=t)clearInterval(iv);},20);}co.unobserve(e.target);}}),{threshold:.5});
+document.querySelectorAll('.hs-n[data-count]').forEach(el=>co.observe(el));
+
+const bo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.style.width=e.target.dataset.w+'%';bo.unobserve(e.target);}}),{threshold:.3});
+document.querySelectorAll('.bar-fill').forEach(b=>bo.observe(b));
+</script>
+
+<!-- MOBILE NAV -->
+<script>
+const mb=document.getElementById('mobBtn'),md=document.getElementById('mobDrop');
+mb.addEventListener('click',e=>{e.stopPropagation();md.classList.toggle('open');});
+document.addEventListener('click',e=>{if(!md.contains(e.target)&&!mb.contains(e.target))md.classList.remove('open');});
+</script>
+
+<!-- PARTICLES -->
+<script>
+(function(){
+  const canvas=document.createElement('canvas');
+  canvas.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4;';
+  document.body.prepend(canvas);
+  const ctx=canvas.getContext('2d');
+  canvas.width=innerWidth;canvas.height=innerHeight;
+  window.addEventListener('resize',()=>{canvas.width=innerWidth;canvas.height=innerHeight;});
+  const pts=Array.from({length:55},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.5,vy:(Math.random()-.5)*.5,r:Math.random()*2+1,c:Math.random()>.5?'168,85,247':'163,230,53'}));
+  function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=`rgba(${p.c},.6)`;ctx.fill();});requestAnimationFrame(draw);}
+  draw();
+})();
+</script>
+
+<!-- FIREBASE AUTH -->
+<script type="module">
+import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import{getAuth,onAuthStateChanged}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+const app=initializeApp({apiKey:"AIzaSyCgK8JWEuilZmcMME9_LropW_2KUuQZItI",authDomain:"airesumebuilder-f732a.firebaseapp.com",projectId:"airesumebuilder-f732a",storageBucket:"airesumebuilder-f732a.firebasestorage.app",messagingSenderId:"431208769883",appId:"1:431208769883:web:53fe68f6e95d4f810c927e"});
+const auth=getAuth(app);
+onAuthStateChanged(auth,user=>{
+  const hb=document.getElementById('hdrLoginBtn'),ml=document.getElementById('mobLoginLink');
+  if(user){
+    const init=(user.displayName||user.email||'?')[0].toUpperCase();
+    if(hb){hb.textContent=init;hb.href='profile.html';hb.style.cssText='width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#a3e635);color:#0f172a;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;padding:0;';}
+    if(ml){ml.innerHTML='<span class="material-symbols-outlined">account_circle</span>My Profile';ml.href='profile.html';}
+    ['s','a','m','d'].forEach(id=>{
+      document.getElementById('el-'+id).style.display='none';
+      document.getElementById('eu-'+id).style.display='';
+      const btn=document.getElementById('li-'+id);
+      btn.classList.remove('li-locked');btn.removeAttribute('title');
+      btn.onclick=()=>showChalaMeme(LI_URLS[id]);
+      btn.querySelector('.material-symbols-outlined').textContent='open_in_new';
+    });
+  }
+});
+</script>
+
+<script src="chatbot.js"></script>
+</body>
+</html>
