@@ -158,7 +158,7 @@ firebase deploy --only hosting
 
 ## Team
 
-Built by **Aman Rawat** **Suryoday**, **Saurabh Devrari**, and **Devendra Singh**.
+Built by **Aman Rawat**, **Suryoday**, **Saurabh Devrari**, and **Devendra Singh**.
 
 ## License
 
