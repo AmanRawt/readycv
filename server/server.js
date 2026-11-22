@@ -1,12 +1,3 @@
-/**
- * ReadyCVs — server.js
- * Node.js Express backend
- * Handles: AI Resume Writer, ATS Score, Chat Bot
- * Run: npm start (from project root)
- * 
- * Set your API key in config.json OR via POST /api/set-key
- */
-
 require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 const express    = require('express');
 const cors       = require('cors');
@@ -20,7 +11,7 @@ const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 15 
 const PORT   = process.env.PORT || 3001;
 const CONFIG_FILE = path.join(__dirname, 'config.json');
 
-/* ── Load / Save config ─────────────────────────────────── */
+/* Load / Save config */
 function loadConfig() {
   try {
     if (fs.existsSync(CONFIG_FILE)) return JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf8'));
@@ -38,14 +29,12 @@ function getClient() {
   return new Anthropic({ apiKey: config.apiKey });
 }
 
-/* ── Middleware ─────────────────────────────────────────── */
+/* Middleware  */
 app.use(cors());
 app.use(express.json({ limit: '20mb' }));
 app.use(express.static(path.join(__dirname, '..', 'client'))); // Serve frontend files
 
-/* ═══════════════════════════════════════════════════════
-   API KEY MANAGEMENT
-══════════════════════════════════════════════════════════ */
+/*  API KEY MANAGEMENT */
 app.post('/api/set-key', (req, res) => {
   const { apiKey } = req.body;
   if (!apiKey || !apiKey.startsWith('sk-ant-')) {
@@ -60,9 +49,7 @@ app.get('/api/key-status', (req, res) => {
   res.json({ hasKey: !!config.apiKey, keyHint: config.apiKey ? config.apiKey.slice(0,12) + '...' : '' });
 });
 
-/* ═══════════════════════════════════════════════════════
-   AI RESUME WRITER — Generate bullet points
-══════════════════════════════════════════════════════════ */
+/* AI RESUME WRITER — Generate bullet points */
 app.post('/api/ai-write', async (req, res) => {
   const { prompt, sectionType = 'experience', count = 5 } = req.body;
   if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
@@ -98,9 +85,7 @@ Rules:
   }
 });
 
-/* ═══════════════════════════════════════════════════════
-   AI RESUME FROM DESCRIPTION — Generate full resume data
-══════════════════════════════════════════════════════════ */
+/* AI RESUME FROM DESCRIPTION — Generate full resume data */
 app.post('/api/ai-full-resume', async (req, res) => {
   const { description } = req.body;
   if (!description) return res.status(400).json({ error: 'Description required' });
@@ -147,9 +132,7 @@ Make all content professional, ATS-optimized, and impressive. Fill in realistic 
   }
 });
 
-/* ═══════════════════════════════════════════════════════
-   ATS SCORE — Analyze resume file
-══════════════════════════════════════════════════════════ */
+/* ATS SCORE — Analyze resume file */
 app.post('/api/ats-score', upload.single('resume'), async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
 
@@ -219,9 +202,7 @@ Return ONLY the JSON, no other text.`;
   }
 });
 
-/* ═══════════════════════════════════════════════════════
-   CHAT BOT — "Aman Rawat" persona
-══════════════════════════════════════════════════════════ */
+/* CHAT BOT — "Aman Rawat" persona */
 app.post('/api/chat', async (req, res) => {
   const { messages: chatMessages = [] } = req.body;
 
@@ -256,9 +237,7 @@ Never mention being an AI — you are Aman Rawat.`;
   }
 });
 
-/* ═══════════════════════════════════════════════════════
-   START SERVER
-══════════════════════════════════════════════════════════ */
+/* START SERVER */
 app.listen(PORT, () => {
   console.log(`\n🚀 ReadyCVs server running at http://localhost:${PORT}`);
   console.log(`📋 Open http://localhost:${PORT}/index.html in your browser`);
