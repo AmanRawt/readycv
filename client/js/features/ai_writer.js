@@ -1,13 +1,10 @@
-/* ============================================================
-   ReadyCVs — ai_writer.js
-   Claude API integration for AI Resume Writer
-   ============================================================ */
+
 
 let currentType = 'experience';
 let currentGeneratedContent = '';
 let acceptedItems = [];
 
-/* ─── 100 Random Resume Suggestion Prompts ─────────────────── */
+/* Random Resume Suggestion Prompts */
 const RANDOM_PROMPTS = [
   "Spearheaded a cross-functional team of 8 engineers to deliver a microservices architecture, reducing deployment time by 60%.",
   "Orchestrated migration of legacy monolith to cloud-native infrastructure on AWS, cutting operational costs by $120K annually.",
@@ -109,7 +106,7 @@ const RANDOM_PROMPTS = [
   "Organized and facilitated 2-day product strategy offsite for leadership team of 15.",
 ];
 
-/* ─── Type Management ─────────────────────────────────────── */
+/* Type Management  */
 function setType(btn, type) {
   document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
@@ -130,13 +127,13 @@ function updatePlaceholder(type) {
   ta.placeholder = placeholders[type] || ta.placeholder;
 }
 
-/* ─── Quick Prompts ───────────────────────────────────────── */
+/* Quick Prompts  */
 function useQuickPrompt(btn) {
   const ta = document.getElementById('promptInput');
   if (ta) ta.value = btn.textContent;
 }
 
-/* ─── Generate via Claude API ─────────────────────────────── */
+/*  Generate via Claude API */
 async function generateContent() {
 async function generateContent() {
   const prompt = (document.getElementById('promptInput')?.value || '').trim();
@@ -144,7 +141,7 @@ async function generateContent() {
 
   setUIState('loading');
 
-  /* ── Try local server first (Gemini via backend) ── */
+  /* Try local server first (Gemini via backend)  */
   try {
     const r = await fetch('http://localhost:3001/api/ai-write', {
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -156,8 +153,8 @@ async function generateContent() {
     }
   } catch {}
 
-  /* ── Direct Gemini API (no backend needed) ── */
-  const GEMINI_KEY = 'AIzaSyBBgjgIiKXpj25QbfkW6A6RpBeSOdg6ULc';
+  /* Direct Gemini API (no backend needed)  */
+  const GEMINI_KEY = '';
   const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_KEY}`;
 
   const sys = `Expert resume writer. Generate exactly 5 ATS-optimized bullet points for a "${currentType}" section.
@@ -189,14 +186,14 @@ Rules: Start every bullet with a strong action verb (Led, Built, Designed, Achie
   }
 }
 
-/* ─── Regenerate Random ───────────────────────────────────── */
+/*  Regenerate Random  */
 function regenerateRandom() {
   const random = RANDOM_PROMPTS[Math.floor(Math.random() * RANDOM_PROMPTS.length)];
   currentGeneratedContent = '• ' + random;
   showGeneratedContent(currentGeneratedContent);
 }
 
-/* ─── Accept Content ─────────────────────────────────────── */
+/*  Accept Content  */
 function acceptContent() {
   if (!currentGeneratedContent) return;
   acceptedItems.push(currentGeneratedContent);
@@ -224,7 +221,7 @@ function clearAccepted() {
   if (area) area.style.display = 'none';
 }
 
-/* ─── UI State Management ─────────────────────────────────── */
+/*  UI State Management */
 function setUIState(state) {
   const emptyState  = document.getElementById('emptyState');
   const loadingState = document.getElementById('loadingState');
