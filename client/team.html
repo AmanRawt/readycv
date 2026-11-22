@@ -897,7 +897,7 @@ document.addEventListener('click',e=>{if(!md.contains(e.target)&&!mb.contains(e.
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import{getAuth,onAuthStateChanged}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-const app=initializeApp({apiKey:"AIzaSyCgK8JWEuilZmcMME9_LropW_2KUuQZItI",authDomain:"airesumebuilder-f732a.firebaseapp.com",projectId:"airesumebuilder-f732a",storageBucket:"airesumebuilder-f732a.firebasestorage.app",messagingSenderId:"431208769883",appId:"1:431208769883:web:53fe68f6e95d4f810c927e"});
+const app=initializeApp({apiKey:"AIzaSyCgK8JWEuilZmcMME9_LropW_2KUuQZIt",authDomain:"airesumebuilder-f732a.firebaseapp.com",projectId:"airesumebuilder-f732a",storageBucket:"airesumebuilder-f732a.firebasestorage.app",messagingSenderId:"431208769883",appId:"1:431208769883:web:53fe68f6e95d4f810c927e"});
 const auth=getAuth(app);
 onAuthStateChanged(auth,user=>{
   const hb=document.getElementById('hdrLoginBtn'),ml=document.getElementById('mobLoginLink');
