@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,-50..200" rel="stylesheet">
 
 <style>
-/* ─── RESET & ROOT ─────────────────────────────────────── */
+/*  RESET & ROOT  */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{height:100%;scroll-behavior:smooth;}
 :root{
@@ -50,7 +50,7 @@ body{
   position: relative;
 }
 
-/* ─── BACKGROUND LAYERS ────────────────────────────────── */
+/* BACKGROUND LAYERS  */
 
 /* Noise grain */
 body::before{
@@ -119,7 +119,7 @@ body::before{
   letter-spacing:-.03em;
 }
 
-/* ─── MAIN CARD ─────────────────────────────────────────── */
+/*  MAIN CARD */
 .card{
   position: relative; z-index:1;
   width:100%; max-width: 420px;
@@ -150,7 +150,7 @@ body::before{
   pointer-events:none; border-radius:inherit;
 }
 
-/* ─── SHIELD SVG ────────────────────────────────────────── */
+/*  SHIELD SVG */
 .shield-wrap{
   display:flex; justify-content:center;
   margin-bottom:1.75rem;
@@ -181,7 +181,7 @@ body::before{
   100%{transform:translate(-50%,-50%) scale(1.5);  opacity:0}
 }
 
-/* ─── HEADER ────────────────────────────────────────────── */
+/* HEADER  */
 .card-head{text-align:center; margin-bottom:2rem; position:relative; z-index:1;}
 .card-title{
   font-size: clamp(1.6rem,4vw,1.9rem);
@@ -193,7 +193,7 @@ body::before{
 }
 .card-sub{font-size:.875rem; color:var(--muted); line-height:1.65;}
 
-/* ─── STATUS BANNERS ────────────────────────────────────── */
+/*  STATUS BANNERS */
 .banner{
   display:none; align-items:flex-start; gap:.625rem;
   padding:.875rem 1rem; border-radius:.875rem;
@@ -209,7 +209,7 @@ body::before{
 .banner-info{background:rgba(155,93,229,.08);  border:1px solid rgba(155,93,229,.22); color:var(--purple2);}
 .banner-warn{background:rgba(251,191,36,.08);  border:1px solid rgba(251,191,36,.2);  color:#fbbf24;}
 
-/* ─── FORM ──────────────────────────────────────────────── */
+/* FORM  */
 .form{display:flex; flex-direction:column; gap:1.1rem; position:relative; z-index:1;}
 .field{display:flex; flex-direction:column; gap:.4rem;}
 .lbl{
@@ -281,7 +281,7 @@ body::before{
 .req.met{color:var(--lime);}
 .req.met .material-symbols-outlined{color:var(--lime);font-variation-settings:'FILL' 1;}
 
-/* ─── SUBMIT BUTTON ─────────────────────────────────────── */
+/*  SUBMIT BUTTON  */
 .submit{
   width:100%; height:3.35rem;
   background: var(--grad);
@@ -315,7 +315,7 @@ body::before{
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .spin{animation:spin .8s linear infinite;}
 
-/* ─── FOOTER ────────────────────────────────────────────── */
+/* FOOTER  */
 .card-foot{
   text-align:center; margin-top:1.5rem;
   font-size:.8rem; color:var(--dim);
@@ -327,7 +327,7 @@ body::before{
 }
 .card-foot a:hover{color:var(--lime2);}
 
-/* ─── SUCCESS SCREEN ────────────────────────────────────── */
+/*  SUCCESS SCREEN  */
 #successScreen{
   display:none; text-align:center;
   position:relative; z-index:1;
@@ -395,7 +395,7 @@ body::before{
 .login-btn:hover{filter:brightness(1.1);transform:translateY(-2px);}
 .login-btn .material-symbols-outlined{font-size:1.1rem;}
 
-/* ─── INVALID LINK SCREEN ──────────────────────────────── */
+/* INVALID LINK SCREEN  */
 #invalidScreen{
   display:none; text-align:center;
   position:relative; z-index:1;
@@ -412,7 +412,7 @@ body::before{
 .invalid-title{font-size:1.35rem;font-weight:900;letter-spacing:-.04em;margin-bottom:.5rem;}
 .invalid-sub{font-size:.875rem;color:var(--muted);line-height:1.7;margin-bottom:1.5rem;}
 
-/* ─── MOBILE ────────────────────────────────────────────── */
+/*  MOBILE  */
 @media(max-width:480px){
   body{padding:.75rem; align-items:stretch;}
   .card{border-radius:1.375rem; padding:1.75rem 1.5rem; max-width:100%;}
@@ -438,10 +438,10 @@ body::before{
   <span class="logo-name">ReadyCV</span>
 </a>
 
-<!-- ══════════ CARD ══════════ -->
+<!--  CARD -->
 <div class="card">
 
-  <!-- ── DEFAULT: Password form ── -->
+  <!-- DEFAULT: Password form  -->
   <div id="formScreen">
 
     <!-- Shield SVG -->
@@ -645,11 +645,11 @@ const FB = {
 };
 const auth = getAuth(initializeApp(FB));
 
-/* ── Read oobCode from URL ─────────────────────────────── */
+/* Read oobCode from URL */
 const params  = new URLSearchParams(window.location.search);
 const oobCode = params.get('oobCode');
 
-/* ── Verify code on load ───────────────────────────────── */
+/*  Verify code on load */
 (async () => {
   if (!oobCode) { showInvalid('No reset code found in URL.'); return; }
   try {
@@ -660,7 +660,7 @@ const oobCode = params.get('oobCode');
   }
 })();
 
-/* ── Submit new password ───────────────────────────────── */
+/* Submit new password */
 window.submitReset = async function() {
   const pwd  = document.getElementById('newPwd').value;
   const conf = document.getElementById('confPwd').value;
@@ -687,7 +687,7 @@ window.submitReset = async function() {
   }
 };
 
-/* ── Success + countdown redirect ──────────────────────── */
+/* Success + countdown redirect */
 function showSuccess() {
   document.getElementById('formScreen').style.display   = 'none';
   document.getElementById('invalidScreen').style.display = 'none';
@@ -715,7 +715,7 @@ window._oobCode = oobCode;
 </script>
 
 <script>
-/* ── Password validation ───────────────────────────────── */
+/* Password validation  */
 const REQS = {
   len:     v => v.length >= 8,
   upper:   v => /[A-Z]/.test(v),
@@ -808,7 +808,7 @@ function updateSubmitBtn() {
   if (btn) btn.disabled = !(allReqsMet(pwd) && pwd === conf && conf.length > 0);
 }
 
-/* ── Toggle password visibility ────────────────────────── */
+/* Toggle password visibility */
 window.toggleVis = function(inputId, iconId) {
   const inp  = document.getElementById(inputId);
   const icon = document.getElementById(iconId);
@@ -818,7 +818,7 @@ window.toggleVis = function(inputId, iconId) {
   icon.textContent = isHidden ? 'visibility_off' : 'visibility';
 };
 
-/* ── Loading state ─────────────────────────────────────── */
+/* Loading state  */
 function setLoading(on) {
   const btn  = document.getElementById('submitBtn');
   const icon = document.getElementById('submitIcon');
@@ -829,7 +829,7 @@ function setLoading(on) {
   if (text) text.textContent = on ? 'Resetting...' : 'Reset Password';
 }
 
-/* ── Banners ───────────────────────────────────────────── */
+/* Banners  */
 function showBanner(type, msg) {
   const el   = document.getElementById('banner');
   const icon = document.getElementById('bannerIcon');
@@ -846,7 +846,7 @@ function hideBanner() {
 window.showBanner = showBanner;
 window.hideBanner = hideBanner;
 
-/* ── Particles ─────────────────────────────────────────── */
+/* Particles  */
 (function(){
   const c   = document.getElementById('ptcl');
   if (!c) return;
