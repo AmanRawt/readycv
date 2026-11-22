@@ -1,17 +1,6 @@
-/* ============================================================
-   ReadyCVs — ai_writer_ml.js v6 (Pure ML — NO API KEYS)
-   Drop-in replacement for Anthropic/Gemini API version
-   Works with ml_ats_engine.py on localhost:5050
-   ============================================================ */
 'use strict';
 
 const ML_BASE = 'http://localhost:5050/ml';
-
-/* Delegate everything to the main ai_resume_writer.js engine.
-   This file only overrides the network calls to point at the
-   local ML server instead of a cloud API.               */
-
-/* ── Override generateBullets to always prefer ML server ──── */
 window.generateBullets = async function () {
   const el = document.getElementById('bulletInput');
   const prompt = el?.value?.trim();
@@ -64,7 +53,7 @@ window.generateBullets = async function () {
   }
 };
 
-/* ── Override generateFullResume ───────────────────────────── */
+/* Override generateFullResume */
 window.generateFullResume = async function () {
   const el = document.getElementById('fullInput');
   const description = el?.value?.trim();
@@ -130,7 +119,7 @@ window.generateFullResume = async function () {
   }
 };
 
-/* ── Helper: showErrorState (fallback if main JS not loaded) ── */
+/* Helper: showErrorState (fallback if main JS not loaded)  */
 function showErrorState(msg) {
   const el = document.getElementById('stLoading') || document.getElementById('stEmpty');
   if (!el) return;
