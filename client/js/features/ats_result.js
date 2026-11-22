@@ -1,10 +1,6 @@
-/* ============================================================
-   ReadyCVs — ats_result.js  v3
-   Full premium score result page logic
-   ============================================================ */
 'use strict';
 
-/* ─── URL PARAMS ────────────────────────────────────────── */
+/*  URL PARAMS */
 const params      = new URLSearchParams(window.location.search);
 const score       = Math.min(100, Math.max(0, parseInt(params.get('score') || '0')));
 const missingKW   = safeJSON(params.get('keywords'),   ['Python','SQL','Communication','Leadership','Data Analysis','Project Management','Agile']);
@@ -14,7 +10,7 @@ const foundKW     = safeJSON(params.get('found'),       ['JavaScript','React','C
 const field       = params.get('field') || 'general';
 const breakdown   = safeJSON(params.get('breakdown'),   { sections: 0, keywords: 0, content: 0, formatting: 0 });
 
-/* ─── ATS TIPS DATABASE ─────────────────────────────────── */
+/* ATS TIPS DATABASE  */
 const ATS_TIPS = [
   { emoji: '💡', text: 'Use <strong>exact keywords</strong> from the job description — ATS matches exact phrases, not synonyms!' },
   { emoji: '📄', text: 'Avoid tables and columns — ATS systems often <strong>can\'t parse multi-column layouts</strong>. Use single-column.' },
@@ -38,7 +34,7 @@ const ATS_TIPS = [
   { emoji: '🔗', text: 'Add your <strong>LinkedIn URL</strong> — it adds credibility and is a standard ATS field.' },
 ];
 
-/* ─── INIT ───────────────────────────────────────────────── */
+/* INIT  */
 document.addEventListener('DOMContentLoaded', () => {
   initStarCanvas();
   initTickMarks();
@@ -53,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => renderTips(),         1300);
 });
 
-/* ─── STAR CANVAS ───────────────────────────────────────── */
+/* STAR CANVAS  */
 function initStarCanvas() {
   const c = document.getElementById('starCanvas');
   if (!c) return;
@@ -106,7 +102,7 @@ function initStarCanvas() {
   draw();
 }
 
-/* ─── TICK MARKS ────────────────────────────────────────── */
+/* TICK MARKS */
 function initTickMarks() {
   const svg = document.getElementById('tickSvg');
   if (!svg) return;
@@ -130,7 +126,7 @@ function initTickMarks() {
   }
 }
 
-/* ─── HERO SETUP ────────────────────────────────────────── */
+/* HERO SETUP */
 function setupHero() {
   const badge    = document.getElementById('heroBadgeText');
   const title    = document.getElementById('heroTitle');
@@ -156,7 +152,7 @@ function setupHero() {
   }
 }
 
-/* ─── SCORE ANIMATION ───────────────────────────────────── */
+/*  SCORE ANIMATION */
 function animateScore() {
   const numEl  = document.getElementById('scoreValue');
   const arcEl  = document.getElementById('scoreArc');
@@ -215,7 +211,7 @@ function animateScore() {
   }
 }
 
-/* ─── BREAKDOWN ANIMATION ───────────────────────────────── */
+/* BREAKDOWN ANIMATION  */
 function animateBreakdown() {
   const cats = [
     { key: 'sections',   idScore: 'bdSections',  idBar: 'barSections',  val: breakdown.sections   ?? 0 },
@@ -237,7 +233,7 @@ function animateBreakdown() {
   setTimeout(() => animateRadar(cats.map(c => c.val)), 400);
 }
 
-/* ─── RADAR CHART ───────────────────────────────────────── */
+/* RADAR CHART  */
 function animateRadar(vals) {
   // vals = [sections, keywords, content, formatting] — each 0-25
   // 4 axes in radar: top, right, bottom, left
@@ -302,7 +298,7 @@ function renderImprovements() {
   `).join('');
 }
 
-/* ─── RENDER KEYWORDS ───────────────────────────────────── */
+/* RENDER KEYWORDS  */
 function renderKeywords() {
   const missEl  = document.getElementById('missingKeywords');
   const foundEl = document.getElementById('foundKeywords');
@@ -331,7 +327,7 @@ function renderKeywords() {
   }
 }
 
-/* ─── RENDER STRENGTHS ───────────────────────────────────── */
+/*  RENDER STRENGTHS  */
 function renderStrengths() {
   const el   = document.getElementById('strengthsList');
   const card = document.getElementById('strengthsCard');
@@ -353,7 +349,7 @@ function renderStrengths() {
   `).join('');
 }
 
-/* ─── RENDER TIPS ─────────────────────────────────────────── */
+/* RENDER TIPS  */
 function renderTips() {
   const el = document.getElementById('tipsGrid');
   if (!el) return;
@@ -368,7 +364,7 @@ function renderTips() {
   `).join('');
 }
 
-/* ─── HELPERS ─────────────────────────────────────────────── */
+/* HELPERS */
 function safeJSON(str, fallback) {
   try { return str ? JSON.parse(decodeURIComponent(str)) : fallback; }
   catch { return fallback; }
